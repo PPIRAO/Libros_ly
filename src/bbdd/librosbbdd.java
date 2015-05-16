@@ -1,11 +1,13 @@
-package libros;
+package bbdd;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import bbdd.basedatos;
+import libros.libros;
 
 public class librosbbdd {
 	
@@ -13,23 +15,34 @@ public class librosbbdd {
 	private static Connection c;
 	private static ResultSet reg;
 	
-	public static void crearUsuario( libros ly, basedatos bd){
+	
+	public static boolean añadirLibro( libros ly, basedatos bd){
+		
+		String cadena2="Select titulo from libro where titulo='"+ly.getTitulo()+"'";
 		String cadena="INSERT INTO libro VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"',"+ ly.getAutor() +"'," +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
 		
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
+		int ver=s.executeUpdate(cadena2);
+		if(ver<1)
+		
 		s.executeUpdate(cadena);
+		else{
+			s.close();
+			return false;
+		}
 		s.close();
+		
 		}
 		catch ( SQLException e){
-			System.out.println(e.getMessage());
+			return false;
 		}
-		
+		return true;
 		
 	}
 	
-	public static void puntuar(int idlibro, int num, int idusu, basedatos bd){
+	public static boolean puntuar(int idlibro, int num, int idusu, basedatos bd){
 		
 		String cadena="update compra set puntuacion="+num+" where idusuario='"+idusu+"' and idlibro='"+idlibro+"')"; 	
 		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+") where idlibro="+idlibro+")";
@@ -42,9 +55,32 @@ public class librosbbdd {
 		s.close();
 		}
 		catch ( SQLException e){
-			System.out.println(e.getMessage());
+			return false;
 		}
+		return true;
 	}
 	
-	
+public static int buscarly( String nom, basedatos bd){
+		
+		String cadena2="Select idLibro from libro where titulo='"+nom+"'";
+		int id=0;
+		
+		try{
+		c=bd.getConexion();
+		s=c.createStatement();
+		s.executeUpdate(cadena2);
+		s.close();
+		while( reg.next()){
+			id=Integer.parseInt(reg.getString(1));
+			s.close();
+			return id;
+		}
+		
+		}
+		catch ( SQLException e){
+			return 0;
+		}
+		return 0;
+		
+	}
 }

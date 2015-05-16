@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.border.EtchedBorder;
 
@@ -21,12 +22,17 @@ import java.awt.BorderLayout;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import bbdd.basedatos;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 public class menu {
 
@@ -45,11 +51,17 @@ public class menu {
 	private JButton ultimos;
 	private JPanel menu1;
 	private JPanel ver;
-	private JTextField textField;
+	private JTextField busly;
 	private JButton btnConoceTodosNuestros;
 	private JLabel lblBienvenidosANuestra;
 	private JLabel hora;
 	private JButton inicio;
+	private JLabel error;
+	private int idlibro;
+	basedatos Base=new basedatos("libros_ly");
+	private JPanel libro;
+	
+	private JPanel img;
 
 	/**
 	 * Launch the application.
@@ -80,11 +92,13 @@ public class menu {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 1025, 638);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 1009, 600);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -95,6 +109,9 @@ public class menu {
 		logo.setBounds(0, 0, 1009, 60);
 		panel.add(logo);
 		logo.setLayout(null);
+		
+		
+		
 		
 		BORDE = new JPanel();
 		BORDE.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -159,33 +176,14 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
-		ver = new JPanel();
-		ver.setBackground(Color.WHITE);
-		ver.setBounds(0, 0, 778, 538);
-		contenido.add(ver);
-		ver.setLayout(null);
-		ver.setVisible(false);
+		libro = new JPanel();
+		libro.setBackground(Color.WHITE);
+		libro.setBounds(0, 0, 778, 538);
+		contenido.add(libro);
 		
-		JList verly = new JList();
-		verly.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		verly.setBounds(53, 30, 697, 325);
-		ver.add(verly);
-		
-		textField = new JTextField();
-		textField.setForeground(Color.GRAY);
-		textField.setFont(new Font("Segoe UI Light", Font.ITALIC, 14));
-		textField.setColumns(10);
-		textField.setBounds(423, 406, 193, 35);
-		ver.add(textField);
-		
-		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(173, 407, 256, 35);
-		ver.add(lblNewLabel);
-		
-		JButton btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(469, 465, 102, 35);
-		ver.add(btnEnviar);
+		img = new JPanel();
+		libro.add(img);
+		libro.setVisible(false);
 		
 		menu1 = new JPanel();
 		menu1.setBackground(Color.WHITE);
@@ -218,6 +216,53 @@ public class menu {
 		lblBienvenidosANuestra.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblBienvenidosANuestra.setBounds(286, 11, 264, 30);
 		menu1.add(lblBienvenidosANuestra);
+		
+		ver = new JPanel();
+		ver.setBackground(Color.WHITE);
+		ver.setBounds(0, 0, 778, 538);
+		contenido.add(ver);
+		ver.setLayout(null);
+		ver.setVisible(false);
+		
+		JList verly = new JList();
+		verly.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		verly.setBounds(53, 30, 697, 325);
+		ver.add(verly);
+		
+		busly = new JTextField();
+		busly.setForeground(Color.BLACK);
+		busly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		busly.setColumns(10);
+		busly.setBounds(359, 406, 230, 35);
+		ver.add(busly);
+		
+		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(93, 407, 256, 35);
+		ver.add(lblNewLabel);
+		
+		JButton enviar = new JButton("Enviar");
+		enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
+				if(idlibro==0){
+					error.setVisible(true);
+				}
+				else{
+					error.setVisible(false);
+				}
+				
+			}
+		});
+		enviar.setBounds(429, 452, 102, 35);
+		ver.add(enviar);
+		
+		error = new JLabel("Debes de escribir\r\nel nombre exacto");
+		error.setForeground(Color.RED);
+		error.setBounds(636, 416, 114, 19);
+		ver.add(error);
+		error.setVisible(false);
 		
 		/*
 		 * Para poner la hora
