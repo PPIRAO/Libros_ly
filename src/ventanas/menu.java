@@ -32,6 +32,8 @@ import bbdd.basedatos;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 
 public class menu {
@@ -62,6 +64,9 @@ public class menu {
 	private JPanel libro;
 	
 	private JPanel img;
+	private JPanel panel_1;
+	private JLabel titulo;
+	private JLabel autor;
 
 	/**
 	 * Launch the application.
@@ -180,9 +185,49 @@ public class menu {
 		libro.setBackground(Color.WHITE);
 		libro.setBounds(0, 0, 778, 538);
 		contenido.add(libro);
+		libro.setLayout(null);
 		
 		img = new JPanel();
+		img.setBounds(49, 42, 124, 178);
 		libro.add(img);
+		
+		JButton comprar = new JButton("Comprar");
+		comprar.setBounds(59, 239, 105, 30);
+		libro.add(comprar);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		panel_1.setBounds(200, 26, 1, 422);
+		libro.add(panel_1);
+		
+		JLabel puntuacion = new JLabel("7.8");
+		puntuacion.setFont(new Font("Tahoma", Font.BOLD, 40));
+		puntuacion.setBounds(651, 42, 69, 60);
+		libro.add(puntuacion);
+		
+		titulo = new JLabel("La guerra de los cielos: volumen 1");
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 15));
+		titulo.setBounds(222, 42, 396, 30);
+		libro.add(titulo);
+		
+		autor = new JLabel("New label");
+		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		autor.setBounds(222, 68, 288, 30);
+		libro.add(autor);
+		
+		JTextPane sinopsis = new JTextPane();
+		sinopsis.setText("Sinopsis");
+		sinopsis.setBounds(222, 152, 515, 178);
+		libro.add(sinopsis);
+		
+		JTextArea comentarios = new JTextArea();
+		comentarios.setText("comentarios");
+		comentarios.setBounds(222, 355, 515, 138);
+		libro.add(comentarios);
+		
+		JLabel genero = new JLabel("Ficcci\u00F3n");
+		genero.setBounds(222, 98, 69, 24);
+		libro.add(genero);
 		libro.setVisible(false);
 		
 		menu1 = new JPanel();

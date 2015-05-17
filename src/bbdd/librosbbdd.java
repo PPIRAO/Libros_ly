@@ -83,4 +83,31 @@ public static int buscarly( String nom, basedatos bd){
 		return 0;
 		
 	}
+
+public static void mostrarly( int id, basedatos bd){
+	
+	String cadena2="Select titulo, sinopsis, genero, autor from libro where idlibro="+id+"";
+	String cadena="Select avg(puntuacion) from compras where idlibro="+id+"";
+	String cadena3="Select texto, nik from comentarios c, usuarios u where u.idCliente=c.idCliente and idlibro="+id;
+	
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	s.executeUpdate(cadena2);
+	
+	s.executeUpdate(cadena);
+	s.executeUpdate(cadena3);
+	s.close();
+	while( reg.next()){
+		
+		
+		s.close();
+	}
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	
+}
 }
