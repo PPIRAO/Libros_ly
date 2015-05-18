@@ -68,23 +68,57 @@ public static int buscarly( String nom, basedatos bd){
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
-		s.executeUpdate(cadena2);
-		s.close();
-		while( reg.next()){
+		reg=s.executeQuery(cadena2);
+		
+		if( reg.next()){
 			id=Integer.parseInt(reg.getString(1));
 			s.close();
 			return id;
 		}
-		
+		s.close();
 		}
 		catch ( SQLException e){
 			return 0;
 		}
+		
 		return 0;
 		
 	}
 
-public static void mostrarly( int id, basedatos bd){
+public static libros libroly( int idly, basedatos bd){
+	libros ly1 = null;
+	String cadena="Select idLibro,titulo,sinopsis,genero,precio,autor from libro where idLibro="+idly;
+	
+	
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	if( reg.next()){
+		int id=Integer.parseInt(reg.getString(1));
+		String tit=reg.getString(2);
+		String sin=reg.getString(3);
+		String gen=reg.getString(4);
+		double pre=Double.parseDouble(reg.getString(5));
+		String aut=reg.getString(6);
+		ly1=new libros(tit,sin,gen,pre,aut);
+		ly1.setIdlibro(id);
+		
+	}
+	
+	s.close();
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return ly1;
+	
+	
+}
+
+public static void mostrarly1( int id, basedatos bd){
 	
 	String cadena2="Select titulo, sinopsis, genero, autor from libro where idlibro="+id+"";
 	String cadena="Select avg(puntuacion) from compras where idlibro="+id+"";
@@ -93,7 +127,7 @@ public static void mostrarly( int id, basedatos bd){
 	try{
 	c=bd.getConexion();
 	s=c.createStatement();
-	s.executeUpdate(cadena2);
+	s.executeQuery(cadena2);
 	
 	s.executeUpdate(cadena);
 	s.executeUpdate(cadena3);

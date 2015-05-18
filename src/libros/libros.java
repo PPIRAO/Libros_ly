@@ -1,7 +1,7 @@
 package libros;
 
 public class libros {
-
+	private int idlibro;
 	private String titulo;
 	private String sinopsis;
 	private String genero;
@@ -17,6 +17,14 @@ public class libros {
 		this.precio = precio;
 		this.autor = autor;
 		
+	}
+
+	public int getIdlibro() {
+		return idlibro;
+	}
+
+	public void setIdlibro(int idlibro) {
+		this.idlibro = idlibro;
 	}
 
 	public String getTitulo() {
