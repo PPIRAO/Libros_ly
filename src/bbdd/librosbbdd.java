@@ -118,30 +118,110 @@ public static libros libroly( int idly, basedatos bd){
 	
 }
 
-public static void mostrarly1( int id, basedatos bd){
+public static String comly( int id, basedatos bd){
 	
-	String cadena2="Select titulo, sinopsis, genero, autor from libro where idlibro="+id+"";
-	String cadena="Select avg(puntuacion) from compras where idlibro="+id+"";
-	String cadena3="Select texto, nik from comentarios c, usuarios u where u.idCliente=c.idCliente and idlibro="+id;
 	
+	
+	String cadena="Select nik,texto from comentarios c, usuarios u where u.idCliente=c.idCliente and idlibro="+id;
+	String comentarios="";
+	int i=1;
 	try{
 	c=bd.getConexion();
 	s=c.createStatement();
-	s.executeQuery(cadena2);
 	
 	s.executeUpdate(cadena);
-	s.executeUpdate(cadena3);
 	s.close();
 	while( reg.next()){
-		
-		
-		s.close();
+		comentarios=comentarios+reg.getString(i)+"\n";
+		i++;
+		comentarios=comentarios+reg.getString(i)+"\n-------------------------------------------------\n";
+		i++;
 	}
+
+	s.close();
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return comentarios;
+}
+public static double punly(int id, basedatos bd){
+	String cadena="Select avg(puntuacion) from compras where idlibro="+id+"";
+	
+	double pun=0;
+
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	if( reg.next()){
+		pun=Integer.parseInt(reg.getString(1));
+		
+		
+	}
+	
+	s.close();
 	
 	}
 	catch ( SQLException e){
 		System.out.println(e);
 	}
-	
+	return pun;
 }
+
+public static String todosly( basedatos bd){
+	String cadena="Select titulo,autor from libro";
+	String ver="";
+	int i=1;
+
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	while( reg.next()){
+		ver=reg.getString(i)+"\n";
+		i++;
+		ver=reg.getString(i)+"\n-------------------------------------------------------\n";
+		
+		
+	}
+	
+	s.close();
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return ver;
+}
+
+public static String valoradosly( basedatos bd){
+	String cadena="Select titulo,autor from libro, compras where ";
+	String ver="";
+	int i=1;
+
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	while( reg.next()){
+		ver=reg.getString(i)+"\n";
+		i++;
+		ver=reg.getString(i)+"\n-------------------------------------------------------\n";
+		
+		
+	}
+	
+	s.close();
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return ver;
+}
+
 }
