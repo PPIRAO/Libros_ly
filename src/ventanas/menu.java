@@ -231,13 +231,13 @@ public class menu {
 		titulo = new JLabel("La guerra de los cielos: volumen 1");
 		titulo.setForeground(new Color(210, 105, 30));
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 15));
-		titulo.setBounds(222, 42, 396, 30);
+		titulo.setBounds(222, 42, 419, 30);
 		libro.add(titulo);
 		
 		autor = new JLabel("New label");
 		autor.setForeground(new Color(128, 128, 128));
 		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		autor.setBounds(222, 68, 288, 30);
+		autor.setBounds(222, 68, 396, 30);
 		libro.add(autor);
 		
 		sinopsis = new JTextPane();
@@ -253,13 +253,13 @@ public class menu {
 		
 		genero = new JLabel("Ficcci\u00F3n");
 		genero.setForeground(new Color(128, 128, 128));
-		genero.setBounds(222, 98, 69, 24);
+		genero.setBounds(222, 98, 358, 24);
 		libro.add(genero);
 		
 		
 		
 		JButton btnComentar = new JButton("Comentar");
-		btnComentar.setBounds(433, 479, 89, 23);
+		btnComentar.setBounds(417, 479, 120, 23);
 		libro.add(btnComentar);
 		
 		JButton puntua = new JButton("Punt\u00FAa");
@@ -267,13 +267,13 @@ public class menu {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		puntua.setBounds(651, 113, 69, 23);
+		puntua.setBounds(644, 113, 83, 23);
 		libro.add(puntua);
 		
 		precio = new JLabel("e");
 		precio.setForeground(new Color(205, 133, 63));
 		precio.setFont(new Font("Sylfaen", Font.PLAIN, 14));
-		precio.setBounds(51, 236, 105, 30);
+		precio.setBounds(66, 234, 83, 30);
 		libro.add(precio);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -281,12 +281,13 @@ public class menu {
 			public void actionPerformed(ActionEvent e) {
 				
 				libro.setVisible(false);
+				
 				ver.setVisible(true);
 				
 				
 			}
 		});
-		btnVolver.setBounds(69, 479, 76, 23);
+		btnVolver.setBounds(66, 479, 83, 23);
 		libro.add(btnVolver);
 		libro.setVisible(false);
 		
@@ -325,6 +326,7 @@ public class menu {
 					libro.setVisible(true);
 					
 					JLabel imagen = new JLabel("Sin imagen");
+					imagen.setIcon(null);
 					imagen.setIcon(new ImageIcon(menu.class.getResource("/imagenes/"+idlibro+".jpg")));
 					imagen.setBounds(44, 42, 119, 175);
 					libro.add(imagen);
@@ -346,9 +348,9 @@ public class menu {
 					sinopsis.setText(ly.getSinopsis());
 					precio.setText(String.valueOf(ly.getPrecio())+"€");
 					
-					puntuacion.setText(String.valueOf(bbdd.librosbbdd.punly(idlibro, Base)));
+					puntuacion.setText(String.valueOf(ly.getPuntuacion()));
 					
-					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base));
+					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
 					Base.cerrar();
 					ver.setVisible(false);
 					
@@ -363,6 +365,7 @@ public class menu {
 		error.setForeground(Color.RED);
 		error.setBounds(576, 416, 169, 19);
 		ver.add(error);
+		error.setVisible(false);
 		
 		menu1 = new JPanel();
 		menu1.setBackground(Color.WHITE);

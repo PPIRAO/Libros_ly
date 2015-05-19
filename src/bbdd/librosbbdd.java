@@ -87,7 +87,7 @@ public static int buscarly( String nom, basedatos bd){
 
 public static libros libroly( int idly, basedatos bd){
 	libros ly1 = null;
-	String cadena="Select idLibro,titulo,sinopsis,genero,precio,autor from libro where idLibro="+idly;
+	String cadena="Select idLibro,titulo,sinopsis,genero,precio,autor,puntuacion from libro where idLibro="+idly;
 	
 	
 	try{
@@ -102,8 +102,10 @@ public static libros libroly( int idly, basedatos bd){
 		String gen=reg.getString(4);
 		double pre=Double.parseDouble(reg.getString(5));
 		String aut=reg.getString(6);
+		String puntuacion=reg.getString(7);
 		ly1=new libros(tit,sin,gen,pre,aut);
 		ly1.setIdlibro(id);
+		ly1.setPuntuacion(puntuacion);
 		
 	}
 	
@@ -122,14 +124,14 @@ public static String comly( int id, basedatos bd){
 	
 	
 	
-	String cadena="Select nik,texto from comentarios c, usuarios u where u.idCliente=c.idCliente and idlibro="+id;
+	String cadena="Select nik,texto from comentar c, Cliente u where u.idCliente=c.idCliente and idlibro="+id;
 	String comentarios="";
 	int i=1;
 	try{
 	c=bd.getConexion();
 	s=c.createStatement();
 	
-	s.executeUpdate(cadena);
+	s.executeQuery(cadena);
 	s.close();
 	while( reg.next()){
 		comentarios=comentarios+reg.getString(i)+"\n";
@@ -145,7 +147,7 @@ public static String comly( int id, basedatos bd){
 	}
 	return comentarios;
 }
-public static double punly(int id, basedatos bd){
+public static double punly(int id, basedatos bd){// de momento no sirve
 	String cadena="Select avg(puntuacion) from compras where idlibro="+id+"";
 	
 	double pun=0;

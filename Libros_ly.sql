@@ -56,7 +56,7 @@ CREATE TABLE `cliente` (
   `nik` varchar(20) DEFAULT NULL,
   `premium` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-12','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-12','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-12','Ant69',0);
+INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-12','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-12','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-12','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-17','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-17','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-17','Pocoio',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `compra` (
   `dni` varchar(9) DEFAULT NULL,
   `puntuacion` decimal(3,1) DEFAULT NULL,
   PRIMARY KEY (`idcompra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +123,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+INSERT INTO `compra` VALUES (1,2,1,'2015-05-17',12.00,0.00,2147483647,'11334472P',6.0),(2,1,1,'2015-05-17',12.00,0.00,2147483647,'111111111',8.0),(3,3,2,'2015-05-17',12.00,0.00,2147483647,'99999999K',8.0),(4,4,2,'2015-05-17',12.00,0.00,2147483647,'33333333L',8.0);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +144,7 @@ CREATE TABLE `libro` (
   `puntuacion` decimal(3,1) DEFAULT NULL,
   `beneficios` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`idLibro`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +153,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'La guerra de los cielos: volumen 1','La guerra más antigua y devastadora de la existencia ha encontrado el modo de continuar, de extenderse por toda la creación. El Cielo y el Infierno ya no son los únicos escenarios para este terrible conflicto. ','Fernando Trujillo Sanz','Ficción',12.00,NULL,NULL),(2,'La guerra de los cielos: volumen 2','La guerra más antigua y devastadora de la existencia ha encontrado el modo de continuar, de extenderse por toda la creación. El Cielo y el Infierno ya no son los únicos escenarios para este terrible conflicto. ','Fernando Trujillo Sanz','Ficción',12.00,NULL,NULL);
+INSERT INTO `libro` VALUES (1,'La guerra de los cielos: volumen 1','La guerra más antigua y devastadora de la existencia ha encontrado el modo de continuar, de extenderse por toda la creación. El Cielo y el Infierno ya no son los únicos escenarios para este terrible conflicto. ','Fernando Trujillo Sanz','Ficción',12.00,7.0,NULL),(2,'La guerra de los cielos: volumen 2','La guerra más antigua y devastadora de la existencia ha encontrado el modo de continuar, de extenderse por toda la creación. El Cielo y el Infierno ya no son los únicos escenarios para este terrible conflicto. ','Fernando Trujillo Sanz','Ficción',12.00,8.0,NULL),(3,'La sombra del templario','Los templarios, el Papa y un despiadado espía persiguen un pergamino que podría cambiar la Historia.Bernard Guils, un templario que viaja en un barco con destino a Barcelona, es envenenado al final del viaje. Antes de morir, le dice a un médico judío de a bordo que busque a su discípulo Guillem y le entregue unos papeles muy importantes. Pero estos pergaminos desaparecen misteriosamente, dando lugar a una trama inteligentemente entretejida con traiciones, escondrijos y espías que p','Nuria Masot ','Histórica',15.00,0.0,NULL),(4,'La ladrona de libros','En plena II Guerra Mundial, la pequeña Liesel hallará su salvación en la lectura. Una novela preciosa, tremendamente humana y emocionante, que describe las peripecias de una niña alemana de nueve años desde que es dada en adopción por su madre hasta el final de la guerra. Su nueva familia, gente sencilla y nada afecta al nazismo, le enseña a leer y a través de los libros Rudy logra distraerse durante los bombardeos y combatir la tristeza. Pero es el libro que ella misma está escribiendo el que f','Markus Zusak','Narrativa',12.00,NULL,NULL);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-14 14:23:21
+-- Dump completed on 2015-05-19 11:43:43

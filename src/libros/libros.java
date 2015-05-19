@@ -7,7 +7,16 @@ public class libros {
 	private String genero;
 	private double precio;
 	private String autor;
+	private String puntuacion;
 	
+	public String getPuntuacion() {
+		return puntuacion;
+	}
+
+	public void setPuntuacion(String puntuacion) {
+		this.puntuacion = puntuacion;
+	}
+
 	public libros(String titulo, String sinopsis, String genero, double precio,
 			String autor) {
 		
