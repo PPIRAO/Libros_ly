@@ -134,10 +134,10 @@ public static String comly( int id, basedatos bd){
 	s.executeQuery(cadena);
 	s.close();
 	while( reg.next()){
-		comentarios=comentarios+reg.getString(i)+"\n";
-		i++;
-		comentarios=comentarios+reg.getString(i)+"\n-------------------------------------------------\n";
-		i++;
+		comentarios=comentarios+reg.getString("nik")+"\n";
+		
+		comentarios=comentarios+reg.getString("texto")+"\n_______________________________________________________________________\n";
+		
 	}
 
 	s.close();
@@ -173,7 +173,7 @@ public static double punly(int id, basedatos bd){// de momento no sirve
 }
 
 public static String todosly( basedatos bd){
-	String cadena="Select titulo,autor,genero from libro";
+	String cadena="Select titulo,autor,genero from libro order by titulo";
 	String ver="";
 	int i=1;
 
@@ -183,12 +183,11 @@ public static String todosly( basedatos bd){
 	reg=s.executeQuery(cadena);
 	
 	while( reg.next()){
-		ver=ver+reg.getString(i)+"\n";
-		i++;
-		ver=ver+"Autor: "+reg.getString(i)+"\n";
-		i++;
-		ver=ver+"Genero: "+reg.getString(i)+"\n-------------------------------------------------------\n";
-		i++;
+		ver=ver+reg.getString("titulo")+"\n";
+		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		
+		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		
 		
 		
 	}
@@ -203,19 +202,23 @@ public static String todosly( basedatos bd){
 }
 
 public static String valoradosly( basedatos bd){
-	String cadena="Select titulo,autor from libro, compras where ";
+	String cadena="Select titulo,autor,genero,puntuacion from libro order by puntuacion desc ";
 	String ver="";
-	int i=1;
-
 	try{
 	c=bd.getConexion();
 	s=c.createStatement();
 	reg=s.executeQuery(cadena);
 	
-	while( reg.next()){
-		ver=reg.getString(i)+"\n";
-		i++;
-		ver=reg.getString(i)+"\n-------------------------------------------------------\n";
+	
+		for(int c=0;c<10;c++){
+			if( reg.next()){
+				
+		ver=ver+reg.getString("titulo")+"\n";
+		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		
+		ver=ver+"Genero: "+reg.getString("genero")+"\n";
+		ver=ver+"Puntuación: "+reg.getString("puntuacion")+"\n\n";
+		}
 		
 		
 	}
@@ -228,5 +231,37 @@ public static String valoradosly( basedatos bd){
 	}
 	return ver;
 }
+public static String compradosly( basedatos bd){
+	String cadena="Select c.idLibro, titulo, autor, genero count(*) from compra c, libro l where c.idLibro=l.idLibro group by c.idLibro, titulo, autor, genero order by count(*) desc ";
+	String ver="";
+	
+
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	
+		for(int c=0;c<10;c++){
+			if( reg.next()){
+		ver=ver+reg.getString("titulo")+"\n";
+		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		
+		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		}
+		
+		
+	}
+	
+	s.close();
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return ver;
+}
+
+
 
 }
