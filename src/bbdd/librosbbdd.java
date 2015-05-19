@@ -182,14 +182,14 @@ public static String todosly( basedatos bd){
 	s=c.createStatement();
 	reg=s.executeQuery(cadena);
 	
-	if( reg.next()){
-		
+	while( reg.next()){
 		ver=ver+reg.getString(i)+"\n";
 		i++;
 		ver=ver+"Autor: "+reg.getString(i)+"\n";
 		i++;
 		ver=ver+"Genero: "+reg.getString(i)+"\n-------------------------------------------------------\n";
 		i++;
+		
 		
 	}
 	
