@@ -173,7 +173,7 @@ public static double punly(int id, basedatos bd){// de momento no sirve
 }
 
 public static String todosly( basedatos bd){
-	String cadena="Select titulo,autor from libro";
+	String cadena="Select titulo,autor,genero from libro";
 	String ver="";
 	int i=1;
 
@@ -182,11 +182,14 @@ public static String todosly( basedatos bd){
 	s=c.createStatement();
 	reg=s.executeQuery(cadena);
 	
-	while( reg.next()){
-		ver=reg.getString(i)+"\n";
-		i++;
-		ver=reg.getString(i)+"\n-------------------------------------------------------\n";
+	if( reg.next()){
 		
+		ver=ver+reg.getString(i)+"\n";
+		i++;
+		ver=ver+"Autor: "+reg.getString(i)+"\n";
+		i++;
+		ver=ver+"Genero: "+reg.getString(i)+"\n-------------------------------------------------------\n";
+		i++;
 		
 	}
 	

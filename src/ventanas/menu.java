@@ -80,6 +80,8 @@ public class menu {
 	private JLabel genero;
 	private JLabel puntuacion;
 	private JTextArea textArea;
+	private JLabel lblPortada;
+	private JTextArea verly;
 
 	/**
 	 * Launch the application.
@@ -204,6 +206,88 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
+		ver = new JPanel();
+		ver.setBackground(Color.WHITE);
+		ver.setBounds(0, 0, 778, 538);
+		contenido.add(ver);
+		ver.setLayout(null);
+		ver.setVisible(false);
+		
+		busly = new JTextField();
+		busly.setForeground(Color.BLACK);
+		busly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		busly.setColumns(10);
+		busly.setBounds(336, 406, 230, 35);
+		ver.add(busly);
+		
+		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
+		lblNewLabel.setForeground(new Color(105, 105, 105));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(93, 407, 256, 35);
+		ver.add(lblNewLabel);
+		
+		JButton enviar = new JButton("Enviar");
+		enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Base.abrir();
+				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
+				Base.cerrar();
+				if(idlibro==0){
+					error.setVisible(true);
+				}
+				else{
+					error.setVisible(false);
+					libro.setVisible(true);
+					
+				
+					lblPortada.setIcon(null);
+					lblPortada.setIcon(new ImageIcon(menu.class.getResource("/imagenes/"+idlibro+".jpg")));
+					lblPortada.setBounds(44, 42, 119, 175);
+				
+					
+					Base.abrir();
+					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
+					
+					titulo.setText(null);
+					autor.setText(null);
+					genero.setText(null);
+					sinopsis.setText(null);
+					precio.setText(null);
+					puntuacion.setText(null);
+					comentarios.setText(null);
+					
+					titulo.setText(ly.getTitulo());
+					autor.setText(ly.getAutor());
+					genero.setText(ly.getGenero());
+					sinopsis.setText(ly.getSinopsis());
+					precio.setText(String.valueOf(ly.getPrecio())+"€");
+					
+					puntuacion.setText(String.valueOf(ly.getPuntuacion()));
+					
+					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
+					Base.cerrar();
+					ver.setVisible(false);
+					
+				}
+				
+			}
+		});
+		enviar.setBounds(401, 452, 102, 35);
+		ver.add(enviar);
+		
+		error = new JLabel("Debes de escribir el nombre exacto");
+		error.setForeground(Color.RED);
+		error.setBounds(576, 416, 169, 19);
+		ver.add(error);
+		
+		verly = new JTextArea();
+		verly.setBackground(new Color(250, 250, 250));
+		verly.setEditable(false);
+		verly.setBounds(57, 37, 698, 340);
+		ver.add(verly);
+		error.setVisible(false);
+		
 		
 		
 		
@@ -289,83 +373,11 @@ public class menu {
 		});
 		btnVolver.setBounds(66, 479, 83, 23);
 		libro.add(btnVolver);
+		
+		lblPortada = new JLabel("Sin imagen");
+		lblPortada.setBounds(22, 52, 146, 185);
+		libro.add(lblPortada);
 		libro.setVisible(false);
-		
-		ver = new JPanel();
-		ver.setBackground(Color.WHITE);
-		ver.setBounds(0, 0, 778, 538);
-		contenido.add(ver);
-		ver.setLayout(null);
-		ver.setVisible(false);
-		
-		busly = new JTextField();
-		busly.setForeground(Color.BLACK);
-		busly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		busly.setColumns(10);
-		busly.setBounds(336, 406, 230, 35);
-		ver.add(busly);
-		
-		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
-		lblNewLabel.setForeground(new Color(105, 105, 105));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(93, 407, 256, 35);
-		ver.add(lblNewLabel);
-		
-		JButton enviar = new JButton("Enviar");
-		enviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Base.abrir();
-				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
-				Base.cerrar();
-				if(idlibro==0){
-					error.setVisible(true);
-				}
-				else{
-					error.setVisible(false);
-					libro.setVisible(true);
-					
-					JLabel imagen = new JLabel("Sin imagen");
-					imagen.setIcon(null);
-					imagen.setIcon(new ImageIcon(menu.class.getResource("/imagenes/"+idlibro+".jpg")));
-					imagen.setBounds(44, 42, 119, 175);
-					libro.add(imagen);
-					
-					Base.abrir();
-					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
-					
-					titulo.setText(null);
-					autor.setText(null);
-					genero.setText(null);
-					sinopsis.setText(null);
-					precio.setText(null);
-					puntuacion.setText(null);
-					comentarios.setText(null);
-					
-					titulo.setText(ly.getTitulo());
-					autor.setText(ly.getAutor());
-					genero.setText(ly.getAutor());
-					sinopsis.setText(ly.getSinopsis());
-					precio.setText(String.valueOf(ly.getPrecio())+"€");
-					
-					puntuacion.setText(String.valueOf(ly.getPuntuacion()));
-					
-					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
-					Base.cerrar();
-					ver.setVisible(false);
-					
-				}
-				
-			}
-		});
-		enviar.setBounds(401, 452, 102, 35);
-		ver.add(enviar);
-		
-		error = new JLabel("Debes de escribir el nombre exacto");
-		error.setForeground(Color.RED);
-		error.setBounds(576, 416, 169, 19);
-		ver.add(error);
-		error.setVisible(false);
 		
 		menu1 = new JPanel();
 		menu1.setBackground(Color.WHITE);
