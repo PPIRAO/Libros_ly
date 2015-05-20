@@ -27,6 +27,7 @@ import javax.swing.JSeparator;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.ScrollPaneConstants;
 
 import bbdd.basedatos;
 
@@ -39,9 +40,12 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
 import libros.libros;
+
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
+
 import java.awt.List;
+
 import javax.swing.JScrollBar;
 
 
@@ -86,7 +90,7 @@ public class menu {
 	private JLabel lblpremium;
 	private JPanel descargas;
 	private JTextField desly;
-	private JTextArea textArea_1;
+	private JTextArea desc;
 	private JLabel lblRutaDeLa;
 	private JTextField ruta;
 	private JLabel lblPongaElNombre;
@@ -102,6 +106,15 @@ public class menu {
 	private JButton btnBorrarUsuario;
 	private JButton btnCopiaDeSeguridad;
 	private JButton button;
+	private JPanel InAdmin;
+	private int idAdmin=0;
+	private int idUsuario=0;
+	private JPanel modly;
+	private JTextField modti;
+	private JTextField modau;
+	private JTextField modge;
+	private JTextField modpre;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -165,6 +178,31 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
+		InAdmin = new JPanel();
+		InAdmin.setBackground(new Color(250,250,250));
+		InAdmin.setBounds(10, 0, 213, 538);
+		menu.add(InAdmin);
+		InAdmin.setLayout(null);
+		InAdmin.setVisible(false);
+		
+		JButton button_1 = new JButton("Inicio");
+		button_1.setBounds(30, 54, 159, 32);
+		InAdmin.add(button_1);
+		
+		JLabel lblBienvenidonombreDel = new JLabel("Bienvenido (nombre del admin)");
+		lblBienvenidonombreDel.setBounds(0, 11, 203, 32);
+		InAdmin.add(lblBienvenidonombreDel);
+		
+		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
+		button_3.setForeground(Color.WHITE);
+		button_3.setBackground(Color.GRAY);
+		button_3.setBounds(30, 469, 159, 32);
+		InAdmin.add(button_3);
+		
+		JButton verlyadmin = new JButton("Ver libros");
+		verlyadmin.setBounds(30, 110, 159, 32);
+		InAdmin.add(verlyadmin);
+		
 		InUsuario = new JPanel();
 		InUsuario.setLayout(null);
 		InUsuario.setBackground(new Color(250, 250, 250));
@@ -199,6 +237,14 @@ public class menu {
 		InUsuario.add(lblBienVenidonombre);
 		
 		JButton btnDescargarLibro = new JButton("Descargar libro");
+		btnDescargarLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu1.setVisible(false);
+				Base.abrir();
+				desc.setText(bbdd.librosbbdd.compradosly(Base));
+				Base.cerrar();
+			}
+		});
 		btnDescargarLibro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnDescargarLibro.setBounds(33, 118, 159, 32);
 		InUsuario.add(btnDescargarLibro);
@@ -277,6 +323,200 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
+		ver = new JPanel();
+		ver.setBackground(new Color(250, 250, 250));
+		ver.setBounds(0, 0, 778, 538);
+		contenido.add(ver);
+		ver.setLayout(null);
+		ver.setVisible(false);
+		
+		busly = new JTextField();
+		busly.setForeground(Color.BLACK);
+		busly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		busly.setColumns(10);
+		busly.setBounds(336, 406, 230, 35);
+		ver.add(busly);
+		
+		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
+		lblNewLabel.setForeground(new Color(80, 80, 80));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(93, 407, 256, 35);
+		ver.add(lblNewLabel);
+		
+		JButton enviar = new JButton("Enviar");
+		enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Base.abrir();
+				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
+				Base.cerrar();
+				if(idlibro==0){
+					error.setVisible(true);
+				}
+				else{
+					error.setVisible(false);
+					//if(idUsuario>0){
+					libro.setVisible(true);
+					
+				
+					lblPortada.setIcon(null);
+					lblPortada.setIcon(new ImageIcon(menu.class.getResource("/imagenes/"+idlibro+".jpg")));
+					lblPortada.setBounds(44, 42, 119, 175);
+				
+					
+					Base.abrir();
+					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
+					
+					titulo.setText(null);
+					autor.setText(null);
+					genero.setText(null);
+					sinopsis.setText(null);
+					precio.setText(null);
+					puntuacion.setText(null);
+					comentarios.setText(null);
+					
+					titulo.setText(ly.getTitulo());
+					autor.setText(ly.getAutor());
+					genero.setText(ly.getGenero());
+					sinopsis.setText("\n"+ly.getSinopsis());
+					precio.setText(String.valueOf(ly.getPrecio())+"€");
+					
+					puntuacion.setText(String.valueOf(ly.getPuntuacion()));
+					
+					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
+					Base.cerrar();
+					ver.setVisible(false);
+					/*}else{
+						modly.setVisible(true);
+						ver.setVisible(false);
+						
+						
+						
+					}*/
+				}
+				
+			}
+		});
+		enviar.setBounds(401, 452, 102, 35);
+		ver.add(enviar);
+		
+		error = new JLabel("Debes de escribir el nombre exacto");
+		error.setForeground(Color.RED);
+		error.setBounds(576, 416, 169, 19);
+		ver.add(error);
+		
+		verly = new JTextArea();
+		verly.setFont(new Font("Rockwell", Font.PLAIN, 18));
+		verly.setBackground(new Color(240, 240, 240));
+		verly.setEditable(false);
+		verly.setBounds(70,38, 698, 340);
+		ver.add(verly);
+		error.setVisible(false);
+		
+		/*JScrollPane scrollPane = new JScrollPane(verly);
+		scrollPane.setBounds(100,75, 698, 340);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED );
+		frame.getContentPane().add(scrollPane);*/
+		
+		
+		modly = new JPanel();
+		modly.setBounds(0, 0, 778, 538);
+		contenido.add(modly);
+		modly.setBackground(new Color(250,250,250));
+		modly.setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Titulo:");
+		lblTitulo.setBounds(25, 27, 88, 25);
+		modly.add(lblTitulo);
+		
+		JLabel lblAutor = new JLabel("Autor:");
+		lblAutor.setBounds(25, 63, 65, 25);
+		modly.add(lblAutor);
+		
+		modti = new JTextField();
+		modti.setBounds(123, 29, 538, 23);
+		modly.add(modti);
+		modti.setColumns(10);
+		
+		modau = new JTextField();
+		modau.setBounds(123, 65, 538, 25);
+		modly.add(modau);
+		modau.setColumns(10);
+		
+		JLabel lblGenero = new JLabel("Genero:");
+		lblGenero.setBounds(25, 99, 65, 25);
+		modly.add(lblGenero);
+		
+		modge = new JTextField();
+		modge.setText("");
+		modge.setBounds(123, 101, 538, 25);
+		modly.add(modge);
+		modge.setColumns(10);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(25, 135, 65, 25);
+		modly.add(lblPrecio);
+		
+		modpre = new JTextField();
+		modpre.setText("");
+		modpre.setColumns(10);
+		modpre.setBounds(123, 137, 538, 25);
+		modly.add(modpre);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
+		lblNewLabel_1.setBounds(25, 171, 88, 25);
+		modly.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setText("");
+		textField.setBounds(123, 173, 538, 140);
+		modly.add(textField);
+		textField.setColumns(10);
+		
+		JTextArea txtrComentarios = new JTextArea();
+		txtrComentarios.setEditable(false);
+		txtrComentarios.setText("Comentarios");
+		txtrComentarios.setBounds(123, 343, 538, 154);
+		modly.add(txtrComentarios);
+		modly.setVisible(false);
+		
+		menu2 = new JPanel();
+		menu2.setBackground(new Color(250,250,250));
+		menu2.setBounds(0, 0, 778, 538);
+		contenido.add(menu2);
+		menu2.setLayout(null);
+		menu2.setVisible(false);
+		
+		hola = new JLabel("Opciones de Administarador");
+		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
+		hola.setForeground(new Color(105, 105, 105));
+		hola.setBounds(237, 29, 347, 59);
+		menu2.add(hola);
+		
+		btnModificarLibro = new JButton("Modificar libro");
+		btnModificarLibro.setBounds(107, 124, 223, 53);
+		menu2.add(btnModificarLibro);
+		
+		btnBorrarComentario = new JButton("Borrar comentario");
+		btnBorrarComentario.setBounds(437, 124, 223, 53);
+		menu2.add(btnBorrarComentario);
+		
+		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
+		btnAadirAdministrador.setBounds(107, 219, 223, 53);
+		menu2.add(btnAadirAdministrador);
+		
+		btnBorrarUsuario = new JButton("Borrar usuario");
+		btnBorrarUsuario.setBounds(437, 219, 223, 53);
+		menu2.add(btnBorrarUsuario);
+		
+		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
+		btnCopiaDeSeguridad.setBounds(107, 317, 223, 53);
+		menu2.add(btnCopiaDeSeguridad);
+		
+		button = new JButton("Borrar comentario");
+		button.setBounds(437, 317, 223, 53);
+		menu2.add(button);
+		
 		menu1 = new JPanel();
 		menu1.setBackground(new Color(250, 250, 250));
 		menu1.setBounds(0, 0, 778, 538);
@@ -345,126 +585,6 @@ public class menu {
 		lblBienvenidosANuestra.setBounds(246, 11, 375, 57);
 		menu1.add(lblBienvenidosANuestra);
 		
-		menu2 = new JPanel();
-		menu2.setBackground(new Color(250,250,250));
-		menu2.setBounds(0, 0, 778, 538);
-		contenido.add(menu2);
-		menu2.setLayout(null);
-		menu2.setVisible(false);
-		
-		hola = new JLabel("Opciones de Administarador");
-		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
-		hola.setForeground(new Color(105, 105, 105));
-		hola.setBounds(237, 29, 347, 59);
-		menu2.add(hola);
-		
-		btnModificarLibro = new JButton("Modificar libro");
-		btnModificarLibro.setBounds(107, 124, 223, 53);
-		menu2.add(btnModificarLibro);
-		
-		btnBorrarComentario = new JButton("Borrar comentario");
-		btnBorrarComentario.setBounds(437, 124, 223, 53);
-		menu2.add(btnBorrarComentario);
-		
-		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
-		btnAadirAdministrador.setBounds(107, 219, 223, 53);
-		menu2.add(btnAadirAdministrador);
-		
-		btnBorrarUsuario = new JButton("Borrar usuario");
-		btnBorrarUsuario.setBounds(437, 219, 223, 53);
-		menu2.add(btnBorrarUsuario);
-		
-		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
-		btnCopiaDeSeguridad.setBounds(107, 317, 223, 53);
-		menu2.add(btnCopiaDeSeguridad);
-		
-		button = new JButton("Borrar comentario");
-		button.setBounds(437, 317, 223, 53);
-		menu2.add(button);
-		
-		ver = new JPanel();
-		ver.setBackground(new Color(250, 250, 250));
-		ver.setBounds(0, 0, 778, 538);
-		contenido.add(ver);
-		ver.setLayout(null);
-		ver.setVisible(false);
-		
-		busly = new JTextField();
-		busly.setForeground(Color.BLACK);
-		busly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		busly.setColumns(10);
-		busly.setBounds(336, 406, 230, 35);
-		ver.add(busly);
-		
-		JLabel lblNewLabel = new JLabel("Escriba el titulo del libro que quieras ver: ");
-		lblNewLabel.setForeground(new Color(80, 80, 80));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(93, 407, 256, 35);
-		ver.add(lblNewLabel);
-		
-		JButton enviar = new JButton("Enviar");
-		enviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Base.abrir();
-				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
-				Base.cerrar();
-				if(idlibro==0){
-					error.setVisible(true);
-				}
-				else{
-					error.setVisible(false);
-					libro.setVisible(true);
-					
-				
-					lblPortada.setIcon(null);
-					lblPortada.setIcon(new ImageIcon(menu.class.getResource("/imagenes/"+idlibro+".jpg")));
-					lblPortada.setBounds(44, 42, 119, 175);
-				
-					
-					Base.abrir();
-					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
-					
-					titulo.setText(null);
-					autor.setText(null);
-					genero.setText(null);
-					sinopsis.setText(null);
-					precio.setText(null);
-					puntuacion.setText(null);
-					comentarios.setText(null);
-					
-					titulo.setText(ly.getTitulo());
-					autor.setText(ly.getAutor());
-					genero.setText(ly.getGenero());
-					sinopsis.setText("\n"+ly.getSinopsis());
-					precio.setText(String.valueOf(ly.getPrecio())+"€");
-					
-					puntuacion.setText(String.valueOf(ly.getPuntuacion()));
-					
-					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
-					Base.cerrar();
-					ver.setVisible(false);
-					
-				}
-				
-			}
-		});
-		enviar.setBounds(401, 452, 102, 35);
-		ver.add(enviar);
-		
-		error = new JLabel("Debes de escribir el nombre exacto");
-		error.setForeground(Color.RED);
-		error.setBounds(576, 416, 169, 19);
-		ver.add(error);
-		
-		verly = new JTextArea();
-		verly.setFont(new Font("Rockwell", Font.PLAIN, 18));
-		verly.setBackground(new Color(240, 240, 240));
-		verly.setEditable(false);
-		verly.setBounds(57, 37, 698, 340);
-		ver.add(verly);
-		error.setVisible(false);
-		
 		descargas = new JPanel();
 		descargas.setBackground(new Color(250,250,250));
 		descargas.setBounds(0, 0, 778, 538);
@@ -496,12 +616,13 @@ public class menu {
 		lblLibrosComprados.setBounds(61, 11, 180, 26);
 		descargas.add(lblLibrosComprados);
 		
-		textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("Rockwell", Font.PLAIN, 18));
-		textArea_1.setEditable(false);
-		textArea_1.setBackground(SystemColor.menu);
-		textArea_1.setBounds(61, 48, 698, 286);
-		descargas.add(textArea_1);
+		desc = new JTextArea();
+		desc.setForeground(new Color(205, 133, 63));
+		desc.setFont(new Font("Rockwell", Font.PLAIN, 18));
+		desc.setEditable(false);
+		desc.setBackground(SystemColor.menu);
+		desc.setBounds(61, 48, 698, 286);
+		descargas.add(desc);
 		
 		lblRutaDeLa = new JLabel("Ruta de la carpeta de destino:");
 		lblRutaDeLa.setForeground(SystemColor.controlDkShadow);

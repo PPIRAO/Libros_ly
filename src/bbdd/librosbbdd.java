@@ -45,7 +45,7 @@ public class librosbbdd {
 	public static boolean puntuar(int idlibro, int num, int idusu, basedatos bd){
 		
 		String cadena="update compra set puntuacion="+num+" where idusuario='"+idusu+"' and idlibro='"+idlibro+"')"; 	
-		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+") where idlibro="+idlibro+")";
+		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+" and puntuacion is not null) where idlibro="+idlibro+")";
 		
 		try{
 		c=bd.getConexion();
@@ -261,7 +261,36 @@ public static String compradosly( basedatos bd){
 	}
 	return ver;
 }
+public static String usuly(int id, basedatos bd){
+	String cadena="Select  titulo, autor, genero  from libro where idLibro=(select idLibro from compra where idUsuario="+id+")";
+	String ver="";
+	
 
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	reg=s.executeQuery(cadena);
+	
+	
+		for(int c=0;c<10;c++){
+			if( reg.next()){
+		ver=ver+reg.getString("titulo")+"\n";
+		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		
+		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		}
+		
+		
+	}
+	
+	s.close();
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+	}
+	return ver;
+}
 
 
 }
