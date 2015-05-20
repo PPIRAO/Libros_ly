@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `administrador`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `administrador` (
   `idAdministrador` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha ingreso` date DEFAULT NULL,
-  `contraseña` varchar(15) DEFAULT NULL,
-  `mail` varchar(15) DEFAULT NULL,
+  `fecha ingreso` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `contraseña` varchar(20) DEFAULT NULL,
+  `mail` varchar(40) NOT NULL,
   PRIMARY KEY (`idAdministrador`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +37,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `administrador` VALUES (1,'2015-05-11','a1234567.',NULL),(2,'2015-05-11','a1234567.',NULL),(3,'2015-05-11','a1234567.',NULL),(4,'2015-05-11','a1234567.',NULL);
+INSERT INTO `administrador` VALUES (1,'2015-05-10 20:00:00','a1234567.',''),(2,'2015-05-10 20:00:00','a1234567.',''),(3,'2015-05-10 20:00:00','a1234567.',''),(4,'2015-05-10 20:00:00','a1234567.','');
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,9 +51,9 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Contraseña` varchar(40) DEFAULT NULL,
-  `mail` varchar(40) DEFAULT NULL,
-  `fecha_ingreso` date DEFAULT NULL,
-  `nik` varchar(20) DEFAULT NULL,
+  `mail` varchar(40) NOT NULL,
+  `fecha_ingreso` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `nik` varchar(20) NOT NULL,
   `premium` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -65,7 +65,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-12','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-12','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-12','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-17','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-17','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-17','Pocoio',1);
+INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-11 20:00:00','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-11 20:00:00','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-11 20:00:00','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-16 20:00:00','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-16 20:00:00','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-16 20:00:00','Pocoio',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,12 +77,12 @@ DROP TABLE IF EXISTS `comentar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comentar` (
-  `fecha` date NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texto` varchar(300) DEFAULT NULL,
-  `Cliente_idCliente` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL,
   `idLibro` int(11) DEFAULT NULL,
   PRIMARY KEY (`fecha`),
-  KEY `fk_comentar_Cliente1_idx` (`Cliente_idCliente`),
+  KEY `fk_comentar_Cliente1_idx` (`idCliente`),
   KEY `fk_comentar_compra1_idx` (`idLibro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -107,7 +107,7 @@ CREATE TABLE `compra` (
   `idcompra` int(11) NOT NULL AUTO_INCREMENT,
   `idusuario` int(11) DEFAULT NULL,
   `idlibro` int(11) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `precio_sin_descuento` decimal(6,2) DEFAULT NULL,
   `descuento` decimal(4,2) DEFAULT NULL,
   `numero_tarjeta` int(16) DEFAULT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` VALUES (1,2,1,'2015-05-17',12.00,0.00,2147483647,'11334472P',6.0),(2,1,1,'2015-05-17',12.00,0.00,2147483647,'111111111',8.0),(3,3,2,'2015-05-17',12.00,0.00,2147483647,'99999999K',8.0),(4,4,2,'2015-05-17',12.00,0.00,2147483647,'33333333L',8.0),(5,1,4,'2015-05-17',10.00,NULL,2147483647,'12345678O',NULL);
+INSERT INTO `compra` VALUES (1,2,1,'2015-05-16 20:00:00',12.00,0.00,2147483647,'11334472P',6.0),(2,1,1,'2015-05-16 20:00:00',12.00,0.00,2147483647,'111111111',8.0),(3,3,2,'2015-05-16 20:00:00',12.00,0.00,2147483647,'99999999K',8.0),(4,4,2,'2015-05-16 20:00:00',12.00,0.00,2147483647,'33333333L',8.0),(5,1,4,'2015-05-16 20:00:00',10.00,NULL,2147483647,'12345678O',NULL);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,13 +136,13 @@ DROP TABLE IF EXISTS `libro`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `libro` (
   `idLibro` int(11) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(50) DEFAULT NULL,
-  `Sinopsis` varchar(500) DEFAULT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `Sinopsis` varchar(1000) DEFAULT NULL,
   `Autor` varchar(45) DEFAULT NULL,
   `genero` varchar(50) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT '0.00',
   `puntuacion` decimal(3,1) DEFAULT '5.0',
-  `beneficios` decimal(12,2) DEFAULT NULL,
+  `beneficios` decimal(12,2) DEFAULT '0.00',
   PRIMARY KEY (`idLibro`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -165,12 +165,12 @@ DROP TABLE IF EXISTS `modificar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `modificar` (
-  `fecha` date NOT NULL,
-  `descripcion` varchar(300) DEFAULT NULL,
-  `Administrador_idAdministrador` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `descripcion` varchar(500) DEFAULT NULL,
+  `idAdministrador` int(11) NOT NULL,
   `Libro_idLibro` int(11) NOT NULL,
-  PRIMARY KEY (`fecha`),
-  KEY `fk_modificar_Administrador1_idx` (`Administrador_idAdministrador`),
+  PRIMARY KEY (`fecha`,`idAdministrador`,`Libro_idLibro`),
+  KEY `fk_modificar_Administrador1_idx` (`idAdministrador`),
   KEY `fk_modificar_Libro1_idx` (`Libro_idLibro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -193,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-19 20:21:32
+-- Dump completed on 2015-05-20 15:06:34

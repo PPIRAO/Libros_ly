@@ -55,7 +55,7 @@ public class menu {
 	private JPanel panel;
 	private JPanel logo;
 	private JPanel contenido;
-	private JTextField nick;
+	private JTextField mail;
 	private JPanel menu;
 	private JPasswordField passwordField;
 	private JLabel todavia;
@@ -178,6 +178,58 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
+		INICIAL = new JPanel();
+		INICIAL.setBackground(new Color(250, 250, 250));
+		INICIAL.setBounds(10, 0, 213, 538);
+		menu.add(INICIAL);
+		INICIAL.setLayout(null);
+		
+		mail = new JTextField();
+		mail.setBounds(45, 66, 126, 26);
+		INICIAL.add(mail);
+		mail.setForeground(Color.GRAY);
+		mail.setText("Mail");
+		mail.setFont(new Font("Segoe UI Light", Font.ITALIC, 14));
+		mail.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(45, 103, 126, 26);
+		INICIAL.add(passwordField);
+		passwordField.setToolTipText("");
+		
+		iniciar = new JButton("Iniciar sesi\u00F3n");
+		iniciar.setBackground(new Color(211, 211, 211));
+		iniciar.setBounds(45, 151, 126, 32);
+		INICIAL.add(iniciar);
+		
+		todavia = new JLabel("   \u00BFTodav\u00EDa no tienes cuenta?\r\n");
+		todavia.setForeground(new Color(128, 128, 128));
+		todavia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		todavia.setBounds(10, 217, 193, 42);
+		INICIAL.add(todavia);
+		
+		JButton btnRegistrateAqu = new JButton("Registrate aqu\u00ED");
+		btnRegistrateAqu.setBackground(new Color(255, 165, 0));
+		btnRegistrateAqu.setBounds(45, 296, 126, 32);
+		INICIAL.add(btnRegistrateAqu);
+		
+		inicio = new JButton("Inicio");
+		inicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ver.setVisible(false);
+				menu1.setVisible(true);
+				libro.setVisible(false);
+			}
+		});
+		inicio.setBounds(30, 398, 159, 32);
+		INICIAL.add(inicio);
+		
+		lblhaztelaYa = new JLabel("\u00A1Haztela ya!");
+		lblhaztelaYa.setForeground(new Color(205, 133, 63));
+		lblhaztelaYa.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblhaztelaYa.setBounds(66, 251, 86, 26);
+		INICIAL.add(lblhaztelaYa);
+		
 		InAdmin = new JPanel();
 		InAdmin.setBackground(new Color(250,250,250));
 		InAdmin.setBounds(10, 0, 213, 538);
@@ -260,58 +312,6 @@ public class menu {
 		btnCambiarContrasea.setBackground(new Color(128, 128, 128));
 		btnCambiarContrasea.setBounds(33, 429, 159, 32);
 		InUsuario.add(btnCambiarContrasea);
-		
-		INICIAL = new JPanel();
-		INICIAL.setBackground(new Color(250, 250, 250));
-		INICIAL.setBounds(10, 0, 213, 538);
-		menu.add(INICIAL);
-		INICIAL.setLayout(null);
-		
-		nick = new JTextField();
-		nick.setBounds(45, 66, 126, 26);
-		INICIAL.add(nick);
-		nick.setForeground(Color.GRAY);
-		nick.setText("Usuario");
-		nick.setFont(new Font("Segoe UI Light", Font.ITALIC, 14));
-		nick.setColumns(10);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(45, 103, 126, 26);
-		INICIAL.add(passwordField);
-		passwordField.setToolTipText("");
-		
-		iniciar = new JButton("Iniciar sesi\u00F3n");
-		iniciar.setBackground(new Color(211, 211, 211));
-		iniciar.setBounds(45, 151, 126, 32);
-		INICIAL.add(iniciar);
-		
-		todavia = new JLabel("   \u00BFTodav\u00EDa no tienes cuenta?\r\n");
-		todavia.setForeground(new Color(128, 128, 128));
-		todavia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		todavia.setBounds(10, 217, 193, 42);
-		INICIAL.add(todavia);
-		
-		JButton btnRegistrateAqu = new JButton("Registrate aqu\u00ED");
-		btnRegistrateAqu.setBackground(new Color(255, 165, 0));
-		btnRegistrateAqu.setBounds(45, 296, 126, 32);
-		INICIAL.add(btnRegistrateAqu);
-		
-		inicio = new JButton("Inicio");
-		inicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ver.setVisible(false);
-				menu1.setVisible(true);
-				libro.setVisible(false);
-			}
-		});
-		inicio.setBounds(30, 398, 159, 32);
-		INICIAL.add(inicio);
-		
-		lblhaztelaYa = new JLabel("\u00A1Haztela ya!");
-		lblhaztelaYa.setForeground(new Color(205, 133, 63));
-		lblhaztelaYa.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblhaztelaYa.setBounds(66, 251, 86, 26);
-		INICIAL.add(lblhaztelaYa);
 		
 	
 		
