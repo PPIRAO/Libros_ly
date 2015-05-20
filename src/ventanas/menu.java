@@ -114,7 +114,8 @@ public class menu {
 	private JTextField modau;
 	private JTextField modge;
 	private JTextField modpre;
-	private JTextField textField;
+	private JTextField modsin;
+	private JButton btnModificar;
 
 	/**
 	 * Launch the application.
@@ -323,6 +324,72 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
+		
+		modly = new JPanel();
+		modly.setBounds(0, 0, 778, 538);
+		contenido.add(modly);
+		modly.setBackground(new Color(250,250,250));
+		modly.setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Titulo:");
+		lblTitulo.setBounds(25, 27, 88, 25);
+		modly.add(lblTitulo);
+		
+		JLabel lblAutor = new JLabel("Autor:");
+		lblAutor.setBounds(25, 63, 65, 25);
+		modly.add(lblAutor);
+		
+		modti = new JTextField();
+		modti.setBounds(123, 29, 538, 23);
+		modly.add(modti);
+		modti.setColumns(10);
+		
+		modau = new JTextField();
+		modau.setBounds(123, 65, 538, 25);
+		modly.add(modau);
+		modau.setColumns(10);
+		
+		JLabel lblGenero = new JLabel("Genero:");
+		lblGenero.setBounds(25, 99, 65, 25);
+		modly.add(lblGenero);
+		
+		modge = new JTextField();
+		modge.setText("");
+		modge.setBounds(123, 101, 538, 25);
+		modly.add(modge);
+		modge.setColumns(10);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(25, 135, 65, 25);
+		modly.add(lblPrecio);
+		
+		modpre = new JTextField();
+		modpre.setText("");
+		modpre.setColumns(10);
+		modpre.setBounds(123, 137, 538, 25);
+		modly.add(modpre);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
+		lblNewLabel_1.setBounds(25, 171, 88, 25);
+		modly.add(lblNewLabel_1);
+		
+		modsin = new JTextField();
+		modsin.setText("");
+		modsin.setBounds(123, 173, 538, 140);
+		modly.add(modsin);
+		modsin.setColumns(10);
+		
+		JTextArea txtrComentarios = new JTextArea();
+		txtrComentarios.setEditable(false);
+		txtrComentarios.setText("Comentarios");
+		txtrComentarios.setBounds(123, 338, 538, 154);
+		modly.add(txtrComentarios);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(351, 503, 89, 23);
+		modly.add(btnModificar);
+		modly.setVisible(false);
+		
 		ver = new JPanel();
 		ver.setBackground(new Color(250, 250, 250));
 		ver.setBounds(0, 0, 778, 538);
@@ -387,8 +454,35 @@ public class menu {
 					Base.cerrar();
 					ver.setVisible(false);
 					/*}else{
+					 * Base.abrir();
+					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
+					
+					modti.setText(null);
+					modau.setText(null);
+					modge.setText(null);
+					modsin.setText(null);
+					modpre.setText(null);
+					txtcomentarios.setText(null);
+					
+					modti.setText(ly.getTitulo());
+					modau.setText(ly.getAutor());
+					modge.setText(ly.getGenero());
+					modsin.setText("\n"+ly.getSinopsis());
+					modpre.setText(String.valueOf(ly.getPrecio())+"€");
+					
+					
+					txtcomentarios.setText(bbdd.librosbbdd.comly(idlibro, Base)+idlibro);
+					Base.cerrar();
+					 * 
+					 * 
+					 * 
+					 * 
+					 * 
+					 * 
 						modly.setVisible(true);
 						ver.setVisible(false);
+						
+						
 						
 						
 						
@@ -409,7 +503,7 @@ public class menu {
 		verly.setFont(new Font("Rockwell", Font.PLAIN, 18));
 		verly.setBackground(new Color(240, 240, 240));
 		verly.setEditable(false);
-		verly.setBounds(70,38, 698, 340);
+		verly.setBounds(35,38, 733, 340);
 		ver.add(verly);
 		error.setVisible(false);
 		
@@ -417,68 +511,6 @@ public class menu {
 		scrollPane.setBounds(100,75, 698, 340);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED );
 		frame.getContentPane().add(scrollPane);*/
-		
-		
-		modly = new JPanel();
-		modly.setBounds(0, 0, 778, 538);
-		contenido.add(modly);
-		modly.setBackground(new Color(250,250,250));
-		modly.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("Titulo:");
-		lblTitulo.setBounds(25, 27, 88, 25);
-		modly.add(lblTitulo);
-		
-		JLabel lblAutor = new JLabel("Autor:");
-		lblAutor.setBounds(25, 63, 65, 25);
-		modly.add(lblAutor);
-		
-		modti = new JTextField();
-		modti.setBounds(123, 29, 538, 23);
-		modly.add(modti);
-		modti.setColumns(10);
-		
-		modau = new JTextField();
-		modau.setBounds(123, 65, 538, 25);
-		modly.add(modau);
-		modau.setColumns(10);
-		
-		JLabel lblGenero = new JLabel("Genero:");
-		lblGenero.setBounds(25, 99, 65, 25);
-		modly.add(lblGenero);
-		
-		modge = new JTextField();
-		modge.setText("");
-		modge.setBounds(123, 101, 538, 25);
-		modly.add(modge);
-		modge.setColumns(10);
-		
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(25, 135, 65, 25);
-		modly.add(lblPrecio);
-		
-		modpre = new JTextField();
-		modpre.setText("");
-		modpre.setColumns(10);
-		modpre.setBounds(123, 137, 538, 25);
-		modly.add(modpre);
-		
-		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
-		lblNewLabel_1.setBounds(25, 171, 88, 25);
-		modly.add(lblNewLabel_1);
-		
-		textField = new JTextField();
-		textField.setText("");
-		textField.setBounds(123, 173, 538, 140);
-		modly.add(textField);
-		textField.setColumns(10);
-		
-		JTextArea txtrComentarios = new JTextArea();
-		txtrComentarios.setEditable(false);
-		txtrComentarios.setText("Comentarios");
-		txtrComentarios.setBounds(123, 343, 538, 154);
-		modly.add(txtrComentarios);
-		modly.setVisible(false);
 		
 		menu2 = new JPanel();
 		menu2.setBackground(new Color(250,250,250));
