@@ -93,6 +93,7 @@ CREATE TABLE `comentar` (
 
 LOCK TABLES `comentar` WRITE;
 /*!40000 ALTER TABLE `comentar` DISABLE KEYS */;
+INSERT INTO `comentar` VALUES ('2015-05-08 20:00:00','He de reconocer que es muy buena historia de terror, genial!',2,2),('2015-05-16 20:00:00','Una de las mejores historias de amor que he leido',3,3),('2015-06-25 20:00:00','Fantastica historia de accion... muy buena trama',1,1),('2015-07-17 20:00:00','Buena trilogia fantastica, genial la historia',4,4);
 /*!40000 ALTER TABLE `comentar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-20 15:06:34
+-- Dump completed on 2015-05-20 16:49:57
