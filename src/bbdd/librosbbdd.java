@@ -291,6 +291,7 @@ public static String usuly(int id, basedatos bd){
 	}
 	return ver;
 }
+//public static void modly(libros ly, double precio)
 
 
 }

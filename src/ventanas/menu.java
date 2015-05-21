@@ -115,7 +115,10 @@ public class menu {
 	private JTextField modge;
 	private JTextField modpre;
 	private JTextField modsin;
-	private JButton btnModificar;
+	private JButton dale;
+	private boolean solover;
+	private JTextArea moddesc;
+	private boolean solomod;
 
 	/**
 	 * Launch the application.
@@ -179,6 +182,43 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
+		InAdmin = new JPanel();
+		InAdmin.setBackground(new Color(250,250,250));
+		InAdmin.setBounds(10, 0, 213, 538);
+		menu.add(InAdmin);
+		InAdmin.setLayout(null);
+		InAdmin.setVisible(false);
+		
+		JButton button_1 = new JButton("Inicio");
+		button_1.setBounds(30, 54, 159, 32);
+		InAdmin.add(button_1);
+		
+		JLabel lblBienvenidonombreDel = new JLabel("Bienvenido (nombre del admin)");
+		lblBienvenidonombreDel.setBounds(0, 11, 203, 32);
+		InAdmin.add(lblBienvenidonombreDel);
+		
+		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
+		button_3.setForeground(Color.WHITE);
+		button_3.setBackground(Color.GRAY);
+		button_3.setBounds(30, 469, 159, 32);
+		InAdmin.add(button_3);
+		
+		JButton verlyadmin = new JButton("Ver libros");
+		verlyadmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solover=true;
+				menu2.setVisible(false);
+				modly.setVisible(false);
+				libro.setVisible(false);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.todosly(Base));
+				Base.cerrar();
+				verly.setVisible(true);
+			}
+		});
+		verlyadmin.setBounds(30, 110, 159, 32);
+		InAdmin.add(verlyadmin);
+		
 		INICIAL = new JPanel();
 		INICIAL.setBackground(new Color(250, 250, 250));
 		INICIAL.setBounds(10, 0, 213, 538);
@@ -230,31 +270,6 @@ public class menu {
 		lblhaztelaYa.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblhaztelaYa.setBounds(66, 251, 86, 26);
 		INICIAL.add(lblhaztelaYa);
-		
-		InAdmin = new JPanel();
-		InAdmin.setBackground(new Color(250,250,250));
-		InAdmin.setBounds(10, 0, 213, 538);
-		menu.add(InAdmin);
-		InAdmin.setLayout(null);
-		InAdmin.setVisible(false);
-		
-		JButton button_1 = new JButton("Inicio");
-		button_1.setBounds(30, 54, 159, 32);
-		InAdmin.add(button_1);
-		
-		JLabel lblBienvenidonombreDel = new JLabel("Bienvenido (nombre del admin)");
-		lblBienvenidonombreDel.setBounds(0, 11, 203, 32);
-		InAdmin.add(lblBienvenidonombreDel);
-		
-		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
-		button_3.setForeground(Color.WHITE);
-		button_3.setBackground(Color.GRAY);
-		button_3.setBounds(30, 469, 159, 32);
-		InAdmin.add(button_3);
-		
-		JButton verlyadmin = new JButton("Ver libros");
-		verlyadmin.setBounds(30, 110, 159, 32);
-		InAdmin.add(verlyadmin);
 		
 		InUsuario = new JPanel();
 		InUsuario.setLayout(null);
@@ -324,6 +339,127 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
+		menu2 = new JPanel();
+		menu2.setBackground(new Color(250,250,250));
+		menu2.setBounds(0, 0, 778, 538);
+		contenido.add(menu2);
+		menu2.setLayout(null);
+		menu2.setVisible(false);
+		
+		hola = new JLabel("Opciones de Administarador");
+		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
+		hola.setForeground(new Color(105, 105, 105));
+		hola.setBounds(237, 29, 347, 59);
+		menu2.add(hola);
+		
+		btnModificarLibro = new JButton("Modificar libro");
+		btnModificarLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solover=false;
+				solomod=false;
+			}
+		});
+		btnModificarLibro.setBounds(107, 124, 223, 53);
+		menu2.add(btnModificarLibro);
+		
+		btnBorrarComentario = new JButton("Borrar comentario");
+		btnBorrarComentario.setBounds(437, 408, 223, 53);
+		menu2.add(btnBorrarComentario);
+		
+		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
+		btnAadirAdministrador.setBounds(107, 215, 223, 53);
+		menu2.add(btnAadirAdministrador);
+		
+		btnBorrarUsuario = new JButton("Borrar usuario");
+		btnBorrarUsuario.setBounds(437, 215, 223, 53);
+		menu2.add(btnBorrarUsuario);
+		
+		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
+		btnCopiaDeSeguridad.setBounds(107, 313, 223, 53);
+		menu2.add(btnCopiaDeSeguridad);
+		
+		button = new JButton("Borrar comentario");
+		button.setBounds(437, 313, 223, 53);
+		menu2.add(button);
+		
+		JButton newly = new JButton("Nuevo libro");
+		newly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solomod=false;
+				modly.setVisible(false);
+			}
+		});
+		newly.setBounds(436, 124, 224, 53);
+		menu2.add(newly);
+		
+		menu1 = new JPanel();
+		menu1.setBackground(new Color(250, 250, 250));
+		menu1.setBounds(0, 0, 778, 538);
+		contenido.add(menu1);
+		menu1.setLayout(null);
+		
+		mejoresly = new JButton("Descubre los libros mejor puntuados");
+		mejoresly.setForeground(new Color(205, 133, 63));
+		mejoresly.setBackground(new Color(211, 211, 211));
+		mejoresly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu1.setVisible(false);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.valoradosly(Base));
+				
+				ver.setVisible(true);
+				
+				
+			}
+		});
+		mejoresly.setBounds(205, 309, 435, 57);
+		menu1.add(mejoresly);
+		mejoresly.setFont(new Font("Sylfaen", Font.PLAIN, 25));
+		
+		ultimos = new JButton("Ojea todos nuestros libros");
+		ultimos.setBackground(new Color(211, 211, 211));
+		ultimos.setForeground(new Color(205, 133, 63));
+		ultimos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu1.setVisible(false);
+				
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.todosly(Base));
+				Base.cerrar();
+				
+				
+				
+				ver.setVisible(true);
+			}
+		});
+		ultimos.setBounds(205, 230, 435, 57);
+		menu1.add(ultimos);
+		ultimos.setFont(new Font("Sylfaen", Font.PLAIN, 25));
+		
+		btnConoceTodosNuestros = new JButton("Nuestros libros m\u00E1s comprados");
+		btnConoceTodosNuestros.setBackground(new Color(211, 211, 211));
+		btnConoceTodosNuestros.setForeground(new Color(205, 133, 63));
+		btnConoceTodosNuestros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				menu1.setVisible(false);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.compradosly(Base));
+				Base.cerrar();
+				ver.setVisible(true);
+				
+			}
+		});
+		btnConoceTodosNuestros.setFont(new Font("Sylfaen", Font.PLAIN, 25));
+		btnConoceTodosNuestros.setBounds(205, 387, 435, 57);
+		menu1.add(btnConoceTodosNuestros);
+		
+		lblBienvenidosANuestra = new JLabel(" \u00A1Bienvenidos a nuestra Libros Ly_ !");
+		lblBienvenidosANuestra.setForeground(new Color(128, 128, 128));
+		lblBienvenidosANuestra.setFont(new Font("Vani", Font.BOLD, 18));
+		lblBienvenidosANuestra.setBounds(246, 11, 375, 57);
+		menu1.add(lblBienvenidosANuestra);
+		
 		
 		modly = new JPanel();
 		modly.setBounds(0, 0, 778, 538);
@@ -379,15 +515,25 @@ public class menu {
 		modly.add(modsin);
 		modsin.setColumns(10);
 		
-		JTextArea txtrComentarios = new JTextArea();
-		txtrComentarios.setEditable(false);
-		txtrComentarios.setText("Comentarios");
-		txtrComentarios.setBounds(123, 338, 538, 154);
-		modly.add(txtrComentarios);
+		dale = new JButton("Enviar");
+		dale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+			}
+		});
+		dale.setBounds(357, 492, 89, 23);
+		modly.add(dale);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(351, 503, 89, 23);
-		modly.add(btnModificar);
+		moddesc = new JTextArea();
+		moddesc.setBounds(123, 331, 538, 140);
+		modly.add(moddesc);
+		
+		JLabel lblDescripcion = new JLabel("Descripcion");
+		lblDescripcion.setBounds(25, 331, 80, 25);
+		modly.add(lblDescripcion);
 		modly.setVisible(false);
 		
 		ver = new JPanel();
@@ -422,7 +568,7 @@ public class menu {
 				}
 				else{
 					error.setVisible(false);
-					//if(idUsuario>0){
+					//if(idUsuario>0 || solover==true){
 					libro.setVisible(true);
 					
 				
@@ -511,111 +657,6 @@ public class menu {
 		scrollPane.setBounds(100,75, 698, 340);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED );
 		frame.getContentPane().add(scrollPane);*/
-		
-		menu2 = new JPanel();
-		menu2.setBackground(new Color(250,250,250));
-		menu2.setBounds(0, 0, 778, 538);
-		contenido.add(menu2);
-		menu2.setLayout(null);
-		menu2.setVisible(false);
-		
-		hola = new JLabel("Opciones de Administarador");
-		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
-		hola.setForeground(new Color(105, 105, 105));
-		hola.setBounds(237, 29, 347, 59);
-		menu2.add(hola);
-		
-		btnModificarLibro = new JButton("Modificar libro");
-		btnModificarLibro.setBounds(107, 124, 223, 53);
-		menu2.add(btnModificarLibro);
-		
-		btnBorrarComentario = new JButton("Borrar comentario");
-		btnBorrarComentario.setBounds(437, 124, 223, 53);
-		menu2.add(btnBorrarComentario);
-		
-		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
-		btnAadirAdministrador.setBounds(107, 219, 223, 53);
-		menu2.add(btnAadirAdministrador);
-		
-		btnBorrarUsuario = new JButton("Borrar usuario");
-		btnBorrarUsuario.setBounds(437, 219, 223, 53);
-		menu2.add(btnBorrarUsuario);
-		
-		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
-		btnCopiaDeSeguridad.setBounds(107, 317, 223, 53);
-		menu2.add(btnCopiaDeSeguridad);
-		
-		button = new JButton("Borrar comentario");
-		button.setBounds(437, 317, 223, 53);
-		menu2.add(button);
-		
-		menu1 = new JPanel();
-		menu1.setBackground(new Color(250, 250, 250));
-		menu1.setBounds(0, 0, 778, 538);
-		contenido.add(menu1);
-		menu1.setLayout(null);
-		
-		mejoresly = new JButton("Descubre los libros mejor puntuados");
-		mejoresly.setForeground(new Color(205, 133, 63));
-		mejoresly.setBackground(new Color(211, 211, 211));
-		mejoresly.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu1.setVisible(false);
-				Base.abrir();
-				verly.setText(bbdd.librosbbdd.valoradosly(Base));
-				
-				ver.setVisible(true);
-				
-				
-			}
-		});
-		mejoresly.setBounds(205, 309, 435, 57);
-		menu1.add(mejoresly);
-		mejoresly.setFont(new Font("Sylfaen", Font.PLAIN, 25));
-		
-		ultimos = new JButton("Ojea todos nuestros libros");
-		ultimos.setBackground(new Color(211, 211, 211));
-		ultimos.setForeground(new Color(205, 133, 63));
-		ultimos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu1.setVisible(false);
-				
-				Base.abrir();
-				verly.setText(bbdd.librosbbdd.todosly(Base));
-				Base.cerrar();
-				
-				
-				
-				ver.setVisible(true);
-			}
-		});
-		ultimos.setBounds(205, 230, 435, 57);
-		menu1.add(ultimos);
-		ultimos.setFont(new Font("Sylfaen", Font.PLAIN, 25));
-		
-		btnConoceTodosNuestros = new JButton("Nuestros libros m\u00E1s comprados");
-		btnConoceTodosNuestros.setBackground(new Color(211, 211, 211));
-		btnConoceTodosNuestros.setForeground(new Color(205, 133, 63));
-		btnConoceTodosNuestros.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				menu1.setVisible(false);
-				Base.abrir();
-				verly.setText(bbdd.librosbbdd.compradosly(Base));
-				Base.cerrar();
-				ver.setVisible(true);
-				
-			}
-		});
-		btnConoceTodosNuestros.setFont(new Font("Sylfaen", Font.PLAIN, 25));
-		btnConoceTodosNuestros.setBounds(205, 387, 435, 57);
-		menu1.add(btnConoceTodosNuestros);
-		
-		lblBienvenidosANuestra = new JLabel(" \u00A1Bienvenidos a nuestra Libros Ly_ !");
-		lblBienvenidosANuestra.setForeground(new Color(128, 128, 128));
-		lblBienvenidosANuestra.setFont(new Font("Vani", Font.BOLD, 18));
-		lblBienvenidosANuestra.setBounds(246, 11, 375, 57);
-		menu1.add(lblBienvenidosANuestra);
 		
 		descargas = new JPanel();
 		descargas.setBackground(new Color(250,250,250));
