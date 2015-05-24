@@ -16,18 +16,25 @@ public class librosbbdd {
 	private static ResultSet reg;
 	
 	
-	public static boolean añadirLibro( libros ly, basedatos bd){
-		
+	public static boolean añadirLibro( libros ly,int idadmin, String desc, basedatos bd){
+		int idLibro=0;
 		String cadena2="Select titulo from libro where titulo='"+ly.getTitulo()+"'";
 		String cadena="INSERT INTO libro VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"',"+ ly.getAutor() +"'," +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
-		
+		String cadena4="Select idLibro from libros where titulo='"+ly.getTitulo()+"'";
+		String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
 		int ver=s.executeUpdate(cadena2);
-		if(ver<1)
+		if(ver<1){
 		
 		s.executeUpdate(cadena);
+		reg=s.executeQuery(cadena4);
+		if(reg.next())
+			idLibro=Integer.parseInt(reg.getString(1));
+		s.executeUpdate(cadena3);
+		
+		}
 		else{
 			s.close();
 			return false;
@@ -291,7 +298,28 @@ public static String usuly(int id, basedatos bd){
 	}
 	return ver;
 }
-//public static void modly(libros ly, double precio)
+public static void modly(libros ly, int idadmin, int idLibro, String desc, double precio, basedatos bd){
+
+String cadena="update libro set titulo='" +ly.getTitulo() + "', sinopsis='" +ly.getSinopsis()+"', autor="+ ly.getAutor() +"', genero=" +ly.getGenero()+"', precio=" +ly.getPrecio()+" where"
+		+ " idLibro="+idLibro; 	
+
+String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";
+try{
+c=bd.getConexion();
+s=c.createStatement();
+
+s.executeUpdate(cadena);
+s.executeUpdate(cadena3);
+
+
+s.close();
+
+}
+catch ( SQLException e){
+	System.out.println(e);
+}
+
+}
 
 
 }
