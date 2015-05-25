@@ -49,7 +49,7 @@ public class librosbbdd {
 		
 	}
 	
-	public static boolean puntuar(int idlibro, int num, int idusu, basedatos bd){
+	public static boolean puntuar(int idlibro, double num, int idusu, basedatos bd){
 		
 		String cadena="update compra set puntuacion="+num+" where idusuario='"+idusu+"' and idlibro='"+idlibro+"')"; 	
 		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+" and puntuacion is not null) where idlibro="+idlibro+")";
@@ -57,7 +57,8 @@ public class librosbbdd {
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
-		s.executeUpdate(cadena);
+		int ver=s.executeUpdate(cadena);
+		if(ver==0)return false;
 		s.executeUpdate(cadena2);
 		s.close();
 		}
@@ -94,7 +95,7 @@ public static int buscarly( String nom, basedatos bd){
 
 public static libros libroly( int idly, basedatos bd){
 	libros ly1 = null;
-	String cadena="Select idLibro,titulo,sinopsis,genero,precio,autor,puntuacion from libro where idLibro="+idly;
+	String cadena="Select idLibro,titulo,sinopsis,genero,precio,autor,puntuacion,beneficios from libro where idLibro="+idly;
 	
 	
 	try{
@@ -110,9 +111,11 @@ public static libros libroly( int idly, basedatos bd){
 		double pre=Double.parseDouble(reg.getString(5));
 		String aut=reg.getString(6);
 		String puntuacion=reg.getString(7);
+		String beneficios=reg.getString(8);
 		ly1=new libros(tit,sin,gen,pre,aut);
 		ly1.setIdlibro(id);
 		ly1.setPuntuacion(puntuacion);
+		ly1.setBeneficios(beneficios);
 		
 	}
 	
@@ -131,9 +134,9 @@ public static String comly( int id, basedatos bd){
 	
 	
 	
-	String cadena="Select nik,texto from comentar c, Cliente u where u.idCliente=c.idCliente and idlibro="+id;
+	String cadena="Select nik,texto from comentar c, cliente u where u.idCliente=c.idCliente and idLibro="+id+" order by fecha desc";
 	String comentarios="";
-	int i=1;
+	
 	try{
 	c=bd.getConexion();
 	s=c.createStatement();
@@ -298,7 +301,7 @@ public static String usuly(int id, basedatos bd){
 	}
 	return ver;
 }
-public static void modly(libros ly, int idadmin, int idLibro, String desc, double precio, basedatos bd){
+public static boolean modly(libros ly, int idadmin, int idLibro, String desc, basedatos bd){
 
 String cadena="update libro set titulo='" +ly.getTitulo() + "', sinopsis='" +ly.getSinopsis()+"', autor="+ ly.getAutor() +"', genero=" +ly.getGenero()+"', precio=" +ly.getPrecio()+" where"
 		+ " idLibro="+idLibro; 	
@@ -317,7 +320,9 @@ s.close();
 }
 catch ( SQLException e){
 	System.out.println(e);
+	return false;
 }
+return true;
 
 }
 

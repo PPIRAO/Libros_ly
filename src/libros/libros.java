@@ -8,7 +8,16 @@ public class libros {
 	private double precio;
 	private String autor;
 	private String puntuacion;
+	private String beneficios;
 	
+	public String getBeneficios() {
+		return beneficios;
+	}
+
+	public void setBeneficios(String beneficios) {
+		this.beneficios = beneficios;
+	}
+
 	public String getPuntuacion() {
 		return puntuacion;
 	}
