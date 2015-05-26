@@ -54,7 +54,7 @@ public class puntuar {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		lblPuntua = new JLabel("Puntua");
+		lblPuntua = new JLabel("Puntua "+idlibro);
 		lblPuntua.setBounds(55, 69, 73, 29);
 		frame.getContentPane().add(lblPuntua);
 		
@@ -73,10 +73,11 @@ public class puntuar {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				/*try{
+				try{
 					double punt=Double.parseDouble(pun.getText());
 					Base.abrir();
-					if(bbdd.librosbbdd.puntuar(idlibro, pun, idUsuario, Base))//te sales
+					if(bbdd.librosbbdd.puntuar(idlibro, punt, idUsuario, Base))//te sales
+					puntuar.setVisible(false);
 					else{
 						lblError.setVisible(true);
 					}
@@ -87,7 +88,7 @@ public class puntuar {
 					lblError.setVisible(true);
 				}
 				
-				*/
+				
 				
 			}
 		});

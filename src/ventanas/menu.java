@@ -63,7 +63,7 @@ public class menu {
 	private JPanel contenido;
 	private JTextField mail;
 	private JPanel menu;
-	private JPasswordField passwordField;
+	private JPasswordField contraini;
 	private JLabel todavia;
 	private JButton iniciar;
 	private JPanel INICIAL;
@@ -158,6 +158,10 @@ public class menu {
 	private JLabel lblDiferentes;
 	private JLabel mailIncorrecto;
 	private JLabel benef;
+	private JLabel errorini;
+	private JLabel bienadmin;
+	private JLabel bienusu;
+	private JButton btnDescargarLibro;
 
 	/**
 	 * Launch the application.
@@ -227,114 +231,6 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
-		INICIAL = new JPanel();
-		INICIAL.setBackground(new Color(250, 250, 250));
-		INICIAL.setBounds(10, 0, 213, 538);
-		menu.add(INICIAL);
-		INICIAL.setLayout(null);
-		
-		mail = new JTextField();
-		mail.setBounds(45, 66, 126, 26);
-		INICIAL.add(mail);
-		mail.setForeground(Color.GRAY);
-		mail.setText("Mail");
-		mail.setFont(new Font("Segoe UI Light", Font.ITALIC, 14));
-		mail.setColumns(10);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(45, 103, 126, 26);
-		INICIAL.add(passwordField);
-		passwordField.setToolTipText("");
-		
-		iniciar = new JButton("Iniciar sesi\u00F3n");
-		iniciar.setBackground(new Color(211, 211, 211));
-		iniciar.setBounds(45, 151, 126, 32);
-		INICIAL.add(iniciar);
-		
-		todavia = new JLabel("   \u00BFTodav\u00EDa no tienes cuenta?\r\n");
-		todavia.setForeground(new Color(128, 128, 128));
-		todavia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		todavia.setBounds(10, 217, 193, 42);
-		INICIAL.add(todavia);
-		
-		JButton btnRegistrateAqu = new JButton("Registrate aqu\u00ED");
-		btnRegistrateAqu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Registrar.setVisible(true);
-				menu1.setVisible(false);
-			}
-		});
-		btnRegistrateAqu.setBackground(new Color(255, 165, 0));
-		btnRegistrateAqu.setBounds(45, 296, 126, 32);
-		INICIAL.add(btnRegistrateAqu);
-		
-		inicio = new JButton("Inicio");
-		inicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ver.setVisible(false);
-				menu1.setVisible(true);
-				libro.setVisible(false);
-				Registrar.setVisible(false);
-			}
-		});
-		inicio.setBounds(30, 398, 159, 32);
-		INICIAL.add(inicio);
-		
-		lblhaztelaYa = new JLabel("\u00A1Haztela ya!");
-		lblhaztelaYa.setForeground(new Color(205, 133, 63));
-		lblhaztelaYa.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblhaztelaYa.setBounds(66, 251, 86, 26);
-		INICIAL.add(lblhaztelaYa);
-		
-		InAdmin = new JPanel();
-		InAdmin.setBackground(new Color(250,250,250));
-		InAdmin.setBounds(10, 0, 213, 538);
-		menu.add(InAdmin);
-		InAdmin.setLayout(null);
-		InAdmin.setVisible(false);
-		
-		button_1 = new JButton("Inicio");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				veradmin.setVisible(false);
-				modly.setVisible(false);
-				ver.setVisible(false);
-				libro.setVisible(false);
-				menu2.setVisible(true);
-				solover=false;
-				solomod=false;
-			}
-		});
-		button_1.setBounds(30, 54, 159, 32);
-		InAdmin.add(button_1);
-		
-		JLabel lblBienvenidonombreDel = new JLabel("Bienvenido (nombre del admin)");
-		lblBienvenidonombreDel.setBounds(0, 11, 203, 32);
-		InAdmin.add(lblBienvenidonombreDel);
-		
-		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
-		button_3.setForeground(Color.WHITE);
-		button_3.setBackground(Color.GRAY);
-		button_3.setBounds(30, 469, 159, 32);
-		InAdmin.add(button_3);
-		
-		JButton verlyadmin = new JButton("Ver libros");
-		verlyadmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				solover=true;
-				menu2.setVisible(false);
-				modly.setVisible(false);
-				libro.setVisible(false);
-				Base.abrir();
-				verly.setText(bbdd.librosbbdd.todosly(Base));
-				Base.cerrar();
-				verly.setVisible(true);
-			}
-		});
-		verlyadmin.setBounds(30, 110, 159, 32);
-		InAdmin.add(verlyadmin);
-		
 		InUsuario = new JPanel();
 		InUsuario.setLayout(null);
 		InUsuario.setBackground(new Color(250, 250, 250));
@@ -366,17 +262,20 @@ public class menu {
 		lblpremium.setBounds(55, 252, 132, 26);
 		InUsuario.add(lblpremium);
 		
-		JLabel lblBienVenidonombre = new JLabel("Bienvenido (nombre del usuario)");
-		lblBienVenidonombre.setBounds(10, 11, 203, 32);
-		InUsuario.add(lblBienVenidonombre);
+		bienusu = new JLabel("Bienvenido (nombre del usuario)");
+		bienusu.setBounds(10, 11, 203, 32);
+		InUsuario.add(bienusu);
 		
-		JButton btnDescargarLibro = new JButton("Descargar libro");
+		btnDescargarLibro = new JButton("Descargar libro");
 		btnDescargarLibro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu1.setVisible(false);
+				ver.setVisible(false);
+				libro.setVisible(false);
 				Base.abrir();
 				desc.setText(bbdd.librosbbdd.compradosly(Base));
 				Base.cerrar();
+				descargas.setVisible(true);
 			}
 		});
 		btnDescargarLibro.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -401,6 +300,157 @@ public class menu {
 		InUsuario.add(erespre);
 		erespre.setVisible(false);
 		
+		INICIAL = new JPanel();
+		INICIAL.setBackground(new Color(250, 250, 250));
+		INICIAL.setBounds(10, 0, 213, 538);
+		menu.add(INICIAL);
+		INICIAL.setLayout(null);
+		
+		mail = new JTextField();
+		mail.setBounds(45, 66, 126, 26);
+		INICIAL.add(mail);
+		mail.setForeground(Color.GRAY);
+		mail.setText("Mail");
+		mail.setFont(new Font("Segoe UI Light", Font.ITALIC, 14));
+		mail.setColumns(10);
+		
+		contraini = new JPasswordField();
+		contraini.setBounds(45, 103, 126, 26);
+		INICIAL.add(contraini);
+		contraini.setToolTipText("");
+		
+		iniciar = new JButton("Iniciar sesi\u00F3n");
+		iniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Con este pedazo codigo diferenciamos quien ha iniciado sesion tanto un cliente o un administrador mostrando los correspondientes menús
+				Usuario usu=new Usuario(mail.getText(),contraini.getText());
+				
+				Base.abrir();
+				int idUsuario=bbdd.BBDDUsuario.LoginCliente(usu, Base);
+				Base.cerrar();
+				if (idUsuario<1){
+					Base.abrir();
+					int idAdmin=bbdd.BBDDUsuario.LoginAdmin(usu, Base);
+					Base.cerrar();
+						if(idAdmin<1){
+							errorini.setVisible(true);
+						}
+						else{
+							InAdmin.setVisible(true);
+							menu2.setVisible(true);
+							menu1.setVisible(false);
+							INICIAL.setVisible(false);
+							errorini.setVisible(false);
+							bienadmin.setText("Bienvenido "+mail.getText());
+							bienusu.setText(null);
+						}
+				}
+				else{
+					
+					errorini.setVisible(false);
+					InUsuario.setVisible(true);
+					INICIAL.setVisible(false);
+					bienusu.setText("Bienvenido "+mail.getText());
+					
+			}}}
+		);
+		
+		iniciar.setBackground(new Color(211, 211, 211));
+		iniciar.setBounds(45, 151, 126, 32);
+		INICIAL.add(iniciar);
+		
+		todavia = new JLabel("   \u00BFTodav\u00EDa no tienes cuenta?\r\n");
+		todavia.setForeground(new Color(128, 128, 128));
+		todavia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		todavia.setBounds(10, 217, 193, 42);
+		INICIAL.add(todavia);
+		
+		JButton btnRegistrateAqu = new JButton("Registrate aqu\u00ED");
+		btnRegistrateAqu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Registrar.setVisible(true);
+				menu1.setVisible(false);
+			}
+		});
+		btnRegistrateAqu.setBackground(new Color(255, 165, 0));
+		btnRegistrateAqu.setBounds(45, 296, 126, 32);
+		INICIAL.add(btnRegistrateAqu);
+		
+		inicio = new JButton("Inicio");
+		inicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Con la barra de inicio tanto aqui como en los demas nos sirva para volver al menu principal, dependiendo si es cliente o administrador
+				ver.setVisible(false);
+				menu1.setVisible(true);
+				libro.setVisible(false);
+				Registrar.setVisible(false);
+			}
+		});
+		inicio.setBounds(30, 398, 159, 32);
+		INICIAL.add(inicio);
+		
+		lblhaztelaYa = new JLabel("\u00A1Haztela ya!");
+		lblhaztelaYa.setForeground(new Color(205, 133, 63));
+		lblhaztelaYa.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblhaztelaYa.setBounds(66, 251, 86, 26);
+		INICIAL.add(lblhaztelaYa);
+		
+		errorini = new JLabel("No existe esa cuenta");
+		errorini.setForeground(Color.RED);
+		errorini.setBounds(55, 194, 124, 14);
+		INICIAL.add(errorini);
+		errorini.setVisible(false);
+		
+		InAdmin = new JPanel();
+		InAdmin.setBackground(new Color(250,250,250));
+		InAdmin.setBounds(10, 0, 213, 538);
+		menu.add(InAdmin);
+		InAdmin.setLayout(null);
+		InAdmin.setVisible(false);
+		
+		button_1 = new JButton("Inicio");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				veradmin.setVisible(false);
+				modly.setVisible(false);
+				ver.setVisible(false);
+				libro.setVisible(false);
+				menu2.setVisible(true);
+				solover=false;
+				solomod=false;
+			}
+		});
+		button_1.setBounds(30, 54, 159, 32);
+		InAdmin.add(button_1);
+		
+		bienadmin = new JLabel("Bienvenido (nombre del admin)");
+		bienadmin.setBounds(0, 11, 203, 32);
+		InAdmin.add(bienadmin);
+		
+		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
+		button_3.setForeground(Color.WHITE);
+		button_3.setBackground(Color.GRAY);
+		button_3.setBounds(30, 469, 159, 32);
+		InAdmin.add(button_3);
+		
+		JButton verlyadmin = new JButton("Ver libros");
+		verlyadmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Con este codigo permite ver a los administradores los libros
+				solover=true;
+				menu2.setVisible(false);
+				modly.setVisible(false);
+				libro.setVisible(false);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.todosly(Base));
+				Base.cerrar();
+				verly.setVisible(true);
+			}
+		});
+		verlyadmin.setBounds(30, 110, 159, 32);
+		InAdmin.add(verlyadmin);
+		
 	
 		
 		
@@ -411,6 +461,85 @@ public class menu {
 		contenido.setBounds(-1, 62, 788, 538);
 		panel.add(contenido);
 		contenido.setLayout(null);
+		
+		menu2 = new JPanel();
+		menu2.setBackground(new Color(250,250,250));
+		menu2.setBounds(0, 0, 778, 538);
+		contenido.add(menu2);
+		menu2.setLayout(null);
+		menu2.setVisible(false);
+		
+		hola = new JLabel("Opciones de Administarador");
+		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
+		hola.setForeground(new Color(105, 105, 105));
+		hola.setBounds(237, 29, 347, 59);
+		menu2.add(hola);
+		
+		btnModificarLibro = new JButton("Modificar libro");
+		btnModificarLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solover=false;
+				solomod=true;
+				menu2.setVisible(false);
+				verly.setVisible(true);
+				
+			}
+		});
+		btnModificarLibro.setBounds(107, 124, 223, 53);
+		menu2.add(btnModificarLibro);
+		
+		btnBorrarComentario = new JButton("Borrar comentario");
+		btnBorrarComentario.setBounds(437, 408, 223, 53);
+		menu2.add(btnBorrarComentario);
+		
+		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
+		btnAadirAdministrador.setBounds(107, 215, 223, 53);
+		menu2.add(btnAadirAdministrador);
+		
+		btnBorrarUsuario = new JButton("Borrar usuario");
+		btnBorrarUsuario.setBounds(437, 215, 223, 53);
+		menu2.add(btnBorrarUsuario);
+		
+		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
+		btnCopiaDeSeguridad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				copiaseguridad copias=new copiaseguridad();
+				//copiaseguridad.setVisible(true);
+				
+			}
+		});
+		btnCopiaDeSeguridad.setBounds(107, 313, 223, 53);
+		menu2.add(btnCopiaDeSeguridad);
+		
+		button = new JButton("Borrar comentario");
+		button.setBounds(437, 313, 223, 53);
+		menu2.add(button);
+		
+		newly = new JButton("Nuevo libro");
+		newly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				solomod=false;
+				menu2.setVisible(false);
+				modly.setVisible(true);
+			}
+		});
+		newly.setBounds(436, 124, 224, 53);
+		menu2.add(newly);
+		
+		JButton verad = new JButton("Ver historial de administradores");
+		verad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Base.abrir();
+				
+				
+				Base.cerrar();
+				
+				
+			}
+		});
+		verad.setBounds(107, 408, 223, 53);
+		menu2.add(verad);
 		
 		
 		
@@ -424,6 +553,7 @@ public class menu {
 		JButton comprar = new JButton("\u00A1Comprar!");
 		comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//con este boton abrimos el menu de compra, solo podran acceder a el aquellos usuarios que hayan iniciado sesion
 				tarjeta compra=new tarjeta();
 				compra.setVisible(true);
 				
@@ -476,8 +606,10 @@ public class menu {
 		JButton puntua = new JButton("Punt\u00FAa");
 		puntua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				puntuar venga=new puntuar();
-				venga.initialize(idlibro,idUsuario,Base);
+				
 				
 				
 			}
@@ -810,83 +942,6 @@ public class menu {
 		modly.setVisible(false);
 		exito.setVisible(false);
 		fallo.setVisible(false);
-		
-		menu2 = new JPanel();
-		menu2.setBackground(new Color(250,250,250));
-		menu2.setBounds(0, 0, 778, 538);
-		contenido.add(menu2);
-		menu2.setLayout(null);
-		menu2.setVisible(false);
-		
-		hola = new JLabel("Opciones de Administarador");
-		hola.setFont(new Font("Tahoma", Font.BOLD, 22));
-		hola.setForeground(new Color(105, 105, 105));
-		hola.setBounds(237, 29, 347, 59);
-		menu2.add(hola);
-		
-		btnModificarLibro = new JButton("Modificar libro");
-		btnModificarLibro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				solover=false;
-				solomod=true;
-				menu2.setVisible(false);
-				verly.setVisible(true);
-				
-			}
-		});
-		btnModificarLibro.setBounds(107, 124, 223, 53);
-		menu2.add(btnModificarLibro);
-		
-		btnBorrarComentario = new JButton("Borrar comentario");
-		btnBorrarComentario.setBounds(437, 408, 223, 53);
-		menu2.add(btnBorrarComentario);
-		
-		btnAadirAdministrador = new JButton("A\u00F1adir Administrador");
-		btnAadirAdministrador.setBounds(107, 215, 223, 53);
-		menu2.add(btnAadirAdministrador);
-		
-		btnBorrarUsuario = new JButton("Borrar usuario");
-		btnBorrarUsuario.setBounds(437, 215, 223, 53);
-		menu2.add(btnBorrarUsuario);
-		
-		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
-		btnCopiaDeSeguridad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				copiaseguridad copias=new copiaseguridad();
-				
-			}
-		});
-		btnCopiaDeSeguridad.setBounds(107, 313, 223, 53);
-		menu2.add(btnCopiaDeSeguridad);
-		
-		button = new JButton("Borrar comentario");
-		button.setBounds(437, 313, 223, 53);
-		menu2.add(button);
-		
-		newly = new JButton("Nuevo libro");
-		newly.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				solomod=false;
-				modly.setVisible(false);
-			}
-		});
-		newly.setBounds(436, 124, 224, 53);
-		menu2.add(newly);
-		
-		JButton verad = new JButton("Ver historial de administradores");
-		verad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Base.abrir();
-				
-				
-				Base.cerrar();
-				
-				
-			}
-		});
-		verad.setBounds(107, 408, 223, 53);
-		menu2.add(verad);
 		
 		ver = new JPanel();
 		ver.setBackground(new Color(250, 250, 250));
