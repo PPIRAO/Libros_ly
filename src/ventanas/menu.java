@@ -120,7 +120,6 @@ public class menu {
 	private JTextField modau;
 	private JTextField modge;
 	private JTextField modpre;
-	private JTextField modsin;
 	private JButton dale;
 	private boolean solover;
 	private JTextArea moddesc;
@@ -162,6 +161,7 @@ public class menu {
 	private JLabel bienadmin;
 	private JLabel bienusu;
 	private JButton btnDescargarLibro;
+	private JTextArea modsin;
 
 	/**
 	 * Launch the application.
@@ -231,6 +231,69 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
+		InAdmin = new JPanel();
+		InAdmin.setBackground(new Color(250,250,250));
+		InAdmin.setBounds(10, 0, 213, 538);
+		menu.add(InAdmin);
+		InAdmin.setLayout(null);
+		InAdmin.setVisible(false);
+		
+		button_1 = new JButton("Inicio");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				veradmin.setVisible(false);
+				modly.setVisible(false);
+				ver.setVisible(false);
+				libro.setVisible(false);
+				menu2.setVisible(true);
+				solover=false;
+				solomod=false;
+			}
+		});
+		button_1.setBounds(30, 54, 159, 32);
+		InAdmin.add(button_1);
+		
+		bienadmin = new JLabel("Bienvenido (nombre del admin)");
+		bienadmin.setBounds(0, 11, 203, 32);
+		InAdmin.add(bienadmin);
+		
+		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu2.setVisible(false);
+				menu1.setVisible(true);
+				InAdmin.setVisible(false);
+				INICIAL.setVisible(true);
+				modly.setVisible(false);
+				ver.setVisible(false);
+				modly.setVisible(false);
+				libro.setVisible(false);
+				idAdmin=0;
+				
+			}
+		});
+		button_3.setForeground(Color.WHITE);
+		button_3.setBackground(Color.GRAY);
+		button_3.setBounds(30, 469, 159, 32);
+		InAdmin.add(button_3);
+		
+		JButton verlyadmin = new JButton("Ver libros");
+		verlyadmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Con este codigo permite ver a los administradores los libros
+				solover=true;
+				menu2.setVisible(false);
+				modly.setVisible(false);
+				libro.setVisible(false);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.todosly(Base));
+				Base.cerrar();
+				verly.setVisible(true);
+			}
+		});
+		verlyadmin.setBounds(30, 110, 159, 32);
+		InAdmin.add(verlyadmin);
+		
 		InUsuario = new JPanel();
 		InUsuario.setLayout(null);
 		InUsuario.setBackground(new Color(250, 250, 250));
@@ -283,6 +346,17 @@ public class menu {
 		InUsuario.add(btnDescargarLibro);
 		
 		JButton cerrar = new JButton("Cerrar sesi\u00F3n");
+		cerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				idUsuario=0;
+				ver.setVisible(false);
+				libro.setVisible(false);
+				descargas.setVisible(false);
+				menu1.setVisible(true);
+				INICIAL.setVisible(true);
+				InUsuario.setVisible(false);
+			}
+		});
 		cerrar.setForeground(new Color(255, 255, 255));
 		cerrar.setBounds(33, 471, 159, 32);
 		InUsuario.add(cerrar);
@@ -326,11 +400,11 @@ public class menu {
 				Usuario usu=new Usuario(mail.getText(),contraini.getText());
 				
 				Base.abrir();
-				int idUsuario=bbdd.BBDDUsuario.LoginCliente(usu, Base);
+				idUsuario=bbdd.BBDDUsuario.LoginCliente(usu, Base);
 				Base.cerrar();
 				if (idUsuario<1){
 					Base.abrir();
-					int idAdmin=bbdd.BBDDUsuario.LoginAdmin(usu, Base);
+					idAdmin=bbdd.BBDDUsuario.LoginAdmin(usu, Base);
 					Base.cerrar();
 						if(idAdmin<1){
 							errorini.setVisible(true);
@@ -402,55 +476,6 @@ public class menu {
 		INICIAL.add(errorini);
 		errorini.setVisible(false);
 		
-		InAdmin = new JPanel();
-		InAdmin.setBackground(new Color(250,250,250));
-		InAdmin.setBounds(10, 0, 213, 538);
-		menu.add(InAdmin);
-		InAdmin.setLayout(null);
-		InAdmin.setVisible(false);
-		
-		button_1 = new JButton("Inicio");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				veradmin.setVisible(false);
-				modly.setVisible(false);
-				ver.setVisible(false);
-				libro.setVisible(false);
-				menu2.setVisible(true);
-				solover=false;
-				solomod=false;
-			}
-		});
-		button_1.setBounds(30, 54, 159, 32);
-		InAdmin.add(button_1);
-		
-		bienadmin = new JLabel("Bienvenido (nombre del admin)");
-		bienadmin.setBounds(0, 11, 203, 32);
-		InAdmin.add(bienadmin);
-		
-		JButton button_3 = new JButton("Cerrar sesi\u00F3n");
-		button_3.setForeground(Color.WHITE);
-		button_3.setBackground(Color.GRAY);
-		button_3.setBounds(30, 469, 159, 32);
-		InAdmin.add(button_3);
-		
-		JButton verlyadmin = new JButton("Ver libros");
-		verlyadmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Con este codigo permite ver a los administradores los libros
-				solover=true;
-				menu2.setVisible(false);
-				modly.setVisible(false);
-				libro.setVisible(false);
-				Base.abrir();
-				verly.setText(bbdd.librosbbdd.todosly(Base));
-				Base.cerrar();
-				verly.setVisible(true);
-			}
-		});
-		verlyadmin.setBounds(30, 110, 159, 32);
-		InAdmin.add(verlyadmin);
-		
 	
 		
 		
@@ -461,6 +486,125 @@ public class menu {
 		contenido.setBounds(-1, 62, 788, 538);
 		panel.add(contenido);
 		contenido.setLayout(null);
+		
+		//////////////////////////////////////////////////////
+		
+		modly = new JPanel();
+		modly.setBounds(0, 0, 778, 538);
+		contenido.add(modly);
+		modly.setBackground(new Color(250,250,250));
+		modly.setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Titulo:");
+		lblTitulo.setBounds(25, 27, 88, 25);
+		modly.add(lblTitulo);
+		
+		JLabel lblAutor = new JLabel("Autor:");
+		lblAutor.setBounds(25, 63, 65, 25);
+		modly.add(lblAutor);
+		
+		modti = new JTextField();
+		modti.setBounds(123, 29, 538, 23);
+		modly.add(modti);
+		modti.setColumns(10);
+		
+		modau = new JTextField();
+		modau.setBounds(123, 65, 538, 25);
+		modly.add(modau);
+		modau.setColumns(10);
+		
+		JLabel lblGenero = new JLabel("Genero:");
+		lblGenero.setBounds(25, 99, 65, 25);
+		modly.add(lblGenero);
+		
+		modge = new JTextField();
+		modge.setText("");
+		modge.setBounds(123, 101, 538, 25);
+		modly.add(modge);
+		modge.setColumns(10);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(25, 135, 65, 25);
+		modly.add(lblPrecio);
+		
+		modpre = new JTextField();
+		modpre.setText("");
+		modpre.setColumns(10);
+		modpre.setBounds(123, 137, 538, 25);
+		modly.add(modpre);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
+		lblNewLabel_1.setBounds(25, 171, 88, 25);
+		modly.add(lblNewLabel_1);
+		
+		dale = new JButton("Enviar");
+		dale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exito.setVisible(false);
+				fallo.setVisible(false);
+				double din=Double.parseDouble(modpre.getText());
+				libros ly=new libros(modti.getText(),modsin.getText(),modge.getText(),din,modau.getText());
+				Base.abrir();
+			if(solomod){
+				if(bbdd.librosbbdd.modly(ly, idAdmin, idlibro, desc.getText(), Base)){
+					exito.setVisible(true);
+					fallo.setVisible(false);
+				}else{
+					fallo.setVisible(true);
+					exito.setVisible(false);
+				}
+				
+				
+				
+				
+			}else{
+				if(bbdd.librosbbdd.añadirLibro(ly, idAdmin, desc.getText(), Base)){
+					exito.setVisible(true);
+					fallo.setVisible(false);
+				}else{
+					fallo.setVisible(true);
+					exito.setVisible(false);
+				}
+			}
+				
+				
+			}
+		});
+		dale.setBounds(357, 492, 89, 23);
+		modly.add(dale);
+		
+		moddesc = new JTextArea();
+		moddesc.setBounds(123, 331, 538, 140);
+		modly.add(moddesc);
+		
+		JLabel lblDescripcion = new JLabel("Descripcion");
+		lblDescripcion.setBounds(25, 331, 80, 25);
+		modly.add(lblDescripcion);
+		
+		idly = new JLabel("Id: ");
+		idly.setBounds(696, 27, 57, 41);
+		modly.add(idly);
+		
+		exito = new JLabel("\u00C9xito");
+		exito.setForeground(Color.GREEN);
+		exito.setBounds(469, 491, 134, 25);
+		modly.add(exito);
+		
+		fallo = new JLabel("Fall\u00F3");
+		fallo.setForeground(Color.RED);
+		fallo.setBounds(469, 496, 88, 14);
+		modly.add(fallo);
+		
+		benef = new JLabel("Beneficios");
+		benef.setBounds(21, 496, 252, 19);
+		modly.add(benef);
+		
+		modsin = new JTextArea();
+		modsin.setBounds(123, 173, 538, 140);
+		modly.add(modsin);
+		modly.setVisible(false);
+		exito.setVisible(false);
+		fallo.setVisible(false);
 		
 		menu2 = new JPanel();
 		menu2.setBackground(new Color(250,250,250));
@@ -481,7 +625,10 @@ public class menu {
 				solover=false;
 				solomod=true;
 				menu2.setVisible(false);
-				verly.setVisible(true);
+				Base.abrir();
+				verly.setText(bbdd.librosbbdd.todosly(Base));
+				Base.cerrar();
+				ver.setVisible(true);
 				
 			}
 		});
@@ -503,9 +650,8 @@ public class menu {
 		btnCopiaDeSeguridad = new JButton("Copia de seguridad");
 		btnCopiaDeSeguridad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				copiaseguridad copias=new copiaseguridad();
-				//copiaseguridad.setVisible(true);
-				
+				copias copiar=new copias();
+				copiar.setVisible(true);
 			}
 		});
 		btnCopiaDeSeguridad.setBounds(107, 313, 223, 53);
@@ -833,116 +979,6 @@ public class menu {
 		lblCorrecto.setVisible(false);
 		lblError.setVisible(false);
 		
-		//////////////////////////////////////////////////////
-		
-		modly = new JPanel();
-		modly.setBounds(0, 0, 778, 538);
-		contenido.add(modly);
-		modly.setBackground(new Color(250,250,250));
-		modly.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("Titulo:");
-		lblTitulo.setBounds(25, 27, 88, 25);
-		modly.add(lblTitulo);
-		
-		JLabel lblAutor = new JLabel("Autor:");
-		lblAutor.setBounds(25, 63, 65, 25);
-		modly.add(lblAutor);
-		
-		modti = new JTextField();
-		modti.setBounds(123, 29, 538, 23);
-		modly.add(modti);
-		modti.setColumns(10);
-		
-		modau = new JTextField();
-		modau.setBounds(123, 65, 538, 25);
-		modly.add(modau);
-		modau.setColumns(10);
-		
-		JLabel lblGenero = new JLabel("Genero:");
-		lblGenero.setBounds(25, 99, 65, 25);
-		modly.add(lblGenero);
-		
-		modge = new JTextField();
-		modge.setText("");
-		modge.setBounds(123, 101, 538, 25);
-		modly.add(modge);
-		modge.setColumns(10);
-		
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(25, 135, 65, 25);
-		modly.add(lblPrecio);
-		
-		modpre = new JTextField();
-		modpre.setText("");
-		modpre.setColumns(10);
-		modpre.setBounds(123, 137, 538, 25);
-		modly.add(modpre);
-		
-		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
-		lblNewLabel_1.setBounds(25, 171, 88, 25);
-		modly.add(lblNewLabel_1);
-		
-		modsin = new JTextField();
-		modsin.setText("");
-		modsin.setBounds(123, 173, 538, 140);
-		modly.add(modsin);
-		modsin.setColumns(10);
-		
-		dale = new JButton("Enviar");
-		dale.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				exito.setVisible(false);
-				fallo.setVisible(false);
-				libros ly=new libros(modti.getText(),modsin.getText(),modge.getText(),Double.parseDouble(modpre.getText()),modau.getText());
-				Base.abrir();
-			if(solomod){
-				if(bbdd.librosbbdd.modly(ly, idAdmin, idlibro, desc.getText(), Base)){
-					exito.setVisible(true);
-				}else{
-					fallo.setVisible(true);
-				}
-				
-				
-				
-				
-			}
-				
-				
-			}
-		});
-		dale.setBounds(357, 492, 89, 23);
-		modly.add(dale);
-		
-		moddesc = new JTextArea();
-		moddesc.setBounds(123, 331, 538, 140);
-		modly.add(moddesc);
-		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(25, 331, 80, 25);
-		modly.add(lblDescripcion);
-		
-		idly = new JLabel("Id: ");
-		idly.setBounds(696, 27, 57, 41);
-		modly.add(idly);
-		
-		exito = new JLabel("\u00C9xito");
-		exito.setForeground(Color.GREEN);
-		exito.setBounds(469, 491, 134, 25);
-		modly.add(exito);
-		
-		fallo = new JLabel("Fall\u00F3");
-		fallo.setForeground(Color.RED);
-		fallo.setBounds(469, 496, 88, 14);
-		modly.add(fallo);
-		
-		benef = new JLabel("Beneficios");
-		benef.setBounds(21, 496, 252, 19);
-		modly.add(benef);
-		modly.setVisible(false);
-		exito.setVisible(false);
-		fallo.setVisible(false);
-		
 		ver = new JPanel();
 		ver.setBackground(new Color(250, 250, 250));
 		ver.setBounds(0, 0, 778, 538);
@@ -975,7 +1011,7 @@ public class menu {
 				}
 				else{
 					error.setVisible(false);
-					//if(idUsuario>0 || solover==true){
+					if(idUsuario>0 || solover==true){
 					libro.setVisible(true);
 					
 				
@@ -1005,9 +1041,10 @@ public class menu {
 					
 					comentarios.setText(bbdd.librosbbdd.comly(idlibro, Base));
 					Base.cerrar();
-					/*}else{
-					 * if(solomod){
-					 * Base.abrir();
+					}
+					else{
+					  if(solomod){
+					  Base.abrir();
 					libros ly=bbdd.librosbbdd.libroly(idlibro,Base);
 					Base.cerrar();
 					modti.setText(null);
@@ -1015,14 +1052,14 @@ public class menu {
 					modge.setText(null);
 					modsin.setText(null);
 					modpre.setText(null);
-					txtcomentarios.setText(null);
+					
 					
 					modti.setText(ly.getTitulo());
 					modau.setText(ly.getAutor());
 					modge.setText(ly.getGenero());
 					modsin.setText("\n"+ly.getSinopsis());
 					modpre.setText(String.valueOf(ly.getPrecio())+"€");
-					iddel.setText("Id: "+idlibro);
+					idly.setText("Id: "+idlibro);
 						modly.setVisible(true);
 						benef.setText("Recaudado: "+ly.getBeneficios()+"€");
 						
@@ -1034,7 +1071,7 @@ public class menu {
 						
 						
 						
-					}*/
+					}
 					ver.setVisible(false);
 				}
 				

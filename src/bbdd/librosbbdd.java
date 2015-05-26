@@ -19,30 +19,31 @@ public class librosbbdd {
 	public static boolean añadirLibro( libros ly,int idadmin, String desc, basedatos bd){
 		int idLibro=0;
 		String cadena2="Select titulo from libro where titulo='"+ly.getTitulo()+"'";
-		String cadena="INSERT INTO libro VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"',"+ ly.getAutor() +"'," +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
+		String cadena="INSERT INTO libro VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"','"+ ly.getAutor() +"','" +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
 		String cadena4="Select idLibro from libros where titulo='"+ly.getTitulo()+"'";
 		String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
-		int ver=s.executeUpdate(cadena2);
-		if(ver<1){
-		
-		s.executeUpdate(cadena);
-		reg=s.executeQuery(cadena4);
-		if(reg.next())
-			idLibro=Integer.parseInt(reg.getString(1));
-		s.executeUpdate(cadena3);
+		reg=s.executeQuery(cadena2);
+		if(reg.next()){
+			s.close();
+			return false;
 		
 		}
 		else{
-			s.close();
-			return false;
+			s.executeUpdate(cadena);
+			reg=s.executeQuery(cadena4);
+			if(reg.next()){
+				idLibro=Integer.parseInt(reg.getString("idLibro"));
+			s.executeUpdate(cadena3);
+			}
 		}
 		s.close();
 		
 		}
 		catch ( SQLException e){
+			System.out.println(e);
 			return false;
 		}
 		return true;
@@ -63,6 +64,7 @@ public class librosbbdd {
 		s.close();
 		}
 		catch ( SQLException e){
+			System.out.println(e);
 			return false;
 		}
 		return true;
@@ -86,6 +88,7 @@ public static int buscarly( String nom, basedatos bd){
 		s.close();
 		}
 		catch ( SQLException e){
+			System.out.println(e);
 			return 0;
 		}
 		
@@ -141,12 +144,12 @@ public static String comly( int id, basedatos bd){
 	c=bd.getConexion();
 	s=c.createStatement();
 	
-	s.executeQuery(cadena);
-	s.close();
+	reg=s.executeQuery(cadena);
+	
 	while( reg.next()){
 		comentarios=comentarios+reg.getString("nik")+"\n";
 		
-		comentarios=comentarios+reg.getString("texto")+"\n_______________________________________________________________________\n";
+		comentarios=comentarios+reg.getString("texto")+"\n____________________________________________________________________________\n";
 		
 	}
 
@@ -242,7 +245,7 @@ public static String valoradosly( basedatos bd){
 	return ver;
 }
 public static String compradosly( basedatos bd){
-	String cadena="Select c.idLibro, titulo, autor, genero count(*) from compra c, libro l where c.idLibro=l.idLibro group by c.idLibro, titulo, autor, genero order by count(*) desc ";
+	String cadena="Select c.idLibro, titulo, autor, genero, count(*) from compra c, libro l where c.idLibro=l.idLibro group by c.idLibro, titulo, autor, genero order by count(*) ";
 	String ver="";
 	
 
@@ -303,7 +306,7 @@ public static String usuly(int id, basedatos bd){
 }
 public static boolean modly(libros ly, int idadmin, int idLibro, String desc, basedatos bd){
 
-String cadena="update libro set titulo='" +ly.getTitulo() + "', sinopsis='" +ly.getSinopsis()+"', autor="+ ly.getAutor() +"', genero=" +ly.getGenero()+"', precio=" +ly.getPrecio()+" where"
+String cadena="update libro set titulo='" +ly.getTitulo() + "', sinopsis='" +ly.getSinopsis()+"', autor='"+ ly.getAutor() +"', genero='" +ly.getGenero()+"', precio=" +ly.getPrecio()+" where"
 		+ " idLibro="+idLibro; 	
 
 String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";

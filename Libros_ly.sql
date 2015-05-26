@@ -37,7 +37,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `administrador` VALUES (1,'2015-05-10 20:00:00','a1234567.',NULL),(2,'2015-05-10 20:00:00','a1234567.',NULL),(3,'2015-05-10 20:00:00','a1234567.',NULL),(4,'2015-05-10 20:00:00','a1234567.',NULL);
+INSERT INTO `administrador` VALUES (1,'2015-05-10 20:00:00','','prueba'),(2,'2015-05-10 20:00:00','a1234567.','pedro@loes.com'),(3,'2015-05-10 20:00:00','a1234567.','pringao@gmail.c'),(4,'2015-05-10 20:00:00','a1234567.','hola@gmail.com');
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `cliente` (
   `nik` varchar(20) DEFAULT NULL,
   `premium` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-11 20:00:00','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-11 20:00:00','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-11 20:00:00','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-16 20:00:00','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-16 20:00:00','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-16 20:00:00','Pocoio',1),(7,'a1234567.','aaa@gmail.com',NULL,'qye',0);
+INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-11 20:00:00','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-11 20:00:00','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-11 20:00:00','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-16 20:00:00','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-16 20:00:00','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-16 20:00:00','Pocoio',1),(8,'a1234567.','a@gmailsss.com','2015-05-26 07:17:18','qwerty',0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +138,7 @@ DROP TABLE IF EXISTS `libro`;
 CREATE TABLE `libro` (
   `idLibro` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(50) DEFAULT NULL,
-  `Sinopsis` varchar(500) DEFAULT NULL,
+  `Sinopsis` varchar(1000) DEFAULT NULL,
   `Autor` varchar(45) DEFAULT NULL,
   `genero` varchar(50) DEFAULT NULL,
   `precio` decimal(10,2) DEFAULT NULL,
@@ -194,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-26 11:15:50
+-- Dump completed on 2015-05-26 14:53:06
