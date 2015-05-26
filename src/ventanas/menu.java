@@ -411,6 +411,115 @@ public class menu {
 		contenido.setBounds(-1, 62, 788, 538);
 		panel.add(contenido);
 		contenido.setLayout(null);
+		
+		
+		
+		
+		libro = new JPanel();
+		libro.setBackground(new Color(250, 250, 250));
+		libro.setBounds(0, 0, 778, 538);
+		contenido.add(libro);
+		libro.setLayout(null);
+		
+		JButton comprar = new JButton("\u00A1Comprar!");
+		comprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tarjeta compra=new tarjeta();
+				compra.setVisible(true);
+				
+			}
+		});
+		comprar.setBounds(47, 280, 105, 30);
+		libro.add(comprar);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		panel_1.setBounds(200, 26, 1, 422);
+		libro.add(panel_1);
+		
+		puntuacion = new JLabel("7.8");
+		puntuacion.setForeground(new Color(128, 128, 128));
+		puntuacion.setFont(new Font("Tahoma", Font.BOLD, 40));
+		puntuacion.setBounds(651, 42, 69, 60);
+		libro.add(puntuacion);
+		
+		titulo = new JLabel("La guerra de los cielos: volumen 1");
+		titulo.setForeground(new Color(210, 105, 30));
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		titulo.setBounds(233, 41, 423, 36);
+		libro.add(titulo);
+		
+		autor = new JLabel("New label");
+		autor.setForeground(new Color(128, 128, 128));
+		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		autor.setBounds(247, 73, 396, 30);
+		libro.add(autor);
+		
+		sinopsis = new JTextPane();
+		sinopsis.setEditable(false);
+		sinopsis.setBackground(new Color(250, 250, 250));
+		sinopsis.setText("Sinopsis");
+		sinopsis.setBounds(222, 152, 515, 147);
+		libro.add(sinopsis);
+		
+		genero = new JLabel("Ficcci\u00F3n");
+		genero.setForeground(new Color(128, 128, 128));
+		genero.setBounds(247, 98, 358, 24);
+		libro.add(genero);
+		
+		
+		
+		JButton btnComentar = new JButton("Comentar");
+		btnComentar.setBounds(417, 479, 120, 23);
+		libro.add(btnComentar);
+		
+		JButton puntua = new JButton("Punt\u00FAa");
+		puntua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				puntuar venga=new puntuar();
+				venga.initialize(idlibro,idUsuario,Base);
+				
+				
+			}
+		});
+		puntua.setBounds(644, 113, 83, 23);
+		libro.add(puntua);
+		
+		precio = new JLabel("e");
+		precio.setForeground(new Color(205, 133, 63));
+		precio.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		precio.setBounds(77, 224, 94, 30);
+		libro.add(precio);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				libro.setVisible(false);
+				
+				ver.setVisible(true);
+				
+				
+			}
+		});
+		btnVolver.setBounds(66, 479, 83, 23);
+		libro.add(btnVolver);
+		
+		lblPortada = new JLabel("Sin imagen");
+		lblPortada.setBounds(26, 26, 153, 211);
+		libro.add(lblPortada);
+		
+		comentariosscroll = new JScrollPane();
+		comentariosscroll.setViewportBorder(new LineBorder(Color.LIGHT_GRAY));
+		comentariosscroll.setBounds(222, 320, 515, 138);
+		libro.add(comentariosscroll);
+		
+		comentarios = new JTextArea();
+		comentariosscroll.setViewportView(comentarios);
+		comentarios.setEditable(false);
+		comentarios.setBackground(new Color(245, 245, 245));
+		comentarios.setText("comentarios");
+		libro.setVisible(false);
 		////////////////////////////////////////////////////luis
 		
 		Registrar = new JPanel();
@@ -591,108 +700,6 @@ public class menu {
 		lblLong.setVisible(false);
 		lblCorrecto.setVisible(false);
 		lblError.setVisible(false);
-		
-		
-		
-		
-		libro = new JPanel();
-		libro.setBackground(new Color(250, 250, 250));
-		libro.setBounds(0, 0, 778, 538);
-		contenido.add(libro);
-		libro.setLayout(null);
-		
-		JButton comprar = new JButton("\u00A1Comprar!");
-		comprar.setBounds(47, 280, 105, 30);
-		libro.add(comprar);
-		
-		panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panel_1.setBounds(200, 26, 1, 422);
-		libro.add(panel_1);
-		
-		puntuacion = new JLabel("7.8");
-		puntuacion.setForeground(new Color(128, 128, 128));
-		puntuacion.setFont(new Font("Tahoma", Font.BOLD, 40));
-		puntuacion.setBounds(651, 42, 69, 60);
-		libro.add(puntuacion);
-		
-		titulo = new JLabel("La guerra de los cielos: volumen 1");
-		titulo.setForeground(new Color(210, 105, 30));
-		titulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		titulo.setBounds(233, 41, 423, 36);
-		libro.add(titulo);
-		
-		autor = new JLabel("New label");
-		autor.setForeground(new Color(128, 128, 128));
-		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		autor.setBounds(247, 73, 396, 30);
-		libro.add(autor);
-		
-		sinopsis = new JTextPane();
-		sinopsis.setEditable(false);
-		sinopsis.setBackground(new Color(250, 250, 250));
-		sinopsis.setText("Sinopsis");
-		sinopsis.setBounds(222, 152, 515, 147);
-		libro.add(sinopsis);
-		
-		genero = new JLabel("Ficcci\u00F3n");
-		genero.setForeground(new Color(128, 128, 128));
-		genero.setBounds(247, 98, 358, 24);
-		libro.add(genero);
-		
-		
-		
-		JButton btnComentar = new JButton("Comentar");
-		btnComentar.setBounds(417, 479, 120, 23);
-		libro.add(btnComentar);
-		
-		JButton puntua = new JButton("Punt\u00FAa");
-		puntua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				puntuar venga=new puntuar();
-				venga.initialize(idlibro,idUsuario,Base);
-				
-				
-			}
-		});
-		puntua.setBounds(644, 113, 83, 23);
-		libro.add(puntua);
-		
-		precio = new JLabel("e");
-		precio.setForeground(new Color(205, 133, 63));
-		precio.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		precio.setBounds(77, 224, 94, 30);
-		libro.add(precio);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				libro.setVisible(false);
-				
-				ver.setVisible(true);
-				
-				
-			}
-		});
-		btnVolver.setBounds(66, 479, 83, 23);
-		libro.add(btnVolver);
-		
-		lblPortada = new JLabel("Sin imagen");
-		lblPortada.setBounds(26, 26, 153, 211);
-		libro.add(lblPortada);
-		
-		comentariosscroll = new JScrollPane();
-		comentariosscroll.setViewportBorder(new LineBorder(Color.LIGHT_GRAY));
-		comentariosscroll.setBounds(222, 320, 515, 138);
-		libro.add(comentariosscroll);
-		
-		comentarios = new JTextArea();
-		comentariosscroll.setViewportView(comentarios);
-		comentarios.setEditable(false);
-		comentarios.setBackground(new Color(245, 245, 245));
-		comentarios.setText("comentarios");
-		libro.setVisible(false);
 		
 		//////////////////////////////////////////////////////
 		

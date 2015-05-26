@@ -5,14 +5,19 @@ package ventanas;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
  
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
  
+import ventanas.tarjeta;
+import libros.tarjetaLY;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import libros.tarjetaLY;
  
 public class CompradoExito extends JFrame {
  
@@ -38,6 +43,7 @@ public class CompradoExito extends JFrame {
      * Create the frame.
      */
     public CompradoExito() {
+    	String nombre=tarjeta.class.getName();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 533, 433);
         contentPane = new JPanel();
@@ -49,31 +55,31 @@ public class CompradoExito extends JFrame {
         lblFactura.setBounds(50, 11, 46, 14);
         contentPane.add(lblFactura);
          
-        JLabel lblNombre = new JLabel("Nombre");
+        JLabel lblNombre = new JLabel("Nombre: "+nombre);
         lblNombre.setBounds(50, 50, 46, 14);
         contentPane.add(lblNombre);
          
-        JLabel lblApellidos = new JLabel("Apellidos");
+        JLabel lblApellidos = new JLabel("Apellidos: ");
         lblApellidos.setBounds(50, 75, 46, 14);
         contentPane.add(lblApellidos);
          
-        JLabel lblDni = new JLabel("Dni");
+        JLabel lblDni = new JLabel("Dni: ");
         lblDni.setBounds(50, 100, 46, 14);
         contentPane.add(lblDni);
          
-        JLabel lblNumeroDeTarjeta = new JLabel("Numero de Tarjeta");
+        JLabel lblNumeroDeTarjeta = new JLabel("Numero de Tarjeta: ");
         lblNumeroDeTarjeta.setBounds(50, 132, 108, 14);
         contentPane.add(lblNumeroDeTarjeta);
          
-        JLabel lblHora = new JLabel("Hora");
+        JLabel lblHora = new JLabel("Hora: ");
         lblHora.setBounds(50, 158, 46, 14);
         contentPane.add(lblHora);
          
-        JLabel lblPrecio = new JLabel("Precio");
+        JLabel lblPrecio = new JLabel("Precio: ");
         lblPrecio.setBounds(50, 183, 46, 14);
         contentPane.add(lblPrecio);
          
-        JLabel lblDescuento = new JLabel("Descuento");
+        JLabel lblDescuento = new JLabel("Descuento: ");
         lblDescuento.setBounds(50, 208, 67, 14);
         contentPane.add(lblDescuento);
          
