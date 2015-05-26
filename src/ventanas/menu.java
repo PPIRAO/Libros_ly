@@ -411,6 +411,186 @@ public class menu {
 		contenido.setBounds(-1, 62, 788, 538);
 		panel.add(contenido);
 		contenido.setLayout(null);
+		////////////////////////////////////////////////////luis
+		
+		Registrar = new JPanel();
+		Registrar.setBackground(new Color(250,250,250));
+		Registrar.setBounds(0, 0, 778, 538);
+		contenido.add(Registrar);
+		Registrar.setVisible(false);
+		Registrar.setLayout(null);
+		
+		lblNick = new JLabel("Nick");
+		lblNick.setForeground(new Color(105, 105, 105));
+		lblNick.setBounds(146, 111, 46, 25);
+		Registrar.add(lblNick);
+		
+		txtFldNick = new JTextField();
+		txtFldNick.setBounds(252, 113, 180, 20);
+		Registrar.add(txtFldNick);
+		txtFldNick.setColumns(10);
+		
+		lblPass = new JLabel("Contrase\u00F1a");
+		lblPass.setForeground(new Color(105, 105, 105));
+		lblPass.setBounds(146, 162, 68, 14);
+		Registrar.add(lblPass);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(252, 159, 180, 20);
+		Registrar.add(passwordField_1);
+		
+		lblPass2 = new JLabel("Repite contrase\u00F1a");
+		lblPass2.setForeground(new Color(105, 105, 105));
+		lblPass2.setBounds(146, 210, 88, 14);
+		Registrar.add(lblPass2);
+		
+		passwordField2 = new JPasswordField();
+		passwordField2.setBounds(252, 207, 180, 20);
+		Registrar.add(passwordField2);
+		
+		lblMail = new JLabel("Mail");
+		lblMail.setForeground(new Color(105, 105, 105));
+		lblMail.setBounds(146, 256, 46, 14);
+		Registrar.add(lblMail);
+		
+		txtMail = new JTextField();
+		txtMail.setBounds(252, 253, 180, 20);
+		Registrar.add(txtMail);
+		txtMail.setColumns(10);
+		
+		btnRegistrarse = new JButton("REGISTRARSE");
+		btnRegistrarse.addActionListener(new ActionListener() {//BOTON DE REGISTRAR
+			public void actionPerformed(ActionEvent e) {
+				String nick=txtFldNick.getText();
+				String psswrd=passwordField_1.getText();
+				String psswrd2=passwordField2.getText();
+				String mail2=txtMail.getText();	
+				Usuario usu=new Usuario(nick,psswrd,mail2);
+				Base.abrir();
+				int id=bbdd.BBDDUsuario.consultarUsuario(usu, Base);
+				Base.cerrar();
+				if (id>=1){
+					lblExiste.setVisible(true);
+					lblDiferentes.setVisible(false);
+					mailIncorrecto.setVisible(false);
+					lblValido.setVisible(false);
+					lblLong.setVisible(false);
+					lblCorrecto.setVisible(false);
+					lblError.setVisible(false);
+				}
+				else{
+					if(!psswrd.equals(psswrd2)){
+						lblExiste.setVisible(false);
+						lblDiferentes.setVisible(true);
+						mailIncorrecto.setVisible(false);
+						lblValido.setVisible(false);
+						lblLong.setVisible(false);
+						lblCorrecto.setVisible(false);
+						lblError.setVisible(false);
+					}
+					else{
+						int respuesta=validacion(psswrd);
+						switch(respuesta){
+						case 0:
+							lblExiste.setVisible(false);
+							lblDiferentes.setVisible(false);
+							mailIncorrecto.setVisible(false);
+							lblValido.setVisible(false);
+							lblLong.setVisible(true);
+							lblCorrecto.setVisible(false);
+							lblError.setVisible(false);
+							break;
+						case -1:
+							lblExiste.setVisible(false);
+							lblDiferentes.setVisible(false);
+							mailIncorrecto.setVisible(false);
+							lblValido.setVisible(false);
+							lblLong.setVisible(false);
+							lblCorrecto.setVisible(false);
+							lblError.setVisible(true);
+							break;
+						case 1:
+							boolean emailRep=validarEmail(mail2);
+							if(emailRep==false){
+								lblExiste.setVisible(false);
+								lblDiferentes.setVisible(false);
+								mailIncorrecto.setVisible(true);
+								lblValido.setVisible(false);
+								lblLong.setVisible(false);
+								lblCorrecto.setVisible(false);
+								lblError.setVisible(false);
+							}
+							else{
+								Base.abrir();
+								bbdd.BBDDUsuario.nuevoUsuario(usu, Base);
+								Base.cerrar();
+								lblExiste.setVisible(false);
+								lblDiferentes.setVisible(false);
+								mailIncorrecto.setVisible(false);
+								lblValido.setVisible(true);
+								lblLong.setVisible(false);
+								lblCorrecto.setVisible(false);
+								lblError.setVisible(false);
+								break;
+							}
+						}
+						
+						
+					}
+					
+				}
+			}
+		});
+		
+		btnRegistrarse.setBounds(146, 409, 145, 39);
+		Registrar.add(btnRegistrarse);
+		
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setBounds(521, 409, 132, 39);
+		Registrar.add(btnCancelar);
+		
+		lblValido = new JLabel("V\u00C1LIDO");
+		lblValido.setForeground(Color.GREEN);
+		lblValido.setBounds(386, 429, 46, 14);
+		Registrar.add(lblValido);
+		
+		lblError = new JLabel("La contrase\u00F1a debe tener al menos 3 de los 4 tipos(caracter,minuscula,mayuscula o numero)");
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(146, 349, 507, 14);
+		Registrar.add(lblError);
+		
+		lblExiste = new JLabel("EL nick o el mail existen");
+		lblExiste.setForeground(Color.RED);
+		lblExiste.setBounds(261, 324, 267, 14);
+		Registrar.add(lblExiste);
+		
+		lblLong = new JLabel("LONGITUD");
+		lblLong.setForeground(Color.RED);
+		lblLong.setBounds(521, 159, 62, 14);
+		Registrar.add(lblLong);
+		
+		lblCorrecto = new JLabel("CORRECTO");
+		lblCorrecto.setForeground(Color.GREEN);
+		lblCorrecto.setBounds(515, 162, 68, 14);
+		Registrar.add(lblCorrecto);
+		
+		lblDiferentes = new JLabel("DIFERENTES");
+		lblDiferentes.setForeground(Color.RED);
+		lblDiferentes.setBounds(521, 207, 62, 14);
+		Registrar.add(lblDiferentes);
+		
+		mailIncorrecto = new JLabel("INCORRECTO");
+		mailIncorrecto.setForeground(Color.RED);
+		mailIncorrecto.setBounds(521, 256, 68, 14);
+		Registrar.add(mailIncorrecto);
+		
+		lblExiste.setVisible(false);
+		lblDiferentes.setVisible(false);
+		mailIncorrecto.setVisible(false);
+		lblValido.setVisible(false);
+		lblLong.setVisible(false);
+		lblCorrecto.setVisible(false);
+		lblError.setVisible(false);
 		
 		
 		
@@ -700,186 +880,6 @@ public class menu {
 		});
 		verad.setBounds(107, 408, 223, 53);
 		menu2.add(verad);
-		////////////////////////////////////////////////////luis
-		
-		Registrar = new JPanel();
-		Registrar.setBackground(new Color(250,250,250));
-		Registrar.setBounds(0, 0, 778, 538);
-		contenido.add(Registrar);
-		Registrar.setVisible(false);
-		Registrar.setLayout(null);
-		
-		lblNick = new JLabel("Nick");
-		lblNick.setForeground(new Color(105, 105, 105));
-		lblNick.setBounds(146, 111, 46, 25);
-		Registrar.add(lblNick);
-		
-		txtFldNick = new JTextField();
-		txtFldNick.setBounds(252, 113, 180, 20);
-		Registrar.add(txtFldNick);
-		txtFldNick.setColumns(10);
-		
-		lblPass = new JLabel("Contrase\u00F1a");
-		lblPass.setForeground(new Color(105, 105, 105));
-		lblPass.setBounds(146, 162, 68, 14);
-		Registrar.add(lblPass);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(252, 159, 180, 20);
-		Registrar.add(passwordField_1);
-		
-		lblPass2 = new JLabel("Repite contrase\u00F1a");
-		lblPass2.setForeground(new Color(105, 105, 105));
-		lblPass2.setBounds(146, 210, 88, 14);
-		Registrar.add(lblPass2);
-		
-		passwordField2 = new JPasswordField();
-		passwordField2.setBounds(252, 207, 180, 20);
-		Registrar.add(passwordField2);
-		
-		lblMail = new JLabel("Mail");
-		lblMail.setForeground(new Color(105, 105, 105));
-		lblMail.setBounds(146, 256, 46, 14);
-		Registrar.add(lblMail);
-		
-		txtMail = new JTextField();
-		txtMail.setBounds(252, 253, 180, 20);
-		Registrar.add(txtMail);
-		txtMail.setColumns(10);
-		
-		btnRegistrarse = new JButton("REGISTRARSE");
-				btnRegistrarse.addActionListener(new ActionListener() {//BOTON DE REGISTRAR
-					public void actionPerformed(ActionEvent e) {
-						String nick=txtFldNick.getText();
-						String psswrd=passwordField.getText();
-						String psswrd2=passwordField2.getText();
-						String mail2=txtMail.getText();	
-						Usuario usu=new Usuario(nick,psswrd,mail2);
-						Base.abrir();
-						int id=bbdd.BBDDUsuario.consultarUsuario(usu, Base);
-						Base.cerrar();
-						if (id>=1){
-							lblExiste.setVisible(true);
-							lblDiferentes.setVisible(false);
-							mailIncorrecto.setVisible(false);
-							lblValido.setVisible(false);
-							lblLong.setVisible(false);
-							lblCorrecto.setVisible(false);
-							lblError.setVisible(false);
-						}
-						else{
-							if(!psswrd.equals(psswrd2)){
-								lblExiste.setVisible(false);
-								lblDiferentes.setVisible(true);
-								mailIncorrecto.setVisible(false);
-								lblValido.setVisible(false);
-								lblLong.setVisible(false);
-								lblCorrecto.setVisible(false);
-								lblError.setVisible(false);
-							}
-							else{
-								int respuesta=validacion(psswrd);
-								switch(respuesta){
-								case 0:
-									lblExiste.setVisible(false);
-									lblDiferentes.setVisible(false);
-									mailIncorrecto.setVisible(false);
-									lblValido.setVisible(false);
-									lblLong.setVisible(true);
-									lblCorrecto.setVisible(false);
-									lblError.setVisible(false);
-									break;
-								case -1:
-									lblExiste.setVisible(false);
-									lblDiferentes.setVisible(false);
-									mailIncorrecto.setVisible(false);
-									lblValido.setVisible(false);
-									lblLong.setVisible(false);
-									lblCorrecto.setVisible(false);
-									lblError.setVisible(true);
-									break;
-								case 1:
-									boolean emailRep=validarEmail(mail2);
-									if(emailRep==false){
-										lblExiste.setVisible(false);
-										lblDiferentes.setVisible(false);
-										mailIncorrecto.setVisible(true);
-										lblValido.setVisible(false);
-										lblLong.setVisible(false);
-										lblCorrecto.setVisible(false);
-										lblError.setVisible(false);
-									}
-									else{
-										Base.abrir();
-										bbdd.BBDDUsuario.nuevoUsuario(usu, Base);
-										Base.cerrar();
-										lblExiste.setVisible(false);
-										lblDiferentes.setVisible(false);
-										mailIncorrecto.setVisible(false);
-										lblValido.setVisible(true);
-										lblLong.setVisible(false);
-										lblCorrecto.setVisible(false);
-										lblError.setVisible(false);
-										break;
-									}
-								}
-								
-								
-							}
-							
-						}
-					}
-				});
-			
-		btnRegistrarse.setBounds(146, 409, 145, 39);
-		Registrar.add(btnRegistrarse);
-		
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setBounds(521, 409, 132, 39);
-		Registrar.add(btnCancelar);
-		
-		lblValido = new JLabel("V\u00C1LIDO");
-		lblValido.setForeground(Color.GREEN);
-		lblValido.setBounds(386, 429, 46, 14);
-		Registrar.add(lblValido);
-		
-		lblError = new JLabel("La contrase\u00F1a debe tener al menos 3 de los 4 tipos(caracter,minuscula,mayuscula o numero)");
-		lblError.setForeground(Color.RED);
-		lblError.setBounds(146, 349, 507, 14);
-		Registrar.add(lblError);
-		
-		lblExiste = new JLabel("EL nick o el mail existen");
-		lblExiste.setForeground(Color.RED);
-		lblExiste.setBounds(261, 324, 267, 14);
-		Registrar.add(lblExiste);
-		
-		lblLong = new JLabel("LONGITUD");
-		lblLong.setForeground(Color.RED);
-		lblLong.setBounds(521, 159, 62, 14);
-		Registrar.add(lblLong);
-		
-		lblCorrecto = new JLabel("CORRECTO");
-		lblCorrecto.setForeground(Color.GREEN);
-		lblCorrecto.setBounds(515, 162, 68, 14);
-		Registrar.add(lblCorrecto);
-		
-		lblDiferentes = new JLabel("DIFERENTES");
-		lblDiferentes.setForeground(Color.RED);
-		lblDiferentes.setBounds(521, 207, 62, 14);
-		Registrar.add(lblDiferentes);
-		
-		mailIncorrecto = new JLabel("INCORRECTO");
-		mailIncorrecto.setForeground(Color.RED);
-		mailIncorrecto.setBounds(521, 256, 68, 14);
-		Registrar.add(mailIncorrecto);
-		
-		lblExiste.setVisible(false);
-		lblDiferentes.setVisible(false);
-		mailIncorrecto.setVisible(false);
-		lblValido.setVisible(false);
-		lblLong.setVisible(false);
-		lblCorrecto.setVisible(false);
-		lblError.setVisible(false);
 		
 		ver = new JPanel();
 		ver.setBackground(new Color(250, 250, 250));
