@@ -6,12 +6,10 @@ public class Comentarios {
 	private int idLibro;
 	private int idCliente;
 	private String texto;
-	private Date fecha;
 	
-	public Comentarios(Date fecha, String texto, int idLibro, int idCliente) {
+	public Comentarios(String texto, int idLibro, int idCliente) {
 		this.setIdLibro(idLibro);
 		this.setTexto(texto);
-		this.setFecha(fecha);
 		this.setIdCliente(idCliente);
 
 }
@@ -40,13 +38,7 @@ public class Comentarios {
 		this.texto = texto;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
+	
 
 
 }

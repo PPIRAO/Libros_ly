@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import ventanas.menu;//prueba
 import usuario.Usuario;
 
 
@@ -99,5 +99,33 @@ public class BBDDUsuario {
 			
 		}
 	}
+	
+	public static boolean CambiarContra(Usuario usu,int idUsuario,basedatos bd){
+		
+		String cadena1="SELECT idCliente FROM cliente WHERE Contraseña='" +usu.getOldpsswrd()+"' and idCliente="+idUsuario;
+		String cadena2="UPDATE cliente SET Contraseña='"+usu.getNewpsswrd()+"' where idCliente ="+idUsuario;
+		try{
+			c=bd.getConexion();	
+			s=c.createStatement();
+			registros=s.executeQuery(cadena1);
+			if(registros.next()){	
+				s=c.createStatement();
+				s.executeUpdate(cadena2);
+				s.close();
+			}
+			else{
+				s.close();
+				return false;
+			}
+		}catch ( SQLException e){
+			System.out.println(e);
+				return false;
+			}
+		return true;
+	}
+			
+		
 
-}
+	}
+
+

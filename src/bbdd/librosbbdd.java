@@ -154,9 +154,9 @@ public static String comly( int id, basedatos bd){
 	reg=s.executeQuery(cadena);
 	
 	while( reg.next()){
-		comentarios=comentarios+reg.getString("nik")+"\n";
+		comentarios=comentarios+" "+reg.getString("nik")+"\n";
 		
-		comentarios=comentarios+reg.getString("texto")+"\n____________________________________________________________________________\n";
+		comentarios=comentarios+" "+reg.getString("texto")+"\n____________________________________________________________________________\n";
 		
 	}
 
@@ -202,10 +202,10 @@ public static String todosly( basedatos bd){
 	reg=s.executeQuery(cadena);
 	
 	while( reg.next()){
-		ver=ver+reg.getString("titulo")+"\n";
-		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		ver=ver+" "+reg.getString("titulo")+"\n";
+		ver=ver+" Autor: "+reg.getString("autor")+"\n";
 		
-		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		ver=ver+" Genero: "+reg.getString("genero")+"\n\n";
 		
 		
 		
@@ -232,11 +232,11 @@ public static String valoradosly( basedatos bd){
 		for(int c=0;c<10;c++){
 			if( reg.next()){
 				
-		ver=ver+reg.getString("titulo")+"\n";
-		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		ver=ver+" "+reg.getString("titulo")+"\n";
+		ver=ver+" Autor: "+reg.getString("autor")+"\n";
 		
-		ver=ver+"Genero: "+reg.getString("genero")+"\n";
-		ver=ver+"Puntuación: "+reg.getString("puntuacion")+"\n\n";
+		ver=ver+" Genero: "+reg.getString("genero")+"\n";
+		ver=ver+" Puntuación: "+reg.getString("puntuacion")+"\n\n";
 		}
 		
 		
@@ -263,10 +263,10 @@ public static String compradosly( basedatos bd){
 	
 		for(int c=0;c<10;c++){
 			if( reg.next()){
-		ver=ver+reg.getString("titulo")+"\n";
-		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+		ver=ver+" "+reg.getString("titulo")+"\n";
+		ver=ver+" Autor: "+reg.getString("autor")+"\n";
 		
-		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		ver=ver+" Genero: "+reg.getString("genero")+"\n\n";
 		}
 		
 		
@@ -281,7 +281,7 @@ public static String compradosly( basedatos bd){
 	return ver;
 }
 public static String usuly(int id, basedatos bd){
-	String cadena="Select  titulo, autor, genero  from libro where idLibro=(select idLibro from compra where idUsuario="+id+")";
+	String cadena="Select  titulo, autor, genero  from libro l, compra c where l.idLibro=c.idlibro and idusuario="+id;
 	String ver="";
 	
 
@@ -290,17 +290,15 @@ public static String usuly(int id, basedatos bd){
 	s=c.createStatement();
 	reg=s.executeQuery(cadena);
 	
-	
-		for(int c=0;c<10;c++){
-			if( reg.next()){
-		ver=ver+reg.getString("titulo")+"\n";
-		ver=ver+"Autor: "+reg.getString("autor")+"\n";
+			while( reg.next()){
+		ver=ver+" "+reg.getString("titulo")+"\n";
+		ver=ver+" Autor: "+reg.getString("autor")+"\n";
 		
-		ver=ver+"Genero: "+reg.getString("genero")+"\n\n";
+		ver=ver+" Genero: "+reg.getString("genero")+"\n\n";
 		}
 		
 		
-	}
+	
 	
 	s.close();
 	
@@ -337,4 +335,51 @@ return true;
 }
 
 
-}
+	public static boolean comprobarcompra(int idLibro, int idUsuario, basedatos bd){
+		//Este metodo nos sirve para verficar que un usuario ha comprado el libro para no poder comprarlo, descargarlo o valorarlo si lo ha comprado en los ultimos casos
+	
+	String cadena="Select * from compra where idlibro="+idLibro+" and idusuario="+idUsuario;
+	
+	
+	try{
+	c=bd.getConexion();
+	s=c.createStatement();
+	
+	reg=s.executeQuery(cadena);
+	if(reg.next()){
+		s.close();
+		return true;
+	}
+	else{ 
+		s.close();
+		return false;
+	}
+	
+	
+	
+	}
+	catch ( SQLException e){
+		System.out.println(e);
+		return false;
+	}
+	
+	}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

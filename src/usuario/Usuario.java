@@ -6,6 +6,17 @@ public class Usuario {
 	private String mail;
 	private boolean premium;
 	private int idCliente;
+	private String oldpsswrd;
+	private String newpsswrd;
+	private boolean falso;
+	
+	public Usuario(String nick, String oldpsswrd,String newpsswrd,boolean falso){
+		super();
+		this.nick=nick;
+		this.oldpsswrd=oldpsswrd;
+		this.newpsswrd=newpsswrd;
+		falso=false;
+	}
 	
 	public Usuario( String mail,String psswrd) {
 		super();
@@ -66,6 +77,22 @@ public class Usuario {
 
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String getOldpsswrd() {
+		return oldpsswrd;
+	}
+
+	public void setOldpsswrd(String oldpsswrd) {
+		this.oldpsswrd = oldpsswrd;
+	}
+
+	public String getNewpsswrd() {
+		return newpsswrd;
+	}
+
+	public void setNewpsswrd(String newpsswrd) {
+		this.newpsswrd = newpsswrd;
 	}
 	
 	

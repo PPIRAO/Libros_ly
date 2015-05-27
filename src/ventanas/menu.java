@@ -163,6 +163,14 @@ public class menu {
 	private JButton btnDescargarLibro;
 	private JTextArea modsin;
 	private JButton button_2;
+	private JPanel modificontra;
+	private JTextField txtFldoldPass;
+	private JTextField txtFldnewPass;
+	private JLabel secambio;
+	private JLabel nocambio;
+	private JLabel notienes;
+	private JLabel primerocompra;
+	private JLabel repe;
 
 	/**
 	 * Launch the application.
@@ -255,12 +263,16 @@ public class menu {
 		button_2 = new JButton("Inicio");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				erruta.setVisible(false);
+                ernom.setVisible(false);
+                Copiado.setVisible(false);
+                notienes.setVisible(false);
 				ver.setVisible(false);
 				menu1.setVisible(true);
 				libro.setVisible(false);
 				Registrar.setVisible(false);
 				descargas.setVisible(false);
+				modificontra.setVisible(false);
 				
 			}
 		});
@@ -275,6 +287,7 @@ public class menu {
 		InUsuario.add(lblpremium);
 		
 		bienusu = new JLabel("Bienvenido (nombre del usuario)");
+		bienusu.setForeground(new Color(105, 105, 105));
 		bienusu.setBounds(10, 11, 203, 32);
 		InUsuario.add(bienusu);
 		
@@ -289,6 +302,7 @@ public class menu {
 				desc.setText(bbdd.librosbbdd.usuly(idUsuario,Base));
 				Base.cerrar();
 				descargas.setVisible(true);
+				modificontra.setVisible(false);
 			}
 		});
 		btnDescargarLibro.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -299,12 +313,17 @@ public class menu {
 		cerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idUsuario=0;
+				erruta.setVisible(false);
+                ernom.setVisible(false);
+                Copiado.setVisible(false);
+                notienes.setVisible(false);
 				ver.setVisible(false);
 				libro.setVisible(false);
 				descargas.setVisible(false);
 				menu1.setVisible(true);
 				INICIAL.setVisible(true);
 				InUsuario.setVisible(false);
+				modificontra.setVisible(false);
 			}
 		});
 		cerrar.setForeground(new Color(255, 255, 255));
@@ -313,6 +332,25 @@ public class menu {
 		cerrar.setBackground(new Color(128, 128, 128));
 		
 		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
+		btnCambiarContrasea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				erruta.setVisible(false);
+                ernom.setVisible(false);
+                Copiado.setVisible(false);
+                notienes.setVisible(false);
+				txtFldoldPass.setText(null);
+				txtFldnewPass.setText(null);
+				secambio.setVisible(false);
+				nocambio.setVisible(false);
+				ver.setVisible(false);
+				menu1.setVisible(false);
+				libro.setVisible(false);
+				Registrar.setVisible(false);
+				descargas.setVisible(false);
+				modificontra.setVisible(true);
+			}
+		});
 		btnCambiarContrasea.setForeground(new Color(255, 255, 255));
 		btnCambiarContrasea.setBackground(new Color(128, 128, 128));
 		btnCambiarContrasea.setBounds(33, 429, 159, 32);
@@ -536,7 +574,8 @@ public class menu {
 				if(idlibro==0){
 					ernom.setVisible(true);
 					Copiado.setVisible(false);
-				}
+				}else{
+					if(bbdd.librosbbdd.comprobarcompra(idlibro, idUsuario, Base)){
 				 File directorio=new File(ruta.getText());
 	                
 	                if(directorio.isDirectory()){
@@ -564,15 +603,22 @@ public class menu {
 	                        erruta.setVisible(true);
 	                        ernom.setVisible(true);
 	                        Copiado.setVisible(false);
+	                        notienes.setVisible(false);
 	                        System.exit(0);
 	                    }
 	                }
 	                else{
 	                    erruta.setVisible(true);
+	                    notienes.setVisible(false);
 	                    Copiado.setVisible(false);}
 				
-				
-			}
+				}else{
+					
+					ernom.setVisible(false);
+                    erruta.setVisible(false);
+					notienes.setVisible(true);
+				}
+				}}
 		});
 		decargar.setBounds(402, 453, 102, 35);
 		descargas.add(decargar);
@@ -585,6 +631,7 @@ public class menu {
 		descargas.add(lblLibrosComprados);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(new LineBorder(new Color(128, 128, 128)));
 		scrollPane.setBounds(61, 47, 698, 287);
 		descargas.add(scrollPane);
 		
@@ -624,7 +671,234 @@ public class menu {
 		Copiado.setForeground(Color.GREEN);
 		Copiado.setBounds(542, 463, 149, 26);
 		descargas.add(Copiado);
+		
+		notienes = new JLabel("No lo tienes pill\u00EDn");
+		notienes.setForeground(new Color(255, 0, 0));
+		notienes.setBackground(new Color(255, 0, 0));
+		notienes.setBounds(542, 463, 102, 20);
+		notienes.setVisible(false);
+		
+		descargas.add(notienes);
 		Copiado.setVisible(false);
+		
+		
+		
+		
+		libro = new JPanel();
+		libro.setBackground(new Color(250, 250, 250));
+		libro.setBounds(0, 0, 778, 538);
+		contenido.add(libro);
+		libro.setLayout(null);
+		
+		JButton comprar = new JButton("\u00A1Comprar!");
+		comprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//con este boton abrimos el menu de compra, solo podran acceder a el aquellos usuarios que hayan iniciado sesion y no lo hayan comprado ya
+				if(bbdd.librosbbdd.comprobarcompra(idlibro, idUsuario, Base)){
+					repe.setVisible(true);
+				}
+				else{
+					tarjeta compra=new tarjeta();
+					compra.setVisible(true);
+					
+				}
+				
+				
+			}
+		});
+		comprar.setBounds(47, 280, 105, 30);
+		libro.add(comprar);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		panel_1.setBounds(200, 26, 1, 422);
+		libro.add(panel_1);
+		
+		puntuacion = new JLabel("7.8");
+		puntuacion.setForeground(new Color(128, 128, 128));
+		puntuacion.setFont(new Font("Tahoma", Font.BOLD, 40));
+		puntuacion.setBounds(651, 42, 69, 60);
+		libro.add(puntuacion);
+		
+		titulo = new JLabel("La guerra de los cielos: volumen 1");
+		titulo.setForeground(new Color(210, 105, 30));
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		titulo.setBounds(233, 41, 423, 36);
+		libro.add(titulo);
+		
+		autor = new JLabel("New label");
+		autor.setForeground(new Color(128, 128, 128));
+		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		autor.setBounds(247, 73, 396, 30);
+		libro.add(autor);
+		
+		sinopsis = new JTextPane();
+		sinopsis.setEditable(false);
+		sinopsis.setBackground(new Color(250, 250, 250));
+		sinopsis.setText("Sinopsis");
+		sinopsis.setBounds(222, 152, 515, 147);
+		libro.add(sinopsis);
+		
+		genero = new JLabel("Ficcci\u00F3n");
+		genero.setForeground(new Color(128, 128, 128));
+		genero.setBounds(247, 98, 358, 24);
+		libro.add(genero);
+		
+		
+		
+		JButton btnComentar = new JButton("Comentar");
+		btnComentar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(bbdd.librosbbdd.comprobarcompra(idlibro, idUsuario, Base)){
+					nombreLibro anivia=new nombreLibro(idlibro,idUsuario,Base);
+					anivia.setVisible(true);
+				}
+				else{
+					primerocompra.setVisible(true);
+				}
+			}
+		});
+		btnComentar.setBounds(417, 479, 120, 23);
+		libro.add(btnComentar);
+		
+		JButton puntua = new JButton("Punt\u00FAa");
+		puntua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(bbdd.librosbbdd.comprobarcompra(idlibro, idUsuario, Base)){
+					puntuacion venga=new puntuacion(idlibro, titulo.getText(),idUsuario,  Base );
+					venga.setVisible(true);
+				}
+				else{
+					primerocompra.setVisible(true);
+					
+				}
+				
+				
+				
+			}
+		});
+		puntua.setBounds(644, 113, 83, 23);
+		libro.add(puntua);
+		
+		precio = new JLabel("e");
+		precio.setForeground(new Color(205, 133, 63));
+		precio.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		precio.setBounds(77, 224, 94, 30);
+		libro.add(precio);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				libro.setVisible(false);
+				
+				ver.setVisible(true);
+				
+				
+			}
+		});
+		btnVolver.setBounds(66, 479, 83, 23);
+		libro.add(btnVolver);
+		
+		lblPortada = new JLabel("Sin imagen");
+		lblPortada.setBounds(26, 26, 153, 211);
+		libro.add(lblPortada);
+		
+		comentariosscroll = new JScrollPane();
+		comentariosscroll.setViewportBorder(new LineBorder(Color.LIGHT_GRAY));
+		comentariosscroll.setBounds(222, 320, 515, 138);
+		libro.add(comentariosscroll);
+		
+		comentarios = new JTextArea();
+		comentariosscroll.setViewportView(comentarios);
+		comentarios.setEditable(false);
+		comentarios.setBackground(new Color(245, 245, 245));
+		comentarios.setText("comentarios");
+		
+		primerocompra = new JLabel("\u00A1ANTES DEBES DE COMPRARLO!");
+		primerocompra.setForeground(new Color(255, 0, 0));
+		primerocompra.setBounds(386, 11, 206, 24);
+		libro.add(primerocompra);
+		primerocompra.setVisible(false);
+		
+		repe = new JLabel("\u00BFLO COMPRAS OTRA VEZ?");
+		repe.setForeground(new Color(255, 0, 0));
+		repe.setBackground(new Color(255, 0, 0));
+		repe.setBounds(36, 321, 154, 30);
+		libro.add(repe);
+		libro.setVisible(false);
+		
+		modificontra = new JPanel();
+		modificontra.setBackground(new Color(250,250,250));
+		modificontra.setBounds(0, 0, 778, 538);
+		contenido.add(modificontra);
+		modificontra.setLayout(null);
+		modificontra.setVisible(false);
+		
+		JLabel lblTitContra = new JLabel("CAMBIO DE CONTRASE\u00D1A");
+		lblTitContra.setForeground(new Color(205, 133, 63));
+		lblTitContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTitContra.setBackground(new Color(205, 133, 63));
+		lblTitContra.setBounds(273, 70, 326, 14);
+		modificontra.add(lblTitContra);
+		
+		JLabel lbloldPass = new JLabel("Antigua contrase\u00F1a");
+		lbloldPass.setForeground(new Color(105, 105, 105));
+		lbloldPass.setBounds(152, 191, 106, 14);
+		modificontra.add(lbloldPass);
+		
+		txtFldoldPass = new JTextField();
+		txtFldoldPass.setBounds(293, 188, 249, 20);
+		modificontra.add(txtFldoldPass);
+		txtFldoldPass.setColumns(10);
+		
+		
+		JLabel lblnewPass = new JLabel("Nueva contrase\u00F1a");
+		lblnewPass.setForeground(new Color(105, 105, 105));
+		lblnewPass.setBounds(152, 261, 106, 14);
+		modificontra.add(lblnewPass);
+		
+		txtFldnewPass = new JTextField();
+		txtFldnewPass.setBounds(293, 258, 249, 20);
+		modificontra.add(txtFldnewPass);
+		txtFldnewPass.setColumns(10);
+		
+
+		JButton btncambiar = new JButton("CAMBIAR");
+		btncambiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {//BOTON DE CAMBIAR CONTRASEÑA
+				
+				String oldpass=txtFldoldPass.getText();
+				String newpass=txtFldnewPass.getText();
+				Usuario usu=new Usuario("nick",oldpass,newpass,false);
+				Base.abrir();
+				if(bbdd.BBDDUsuario.CambiarContra(usu,idUsuario,Base)){
+					secambio.setVisible(true);
+					nocambio.setVisible(false);
+					
+				}else{
+					secambio.setVisible(false);
+					nocambio.setVisible(true);
+				}
+				Base.cerrar();
+			}
+		});
+		btncambiar.setBounds(263, 372, 200, 50);
+		modificontra.add(btncambiar);
+		
+		secambio = new JLabel("Cambiado");
+		secambio.setForeground(new Color(0, 128, 0));
+		secambio.setBounds(293, 453, 128, 42);
+		modificontra.add(secambio);
+		secambio.setVisible(false);
+		
+		nocambio = new JLabel("Error");
+		nocambio.setForeground(new Color(255, 0, 0));
+		nocambio.setBounds(293, 453, 128, 42);
+		modificontra.add(nocambio);
+		nocambio.setVisible(false);
 		
 		menu2 = new JPanel();
 		menu2.setBackground(new Color(250,250,250));
@@ -833,118 +1107,6 @@ public class menu {
 		modly.setVisible(false);
 		exito.setVisible(false);
 		fallo.setVisible(false);
-		
-		
-		
-		
-		libro = new JPanel();
-		libro.setBackground(new Color(250, 250, 250));
-		libro.setBounds(0, 0, 778, 538);
-		contenido.add(libro);
-		libro.setLayout(null);
-		
-		JButton comprar = new JButton("\u00A1Comprar!");
-		comprar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//con este boton abrimos el menu de compra, solo podran acceder a el aquellos usuarios que hayan iniciado sesion
-				tarjeta compra=new tarjeta();
-				compra.setVisible(true);
-				
-			}
-		});
-		comprar.setBounds(47, 280, 105, 30);
-		libro.add(comprar);
-		
-		panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		panel_1.setBounds(200, 26, 1, 422);
-		libro.add(panel_1);
-		
-		puntuacion = new JLabel("7.8");
-		puntuacion.setForeground(new Color(128, 128, 128));
-		puntuacion.setFont(new Font("Tahoma", Font.BOLD, 40));
-		puntuacion.setBounds(651, 42, 69, 60);
-		libro.add(puntuacion);
-		
-		titulo = new JLabel("La guerra de los cielos: volumen 1");
-		titulo.setForeground(new Color(210, 105, 30));
-		titulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		titulo.setBounds(233, 41, 423, 36);
-		libro.add(titulo);
-		
-		autor = new JLabel("New label");
-		autor.setForeground(new Color(128, 128, 128));
-		autor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		autor.setBounds(247, 73, 396, 30);
-		libro.add(autor);
-		
-		sinopsis = new JTextPane();
-		sinopsis.setEditable(false);
-		sinopsis.setBackground(new Color(250, 250, 250));
-		sinopsis.setText("Sinopsis");
-		sinopsis.setBounds(222, 152, 515, 147);
-		libro.add(sinopsis);
-		
-		genero = new JLabel("Ficcci\u00F3n");
-		genero.setForeground(new Color(128, 128, 128));
-		genero.setBounds(247, 98, 358, 24);
-		libro.add(genero);
-		
-		
-		
-		JButton btnComentar = new JButton("Comentar");
-		btnComentar.setBounds(417, 479, 120, 23);
-		libro.add(btnComentar);
-		
-		JButton puntua = new JButton("Punt\u00FAa");
-		puntua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				puntuacion venga=new puntuacion(idlibro, titulo.getText(),idUsuario,  Base );
-				venga.setVisible(true);
-				
-				
-			}
-		});
-		puntua.setBounds(644, 113, 83, 23);
-		libro.add(puntua);
-		
-		precio = new JLabel("e");
-		precio.setForeground(new Color(205, 133, 63));
-		precio.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-		precio.setBounds(77, 224, 94, 30);
-		libro.add(precio);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				libro.setVisible(false);
-				
-				ver.setVisible(true);
-				
-				
-			}
-		});
-		btnVolver.setBounds(66, 479, 83, 23);
-		libro.add(btnVolver);
-		
-		lblPortada = new JLabel("Sin imagen");
-		lblPortada.setBounds(26, 26, 153, 211);
-		libro.add(lblPortada);
-		
-		comentariosscroll = new JScrollPane();
-		comentariosscroll.setViewportBorder(new LineBorder(Color.LIGHT_GRAY));
-		comentariosscroll.setBounds(222, 320, 515, 138);
-		libro.add(comentariosscroll);
-		
-		comentarios = new JTextArea();
-		comentariosscroll.setViewportView(comentarios);
-		comentarios.setEditable(false);
-		comentarios.setBackground(new Color(245, 245, 245));
-		comentarios.setText("comentarios");
-		libro.setVisible(false);
 		////////////////////////////////////////////////////luis
 		
 		Registrar = new JPanel();
@@ -1149,7 +1311,8 @@ public class menu {
 		JButton enviar = new JButton("Enviar");
 		enviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				primerocompra.setVisible(false);
+				repe.setVisible(false);
 				Base.abrir();
 				idlibro=bbdd.librosbbdd.buscarly(busly.getText(),Base);
 				Base.cerrar();
