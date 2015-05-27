@@ -162,6 +162,7 @@ public class menu {
 	private JLabel bienusu;
 	private JButton btnDescargarLibro;
 	private JTextArea modsin;
+	private JButton button_2;
 
 	/**
 	 * Launch the application.
@@ -231,6 +232,98 @@ public class menu {
 		panel.add(menu);
 		menu.setLayout(null);
 		
+		InUsuario = new JPanel();
+		InUsuario.setLayout(null);
+		InUsuario.setBackground(new Color(250, 250, 250));
+		InUsuario.setBounds(0, 0, 213, 538);
+		menu.add(InUsuario);
+		InUsuario.setVisible(false);
+		
+		btnHaztePremium = new JButton("\u00A1Hazte premium!");
+		btnHaztePremium.setForeground(new Color(68,68,68));
+		btnHaztePremium.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnHaztePremium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(premium)
+					erespre.setVisible(true);;
+			}
+		});
+		btnHaztePremium.setBackground(new Color(205, 133, 63));
+		btnHaztePremium.setBounds(33, 289, 159, 32);
+		InUsuario.add(btnHaztePremium);
+		
+		button_2 = new JButton("Inicio");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ver.setVisible(false);
+				menu1.setVisible(true);
+				libro.setVisible(false);
+				Registrar.setVisible(false);
+				descargas.setVisible(false);
+				
+			}
+		});
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button_2.setBounds(33, 75, 159, 32);
+		InUsuario.add(button_2);
+		
+		lblpremium = new JLabel("\u00BFA que esperas?");
+		lblpremium.setForeground(new Color(205, 133, 63));
+		lblpremium.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblpremium.setBounds(55, 252, 132, 26);
+		InUsuario.add(lblpremium);
+		
+		bienusu = new JLabel("Bienvenido (nombre del usuario)");
+		bienusu.setBounds(10, 11, 203, 32);
+		InUsuario.add(bienusu);
+		
+		btnDescargarLibro = new JButton("Descargar libro");
+		btnDescargarLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				desc.setText(null);
+				menu1.setVisible(false);
+				ver.setVisible(false);
+				libro.setVisible(false);
+				Base.abrir();
+				desc.setText(bbdd.librosbbdd.usuly(idUsuario,Base));
+				Base.cerrar();
+				descargas.setVisible(true);
+			}
+		});
+		btnDescargarLibro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnDescargarLibro.setBounds(33, 118, 159, 32);
+		InUsuario.add(btnDescargarLibro);
+		
+		JButton cerrar = new JButton("Cerrar sesi\u00F3n");
+		cerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				idUsuario=0;
+				ver.setVisible(false);
+				libro.setVisible(false);
+				descargas.setVisible(false);
+				menu1.setVisible(true);
+				INICIAL.setVisible(true);
+				InUsuario.setVisible(false);
+			}
+		});
+		cerrar.setForeground(new Color(255, 255, 255));
+		cerrar.setBounds(33, 471, 159, 32);
+		InUsuario.add(cerrar);
+		cerrar.setBackground(new Color(128, 128, 128));
+		
+		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
+		btnCambiarContrasea.setForeground(new Color(255, 255, 255));
+		btnCambiarContrasea.setBackground(new Color(128, 128, 128));
+		btnCambiarContrasea.setBounds(33, 429, 159, 32);
+		InUsuario.add(btnCambiarContrasea);
+		
+		erespre = new JLabel("Ya lo eres");
+		erespre.setForeground(new Color(255, 0, 0));
+		erespre.setBounds(86, 332, 87, 26);
+		InUsuario.add(erespre);
+		erespre.setVisible(false);
+		
 		InAdmin = new JPanel();
 		InAdmin.setBackground(new Color(250,250,250));
 		InAdmin.setBounds(10, 0, 213, 538);
@@ -288,91 +381,11 @@ public class menu {
 				Base.abrir();
 				verly.setText(bbdd.librosbbdd.todosly(Base));
 				Base.cerrar();
-				verly.setVisible(true);
+				ver.setVisible(true);
 			}
 		});
 		verlyadmin.setBounds(30, 110, 159, 32);
 		InAdmin.add(verlyadmin);
-		
-		InUsuario = new JPanel();
-		InUsuario.setLayout(null);
-		InUsuario.setBackground(new Color(250, 250, 250));
-		InUsuario.setBounds(0, 0, 213, 538);
-		menu.add(InUsuario);
-		InUsuario.setVisible(false);
-		
-		btnHaztePremium = new JButton("\u00A1Hazte premium!");
-		btnHaztePremium.setForeground(new Color(68,68,68));
-		btnHaztePremium.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnHaztePremium.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(premium)
-					erespre.setVisible(true);;
-			}
-		});
-		btnHaztePremium.setBackground(new Color(205, 133, 63));
-		btnHaztePremium.setBounds(33, 289, 159, 32);
-		InUsuario.add(btnHaztePremium);
-		
-		JButton button_2 = new JButton("Inicio");
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_2.setBounds(33, 75, 159, 32);
-		InUsuario.add(button_2);
-		
-		lblpremium = new JLabel("\u00BFA que esperas?");
-		lblpremium.setForeground(new Color(205, 133, 63));
-		lblpremium.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblpremium.setBounds(55, 252, 132, 26);
-		InUsuario.add(lblpremium);
-		
-		bienusu = new JLabel("Bienvenido (nombre del usuario)");
-		bienusu.setBounds(10, 11, 203, 32);
-		InUsuario.add(bienusu);
-		
-		btnDescargarLibro = new JButton("Descargar libro");
-		btnDescargarLibro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu1.setVisible(false);
-				ver.setVisible(false);
-				libro.setVisible(false);
-				Base.abrir();
-				desc.setText(bbdd.librosbbdd.compradosly(Base));
-				Base.cerrar();
-				descargas.setVisible(true);
-			}
-		});
-		btnDescargarLibro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnDescargarLibro.setBounds(33, 118, 159, 32);
-		InUsuario.add(btnDescargarLibro);
-		
-		JButton cerrar = new JButton("Cerrar sesi\u00F3n");
-		cerrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				idUsuario=0;
-				ver.setVisible(false);
-				libro.setVisible(false);
-				descargas.setVisible(false);
-				menu1.setVisible(true);
-				INICIAL.setVisible(true);
-				InUsuario.setVisible(false);
-			}
-		});
-		cerrar.setForeground(new Color(255, 255, 255));
-		cerrar.setBounds(33, 471, 159, 32);
-		InUsuario.add(cerrar);
-		cerrar.setBackground(new Color(128, 128, 128));
-		
-		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
-		btnCambiarContrasea.setForeground(new Color(255, 255, 255));
-		btnCambiarContrasea.setBackground(new Color(128, 128, 128));
-		btnCambiarContrasea.setBounds(33, 429, 159, 32);
-		InUsuario.add(btnCambiarContrasea);
-		
-		erespre = new JLabel("Ya lo eres");
-		erespre.setForeground(new Color(255, 0, 0));
-		erespre.setBounds(86, 332, 87, 26);
-		InUsuario.add(erespre);
-		erespre.setVisible(false);
 		
 		INICIAL = new JPanel();
 		INICIAL.setBackground(new Color(250, 250, 250));
@@ -415,12 +428,17 @@ public class menu {
 							menu1.setVisible(false);
 							INICIAL.setVisible(false);
 							errorini.setVisible(false);
+							ver.setVisible(false);
+							libro.setVisible(false);
+							descargas.setVisible(false);
 							bienadmin.setText("Bienvenido "+mail.getText());
 							bienusu.setText(null);
 						}
 				}
 				else{
-					
+					ver.setVisible(false);
+					libro.setVisible(false);
+					descargas.setVisible(false);
 					errorini.setVisible(false);
 					InUsuario.setVisible(true);
 					INICIAL.setVisible(false);
@@ -487,124 +505,126 @@ public class menu {
 		panel.add(contenido);
 		contenido.setLayout(null);
 		
-		//////////////////////////////////////////////////////
+		descargas = new JPanel();
+		descargas.setBackground(new Color(250,250,250));
+		descargas.setBounds(0, 0, 778, 538);
+		contenido.add(descargas);
+		descargas.setLayout(null);
+		descargas.setVisible(false);
 		
-		modly = new JPanel();
-		modly.setBounds(0, 0, 778, 538);
-		contenido.add(modly);
-		modly.setBackground(new Color(250,250,250));
-		modly.setLayout(null);
+		JLabel lblEscribaElTitulo = new JLabel("Escriba el titulo del libro que quieras descargar: ");
+		lblEscribaElTitulo.setForeground(SystemColor.controlDkShadow);
+		lblEscribaElTitulo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblEscribaElTitulo.setBounds(66, 364, 275, 35);
+		descargas.add(lblEscribaElTitulo);
 		
-		JLabel lblTitulo = new JLabel("Titulo:");
-		lblTitulo.setBounds(25, 27, 88, 25);
-		modly.add(lblTitulo);
+		desly = new JTextField();
+		desly.setForeground(Color.BLACK);
+		desly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		desly.setColumns(10);
+		desly.setBounds(333, 363, 230, 35);
+		descargas.add(desly);
 		
-		JLabel lblAutor = new JLabel("Autor:");
-		lblAutor.setBounds(25, 63, 65, 25);
-		modly.add(lblAutor);
-		
-		modti = new JTextField();
-		modti.setBounds(123, 29, 538, 23);
-		modly.add(modti);
-		modti.setColumns(10);
-		
-		modau = new JTextField();
-		modau.setBounds(123, 65, 538, 25);
-		modly.add(modau);
-		modau.setColumns(10);
-		
-		JLabel lblGenero = new JLabel("Genero:");
-		lblGenero.setBounds(25, 99, 65, 25);
-		modly.add(lblGenero);
-		
-		modge = new JTextField();
-		modge.setText("");
-		modge.setBounds(123, 101, 538, 25);
-		modly.add(modge);
-		modge.setColumns(10);
-		
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(25, 135, 65, 25);
-		modly.add(lblPrecio);
-		
-		modpre = new JTextField();
-		modpre.setText("");
-		modpre.setColumns(10);
-		modpre.setBounds(123, 137, 538, 25);
-		modly.add(modpre);
-		
-		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
-		lblNewLabel_1.setBounds(25, 171, 88, 25);
-		modly.add(lblNewLabel_1);
-		
-		dale = new JButton("Enviar");
-		dale.addActionListener(new ActionListener() {
+		JButton decargar = new JButton("Descargar");
+		decargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exito.setVisible(false);
-				fallo.setVisible(false);
-				double din=Double.parseDouble(modpre.getText());
-				libros ly=new libros(modti.getText(),modsin.getText(),modge.getText(),din,modau.getText());
+				//Con este metodo descargas el libro en la ruta escrita por el cliente
+
 				Base.abrir();
-			if(solomod){
-				if(bbdd.librosbbdd.modly(ly, idAdmin, idlibro, desc.getText(), Base)){
-					exito.setVisible(true);
-					fallo.setVisible(false);
-				}else{
-					fallo.setVisible(true);
-					exito.setVisible(false);
+				idlibro=bbdd.librosbbdd.buscarly(desly.getText(),Base);
+				Base.cerrar();
+				if(idlibro==0){
+					ernom.setVisible(true);
+					Copiado.setVisible(false);
 				}
-				
-				
-				
-				
-			}else{
-				if(bbdd.librosbbdd.añadirLibro(ly, idAdmin, desc.getText(), Base)){
-					exito.setVisible(true);
-					fallo.setVisible(false);
-				}else{
-					fallo.setVisible(true);
-					exito.setVisible(false);
-				}
-			}
+				 File directorio=new File(ruta.getText());
+	                
+	                if(directorio.isDirectory()){
+	                    FileInputStream registro2;
+	                    FileOutputStream copiar;
+	                    File registro=new File("Libros", desly.getText()+".epub");
+	                    int d;
+	                    byte datos[]=new byte[100];
+	                    try{
+	                         
+	                     registro2=new FileInputStream(registro );
+	                     directorio=new File(ruta.getText(), desly.getText()+".epub");
+	                     copiar=new FileOutputStream(directorio);
+	                      
+	                     while((d=registro2.read(datos))!=-1){
+	                         copiar.write(datos,0,d);
+	                         d=registro2.read();
+	                          
+	                          
+	                     }
+	                     ernom.setVisible(false);
+	                     erruta.setVisible(false);
+	                     Copiado.setVisible(true);
+	                    }catch(Exception es){
+	                        erruta.setVisible(true);
+	                        ernom.setVisible(true);
+	                        Copiado.setVisible(false);
+	                        System.exit(0);
+	                    }
+	                }
+	                else{
+	                    erruta.setVisible(true);
+	                    Copiado.setVisible(false);}
 				
 				
 			}
 		});
-		dale.setBounds(357, 492, 89, 23);
-		modly.add(dale);
+		decargar.setBounds(402, 453, 102, 35);
+		descargas.add(decargar);
 		
-		moddesc = new JTextArea();
-		moddesc.setBounds(123, 331, 538, 140);
-		modly.add(moddesc);
+		JLabel lblLibrosComprados = new JLabel("Libros comprados");
+		lblLibrosComprados.setForeground(new Color(210, 105, 30));
+		lblLibrosComprados.setBackground(new Color(204, 153, 0));
+		lblLibrosComprados.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblLibrosComprados.setBounds(61, 11, 180, 26);
+		descargas.add(lblLibrosComprados);
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(25, 331, 80, 25);
-		modly.add(lblDescripcion);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(61, 47, 698, 287);
+		descargas.add(scrollPane);
 		
-		idly = new JLabel("Id: ");
-		idly.setBounds(696, 27, 57, 41);
-		modly.add(idly);
+		desc = new JTextArea();
+		scrollPane.setViewportView(desc);
+		desc.setForeground(new Color(205, 133, 63));
+		desc.setFont(new Font("Rockwell", Font.PLAIN, 18));
+		desc.setEditable(false);
+		desc.setBackground(SystemColor.menu);
 		
-		exito = new JLabel("\u00C9xito");
-		exito.setForeground(Color.GREEN);
-		exito.setBounds(469, 491, 134, 25);
-		modly.add(exito);
+		lblRutaDeLa = new JLabel("Ruta de la carpeta de destino:");
+		lblRutaDeLa.setForeground(SystemColor.controlDkShadow);
+		lblRutaDeLa.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblRutaDeLa.setBounds(155, 410, 180, 35);
+		descargas.add(lblRutaDeLa);
 		
-		fallo = new JLabel("Fall\u00F3");
-		fallo.setForeground(Color.RED);
-		fallo.setBounds(469, 496, 88, 14);
-		modly.add(fallo);
+		ruta = new JTextField();
+		ruta.setForeground(Color.BLACK);
+		ruta.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		ruta.setColumns(10);
+		ruta.setBounds(333, 410, 230, 35);
+		descargas.add(ruta);
 		
-		benef = new JLabel("Beneficios");
-		benef.setBounds(21, 496, 252, 19);
-		modly.add(benef);
+		ernom = new JLabel("Ponga el nombre correcto");
+		ernom.setForeground(new Color(255, 0, 0));
+		ernom.setBounds(581, 375, 178, 14);
+		descargas.add(ernom);
+		ernom.setVisible(false);
 		
-		modsin = new JTextArea();
-		modsin.setBounds(123, 173, 538, 140);
-		modly.add(modsin);
-		modly.setVisible(false);
-		exito.setVisible(false);
-		fallo.setVisible(false);
+		erruta = new JLabel("Error en la ruta");
+		erruta.setForeground(new Color(255, 0, 0));
+		erruta.setBounds(581, 421, 125, 14);
+		descargas.add(erruta);
+		erruta.setVisible(false);
+		
+		Copiado = new JLabel("Copiado");
+		Copiado.setForeground(Color.GREEN);
+		Copiado.setBounds(542, 463, 149, 26);
+		descargas.add(Copiado);
+		Copiado.setVisible(false);
 		
 		menu2 = new JPanel();
 		menu2.setBackground(new Color(250,250,250));
@@ -664,6 +684,14 @@ public class menu {
 		newly = new JButton("Nuevo libro");
 		newly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				modti.setText(null);
+				modau.setText(null);
+				modge.setText(null);
+				modsin.setText(null);
+				modpre.setText(null);
+				moddesc.setText(null);
+				
 				solomod=false;
 				menu2.setVisible(false);
 				modly.setVisible(true);
@@ -686,6 +714,125 @@ public class menu {
 		});
 		verad.setBounds(107, 408, 223, 53);
 		menu2.add(verad);
+		
+		//////////////////////////////////////////////////////
+		
+		modly = new JPanel();
+		modly.setBounds(0, 0, 778, 538);
+		contenido.add(modly);
+		modly.setBackground(new Color(250,250,250));
+		modly.setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Titulo:");
+		lblTitulo.setBounds(25, 27, 88, 25);
+		modly.add(lblTitulo);
+		
+		JLabel lblAutor = new JLabel("Autor:");
+		lblAutor.setBounds(25, 63, 65, 25);
+		modly.add(lblAutor);
+		
+		modti = new JTextField();
+		modti.setBounds(123, 29, 538, 23);
+		modly.add(modti);
+		modti.setColumns(10);
+		
+		modau = new JTextField();
+		modau.setBounds(123, 65, 538, 25);
+		modly.add(modau);
+		modau.setColumns(10);
+		
+		JLabel lblGenero = new JLabel("Genero:");
+		lblGenero.setBounds(25, 99, 65, 25);
+		modly.add(lblGenero);
+		
+		modge = new JTextField();
+		modge.setText("");
+		modge.setBounds(123, 101, 538, 25);
+		modly.add(modge);
+		modge.setColumns(10);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(25, 135, 65, 25);
+		modly.add(lblPrecio);
+		
+		modpre = new JTextField();
+		modpre.setText("");
+		modpre.setColumns(10);
+		modpre.setBounds(123, 137, 538, 25);
+		modly.add(modpre);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sinopsis");
+		lblNewLabel_1.setBounds(25, 171, 88, 25);
+		modly.add(lblNewLabel_1);
+		
+		dale = new JButton("Enviar");
+		dale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exito.setVisible(false);
+				fallo.setVisible(false);
+				double din=Double.parseDouble(modpre.getText());
+				libros ly=new libros(modti.getText(),modsin.getText(),modge.getText(),din,modau.getText());
+				Base.abrir();
+			if(solomod){
+				if(bbdd.librosbbdd.modly(ly, idAdmin, idlibro, moddesc.getText(), Base)){
+					exito.setVisible(true);
+					fallo.setVisible(false);
+				}else{
+					fallo.setVisible(true);
+					exito.setVisible(false);
+				}
+				
+				
+				
+				
+			}else{
+				if(bbdd.librosbbdd.añadirLibro(ly, idAdmin, moddesc.getText(), Base)){
+					exito.setVisible(true);
+					fallo.setVisible(false);
+				}else{
+					fallo.setVisible(true);
+					exito.setVisible(false);
+				}
+			}
+				
+				
+			}
+		});
+		dale.setBounds(357, 492, 89, 23);
+		modly.add(dale);
+		
+		moddesc = new JTextArea();
+		moddesc.setBounds(123, 331, 538, 140);
+		modly.add(moddesc);
+		
+		JLabel lblDescripcion = new JLabel("Descripcion");
+		lblDescripcion.setBounds(25, 331, 80, 25);
+		modly.add(lblDescripcion);
+		
+		idly = new JLabel("Id: ");
+		idly.setBounds(696, 27, 57, 41);
+		modly.add(idly);
+		
+		exito = new JLabel("\u00C9xito");
+		exito.setForeground(Color.GREEN);
+		exito.setBounds(469, 491, 134, 25);
+		modly.add(exito);
+		
+		fallo = new JLabel("Fall\u00F3");
+		fallo.setForeground(Color.RED);
+		fallo.setBounds(469, 496, 88, 14);
+		modly.add(fallo);
+		
+		benef = new JLabel("Beneficios");
+		benef.setBounds(21, 496, 252, 19);
+		modly.add(benef);
+		
+		modsin = new JTextArea();
+		modsin.setBounds(123, 173, 538, 140);
+		modly.add(modsin);
+		modly.setVisible(false);
+		exito.setVisible(false);
+		fallo.setVisible(false);
 		
 		
 		
@@ -754,8 +901,8 @@ public class menu {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				puntuar venga=new puntuar();
-				
+				puntuacion venga=new puntuacion(idlibro, titulo.getText(),idUsuario,  Base );
+				venga.setVisible(true);
 				
 				
 			}
@@ -1011,7 +1158,7 @@ public class menu {
 				}
 				else{
 					error.setVisible(false);
-					if(idUsuario>0 || solover==true){
+					if(solover || idAdmin==0){
 					libro.setVisible(true);
 					
 				
@@ -1052,13 +1199,13 @@ public class menu {
 					modge.setText(null);
 					modsin.setText(null);
 					modpre.setText(null);
-					
+					moddesc.setText(null);
 					
 					modti.setText(ly.getTitulo());
 					modau.setText(ly.getAutor());
 					modge.setText(ly.getGenero());
 					modsin.setText("\n"+ly.getSinopsis());
-					modpre.setText(String.valueOf(ly.getPrecio())+"€");
+					modpre.setText(String.valueOf(ly.getPrecio()));
 					idly.setText("Id: "+idlibro);
 						modly.setVisible(true);
 						benef.setText("Recaudado: "+ly.getBeneficios()+"€");
@@ -1112,121 +1259,6 @@ public class menu {
 		controlad = new JTextArea();
 		controlad.setBounds(50, 27, 681, 477);
 		controladscroll.add(controlad);
-		
-		descargas = new JPanel();
-		descargas.setBackground(new Color(250,250,250));
-		descargas.setBounds(0, 0, 778, 538);
-		contenido.add(descargas);
-		descargas.setLayout(null);
-		descargas.setVisible(false);
-		
-		JLabel lblEscribaElTitulo = new JLabel("Escriba el titulo del libro que quieras descargar: ");
-		lblEscribaElTitulo.setForeground(SystemColor.controlDkShadow);
-		lblEscribaElTitulo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblEscribaElTitulo.setBounds(66, 364, 275, 35);
-		descargas.add(lblEscribaElTitulo);
-		
-		desly = new JTextField();
-		desly.setForeground(Color.BLACK);
-		desly.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		desly.setColumns(10);
-		desly.setBounds(333, 363, 230, 35);
-		descargas.add(desly);
-		
-		JButton decargar = new JButton("Descargar");
-		decargar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Con este metodo descargas el libro en la ruta escrita por el cliente
-
-				Base.abrir();
-				idlibro=bbdd.librosbbdd.buscarly(desly.getText(),Base);
-				Base.cerrar();
-				if(idlibro==0){
-					ernom.setVisible(true);
-					Copiado.setVisible(false);
-				}
-				 File directorio=new File(ruta.getText());
-	                
-	                if(directorio.isDirectory()){
-	                    FileInputStream registro2;
-	                    FileOutputStream copiar;
-	                    File registro=new File("Libros", desly.getText()+".epub");
-	                    int d;
-	                    byte datos[]=new byte[100];
-	                    try{
-	                         
-	                     registro2=new FileInputStream(registro );
-	                     directorio=new File(ruta.getText(), desly.getText()+".epub");
-	                     copiar=new FileOutputStream(directorio);
-	                      
-	                     while((d=registro2.read(datos))!=-1){
-	                         copiar.write(datos,0,d);
-	                         d=registro2.read();
-	                          
-	                          
-	                     }
-	                     ernom.setVisible(false);
-	                     erruta.setVisible(false);
-	                     Copiado.setVisible(true);
-	                    }catch(Exception es){
-	                        erruta.setVisible(true);
-	                        ernom.setVisible(true);
-	                        Copiado.setVisible(false);
-	                        System.exit(0);
-	                    }
-	                }
-	                else{
-	                    erruta.setVisible(true);
-	                    Copiado.setVisible(false);}
-				
-				
-			}
-		});
-		decargar.setBounds(402, 453, 102, 35);
-		descargas.add(decargar);
-		
-		JLabel lblLibrosComprados = new JLabel("Libros comprados");
-		lblLibrosComprados.setForeground(new Color(210, 105, 30));
-		lblLibrosComprados.setBackground(new Color(204, 153, 0));
-		lblLibrosComprados.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblLibrosComprados.setBounds(61, 11, 180, 26);
-		descargas.add(lblLibrosComprados);
-		
-		desc = new JTextArea();
-		desc.setForeground(new Color(205, 133, 63));
-		desc.setFont(new Font("Rockwell", Font.PLAIN, 18));
-		desc.setEditable(false);
-		desc.setBackground(SystemColor.menu);
-		desc.setBounds(61, 48, 698, 286);
-		descargas.add(desc);
-		
-		lblRutaDeLa = new JLabel("Ruta de la carpeta de destino:");
-		lblRutaDeLa.setForeground(SystemColor.controlDkShadow);
-		lblRutaDeLa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblRutaDeLa.setBounds(155, 410, 180, 35);
-		descargas.add(lblRutaDeLa);
-		
-		ruta = new JTextField();
-		ruta.setForeground(Color.BLACK);
-		ruta.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		ruta.setColumns(10);
-		ruta.setBounds(333, 410, 230, 35);
-		descargas.add(ruta);
-		
-		ernom = new JLabel("Ponga el nombre correcto");
-		ernom.setForeground(new Color(255, 0, 0));
-		ernom.setBounds(581, 375, 178, 14);
-		descargas.add(ernom);
-		
-		erruta = new JLabel("Error en la ruta");
-		erruta.setForeground(new Color(255, 0, 0));
-		erruta.setBounds(581, 421, 125, 14);
-		descargas.add(erruta);
-		
-		Copiado = new JLabel("Copiado");
-		Copiado.setForeground(Color.GREEN);
-		Copiado.setBounds(542, 463, 149, 26);
-		descargas.add(Copiado);
 		
 		menu1 = new JPanel();
 		menu1.setBackground(new Color(250, 250, 250));

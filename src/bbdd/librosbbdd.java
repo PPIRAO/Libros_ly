@@ -19,9 +19,9 @@ public class librosbbdd {
 	public static boolean añadirLibro( libros ly,int idadmin, String desc, basedatos bd){
 		int idLibro=0;
 		String cadena2="Select titulo from libro where titulo='"+ly.getTitulo()+"'";
-		String cadena="INSERT INTO libro VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"','"+ ly.getAutor() +"','" +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
-		String cadena4="Select idLibro from libros where titulo='"+ly.getTitulo()+"'";
-		String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";
+		String cadena="INSERT INTO libro (titulo,Sinopsis,Autor,genero,precio) VALUES('" +ly.getTitulo() + "','" +ly.getSinopsis()+"','"+ ly.getAutor() +"','" +ly.getGenero()+"'," +ly.getPrecio()+")"; 	
+		
+		
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
@@ -32,10 +32,15 @@ public class librosbbdd {
 		
 		}
 		else{
+			s=c.createStatement();
 			s.executeUpdate(cadena);
+			s=c.createStatement();
+			String cadena4="Select idLibro from libro where titulo='"+ly.getTitulo()+"'";
 			reg=s.executeQuery(cadena4);
 			if(reg.next()){
 				idLibro=Integer.parseInt(reg.getString("idLibro"));
+				s=c.createStatement();
+				String cadena3="insert into modificar(descripcion,Administrador_idAdministrador,idLibro) values('"+desc+"',"+idadmin+","+idLibro+")";
 			s.executeUpdate(cadena3);
 			}
 		}
@@ -52,14 +57,16 @@ public class librosbbdd {
 	
 	public static boolean puntuar(int idlibro, double num, int idusu, basedatos bd){
 		
-		String cadena="update compra set puntuacion="+num+" where idusuario='"+idusu+"' and idlibro='"+idlibro+"')"; 	
-		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+" and puntuacion is not null) where idlibro="+idlibro+")";
+		String cadena="update compra set puntuacion="+num+" where idusuario='"+idusu+"' and idlibro='"+idlibro+"'"; 	
+		String cadena2="update libro set puntuacion=(select avg(puntuacion) from compra where idlibro="+idlibro+" and puntuacion is not null) where idlibro="+idlibro;
 		
 		try{
 		c=bd.getConexion();
 		s=c.createStatement();
 		int ver=s.executeUpdate(cadena);
 		if(ver==0)return false;
+
+		s=c.createStatement();
 		s.executeUpdate(cadena2);
 		s.close();
 		}
@@ -188,7 +195,6 @@ public static double punly(int id, basedatos bd){// de momento no sirve
 public static String todosly( basedatos bd){
 	String cadena="Select titulo,autor,genero from libro order by titulo";
 	String ver="";
-	int i=1;
 
 	try{
 	c=bd.getConexion();
@@ -309,12 +315,13 @@ public static boolean modly(libros ly, int idadmin, int idLibro, String desc, ba
 String cadena="update libro set titulo='" +ly.getTitulo() + "', sinopsis='" +ly.getSinopsis()+"', autor='"+ ly.getAutor() +"', genero='" +ly.getGenero()+"', precio=" +ly.getPrecio()+" where"
 		+ " idLibro="+idLibro; 	
 
-String cadena3="insert into modificar values('"+desc+"',"+idadmin+","+idLibro+")";
+String cadena3="insert into modificar (descripcion,Administrador_idAdministrador,idLibro) values('"+desc+"',"+idadmin+","+idLibro+")";
 try{
 c=bd.getConexion();
 s=c.createStatement();
 
 s.executeUpdate(cadena);
+s=c.createStatement();
 s.executeUpdate(cadena3);
 
 
