@@ -253,7 +253,7 @@ public class menu {
 		InUsuario.setVisible(false);
 		
 		btnHaztePremium = new JButton("\u00A1Hazte premium!");
-		btnHaztePremium.setForeground(new Color(169, 169, 169));
+		btnHaztePremium.setForeground(new Color(75, 75, 75));
 		btnHaztePremium.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnHaztePremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -264,13 +264,13 @@ public class menu {
 					yaeres.setVisible(false);
 					
 				}
-				else
+				else{
 					bbdd.BBDDUsuario.hacerpremium(idUsuario, Base);
-					yaeres.setVisible(true);
+					yaeres.setVisible(true);}
 				Base.cerrar();
 			}
 		});
-		btnHaztePremium.setBackground(new Color(245, 222, 179));
+		btnHaztePremium.setBackground(new Color(244, 164, 96));
 		btnHaztePremium.setBounds(23, 289, 159, 32);
 		InUsuario.add(btnHaztePremium);
 		
@@ -388,6 +388,18 @@ public class menu {
 		yaeres.setForeground(new Color(50, 205, 50));
 		yaeres.setBounds(70, 338, 78, 20);
 		InUsuario.add(yaeres);
+		
+		JLabel lblDiasDe = new JLabel("30 dias de premium");
+		lblDiasDe.setForeground(new Color(205, 133, 63));
+		lblDiasDe.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDiasDe.setBounds(35, 197, 151, 26);
+		InUsuario.add(lblDiasDe);
+		
+		JLabel lblgratis = new JLabel("\u00A1GRATIS!");
+		lblgratis.setForeground(new Color(205, 133, 63));
+		lblgratis.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblgratis.setBounds(64, 225, 118, 26);
+		InUsuario.add(lblgratis);
 		erespre.setVisible(false);
 		yaeres.setVisible(false);
 		

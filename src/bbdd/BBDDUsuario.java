@@ -270,16 +270,16 @@ public static boolean compra(tarjetaLY ly, basedatos bd, int id, int usu) {
 		s = c.createStatement();
 		registros = s.executeQuery(cadena2);
 		registros.next();
-
+		double din=registros.getDouble("precio");
 		String cadena = "INSERT INTO compra( idusuario, idlibro,  precio_sin_descuento, descuento, numero_tarjeta, dni)"
 				+ "VALUES("
 				+ /*ly.getIdUsuario()*/usu
 				+ ","
 				+ ly.getIdLibro()
 				+ ","
-				+ /* l.getPrecio() */registros.getDouble("precio")
+				+ /* l.getPrecio() */din
 				+ ","
-				+ 10
+				+ descuento
 				+ ",'"
 				+ ly.getNumero_Tar()
 				+ "','"
@@ -292,13 +292,9 @@ public static boolean compra(tarjetaLY ly, basedatos bd, int id, int usu) {
 		s.executeUpdate(cadena);
 		
 		String cadena3;
-
-		cadena3 = "UPDATE libro set beneficios= benficios"
-				+ 0.9
-				* /* l.getPrecio() */registros
-						.getDouble("precio_sin_descuento");
 		
-		//Te falta poner en que libro le metes los beneficios, where idLibro=ly.getIdLibro
+		 din=0.9*din;
+		cadena3 = "UPDATE libro set beneficios= beneficios+"+din+" where idLibro="+ly.getIdLibro();
 
 		s.executeUpdate(cadena3);
 			

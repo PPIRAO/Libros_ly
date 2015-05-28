@@ -169,7 +169,8 @@ public class CompradoExito extends JFrame {
 		miBase.abrir();
 		String horaTar="";
 		horaTar=bbdd.BBDDUsuario.verHora(horaTar, miBase,id,usu); 
-		
+		double precioTar2=0;
+		precioTar2=bbdd.BBDDUsuario.verPrecio(precioTar2, miBase, id, usu);
 		miBase.cerrar();
 		
 		textFieldNombre.setText(nombreTar);
@@ -180,7 +181,7 @@ public class CompradoExito extends JFrame {
 		
 		textFieldHora.setText(String.valueOf(horaTar));
 	
-		textFieldPrecio.setText(String.valueOf(precioTar));   //se relleneran todos los datos automaticamente
+		textFieldPrecio.setText(String.valueOf(precioTar2));   //se relleneran todos los datos automaticamente
 		if (descuentoTar==true)
 		textFieldDescuento.setText("10");
 		else
