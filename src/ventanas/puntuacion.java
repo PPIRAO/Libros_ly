@@ -72,11 +72,17 @@ public class puntuacion extends JFrame {
 				
 				try{
 					double punt=Double.parseDouble(pun.getText());
+					if(punt<10) {
 					Base.abrir();
 					if(bbdd.librosbbdd.puntuar(idlibro, punt, idUsuario, Base)){
 						lblPuntuado.setVisible(true);
 					lblError.setVisible(false);}
 					else{
+						lblError.setVisible(true);
+						lblPuntuado.setVisible(false);
+					}
+					}else{
+						
 						lblError.setVisible(true);
 						lblPuntuado.setVisible(false);
 					}

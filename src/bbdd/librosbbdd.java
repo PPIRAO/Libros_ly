@@ -364,6 +364,34 @@ return true;
 	}
 	
 	}
+	public static String historialadmin( basedatos bd){
+		String cadena="Select fecha,mail,titulo,descripcion from modificar m, libro l, administrador a where m.Administrador_idAdministrador=a.idAdministrador and l.idLibro=m.idLibro order by fecha desc";
+		String ver="";
+		
+
+		try{
+		c=bd.getConexion();
+		s=c.createStatement();
+		reg=s.executeQuery(cadena);
+		
+				while( reg.next()){
+			ver=ver+" Fecha: "+reg.getString("fecha")+"\n";
+			ver=ver+" "+reg.getString("mail")+"\n";
+			ver=ver+" Titulo: "+reg.getString("titulo")+"\n";
+			ver=ver+" Descripcion:\n "+reg.getString("descripcion")+"\n\n";
+			}
+			
+			
+		
+		
+		s.close();
+		
+		}
+		catch ( SQLException e){
+			System.out.println(e);
+		}
+		return ver;
+	}
 	}
 
 

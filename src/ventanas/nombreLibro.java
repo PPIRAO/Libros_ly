@@ -69,16 +69,9 @@ public class nombreLibro extends JFrame {
 		
 		
 		com = new JTextField();
-		com.setBounds(56, 45, 465, 157);
+		com.setBounds(66, 50, 483, 136);
 		contentPane.add(com);
 		com.setColumns(10);
-		
-		
-		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setBounds(314, 228, 100, 23);
-		
-		btnCancelar.setName("JBotonCancelar");
-		contentPane.add(btnCancelar);
 		
 		lblNewLabel = new JLabel("New label");
 		lblNewLabel.setForeground(new Color(210, 105, 30));
@@ -93,10 +86,11 @@ public class nombreLibro extends JFrame {
 				Comentarios ct=new Comentarios(com.getText(),idLibro,idUsuario);
 				bbdd.BBDDComentarios.añadir(ct, Base);
 				Base.cerrar();
+				enviar.setEnabled(false);
 				
 			}
 		});
-		enviar.setBounds(162, 228, 100, 23);
+		enviar.setBounds(242, 215, 107, 36);
 		contentPane.add(enviar);
 	}
 

@@ -51,45 +51,48 @@ public class VentanaBorrar extends JFrame implements ActionListener{
 	 */
 	public VentanaBorrar() {
 		this.setTitle("Borrar comentario");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250,250,250));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		textidCliente = new JTextField();
-		textidCliente.setBounds(48, 88, 86, 20);
+		textidCliente.setBounds(113, 64, 259, 20);
 		contentPane.add(textidCliente);
 		textidCliente.setColumns(10);
 		
 		textidLibro = new JTextField();
-		textidLibro.setBounds(266, 88, 86, 20);
+		textidLibro.setBounds(113, 118, 259, 20);
 		contentPane.add(textidLibro);
 		textidLibro.setColumns(10);
 		
 		JLabel lblIdcliente = new JLabel("Nick");
+		lblIdcliente.setForeground(new Color(128, 128, 128));
 		lblIdcliente.setBounds(48, 64, 86, 20);
 		contentPane.add(lblIdcliente);
 		
 		JLabel lblIdlibro = new JLabel("Libro");
-		lblIdlibro.setBounds(266, 67, 86, 14);
+		lblIdlibro.setForeground(new Color(128, 128, 128));
+		lblIdlibro.setBounds(48, 121, 86, 14);
 		contentPane.add(lblIdlibro);
 		
 		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(155, 173, 89, 23);
+		btnBorrar.setBounds(165, 177, 103, 30);
 		btnBorrar.addActionListener(this);
 		contentPane.add(btnBorrar);
 		
 		lblError = new JLabel("Error");
 		lblError.setForeground(Color.RED);
-		lblError.setBounds(278, 177, 94, 20);
+		lblError.setBounds(291, 182, 94, 20);
 		contentPane.add(lblError);
 		lblError.setVisible(false);
 		
 		borrado = new JLabel("Borrado");
 		borrado.setForeground(Color.GREEN);
-		borrado.setBounds(266, 177, 109, 20);
+		borrado.setBounds(276, 182, 109, 20);
 		contentPane.add(borrado);
 		borrado.setVisible(false);
 		
