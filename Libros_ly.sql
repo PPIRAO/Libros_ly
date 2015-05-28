@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `administrador`;
 CREATE TABLE `administrador` (
   `idAdministrador` int(11) NOT NULL AUTO_INCREMENT,
   `fecha ingreso` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `contraseña` varchar(15) DEFAULT NULL,
-  `mail` varchar(15) DEFAULT NULL,
+  `contraseña` varchar(20) DEFAULT NULL,
+  `mail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idAdministrador`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,7 +65,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-11 20:00:00','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-11 20:00:00','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-11 20:00:00','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-16 20:00:00','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-16 20:00:00','Papepo1',0),(6,'a','pocoyo@gmail.es','2015-05-16 20:00:00','Pocoio',1),(8,'a1234567.','a@gmailsss.com','2015-05-26 07:17:18','qwerty',0);
+INSERT INTO `cliente` VALUES (1,'a1234567.','pepito@gmail.com','2015-05-11 20:00:00','pepito23',0),(2,'a7654321.','jose@gmail.com','2015-05-11 20:00:00','Josito',0),(3,'1234567Aa','antonio@yahoo.es','2015-05-11 20:00:00','Ant69',0),(4,'a1234567.','byluiso@gmail.com','2015-05-16 20:00:00','Luiso23',1),(5,'A1234567.','pepo@hotmail.es','2015-05-16 20:00:00','Papepo1',0),(6,'a','Mail','2015-05-16 20:00:00','Pocoio',1),(8,'a1234567.','a@gmailsss.com','2015-05-26 07:17:18','qwerty',0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-26 14:53:06
+-- Dump completed on 2015-05-28 19:23:14

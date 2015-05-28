@@ -24,7 +24,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import libros.libros;
+import usuario.Usuario;
 import libros.tarjetaLY;
+import java.awt.Font;
 
 public class tarjeta extends JFrame {
 
@@ -35,7 +37,6 @@ public class tarjeta extends JFrame {
 	private JTextField textFieldNumeroTarjeta;
 	private JButton btnPagar;
 	private JTextField textFieldCodigo;
-	private JButton btnSalir;
 	private JLabel lblApellidos;
 	private JLabel lblDni;
 	private JLabel lblTipoTarjeta;
@@ -58,7 +59,7 @@ public class tarjeta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					tarjeta frame = new tarjeta();
+					tarjeta frame = new tarjeta(0, 0,0,false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,133 +73,140 @@ public class tarjeta extends JFrame {
 	 */
 	basedatos miBase = new basedatos("Libros_ly");
 
-	public tarjeta() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 533, 442);
+	public tarjeta(int idLibro, int idUsu, double precio, boolean descuento) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 503, 424);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250,250,250));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel txtpnDatosDeLa = new JLabel();
-		txtpnDatosDeLa.setText("Datos de la tarjeta");
-		txtpnDatosDeLa.setBounds(120, 11, 129, 20);
+		txtpnDatosDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtpnDatosDeLa.setForeground(new Color(205, 133, 63));
+		txtpnDatosDeLa.setText("Datos de la tarjeta"
+		// +numero
+				);
+		txtpnDatosDeLa.setBounds(167, 11, 160, 28);
 		contentPane.add(txtpnDatosDeLa);
 
 		JLabel txtpnNombre = new JLabel();
+		txtpnNombre.setForeground(new Color(105, 105, 105));
 		txtpnNombre.setText("Nombre");
-		txtpnNombre.setBounds(24, 42, 70, 20);
+		txtpnNombre.setBounds(29, 60, 94, 20);
 		contentPane.add(txtpnNombre);
 
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(160, 42, 134, 20);
+		textFieldNombre.setBounds(167, 60, 187, 20);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 
 		textFieldApellido = new JTextField();
-		textFieldApellido.setBounds(159, 73, 135, 20);
+		textFieldApellido.setBounds(167, 91, 187, 20);
 		contentPane.add(textFieldApellido);
 		textFieldApellido.setColumns(10);
 
 		textFielDni = new JTextField();
-		textFielDni.setBounds(160, 104, 134, 20);
+		textFielDni.setBounds(167, 122, 187, 20);
 		contentPane.add(textFielDni);
 		textFielDni.setColumns(10);
 
 		textFieldNumeroTarjeta = new JTextField();
-		textFieldNumeroTarjeta.setBounds(160, 166, 134, 20);
+		textFieldNumeroTarjeta.setBounds(167, 184, 187, 20);
 		contentPane.add(textFieldNumeroTarjeta);
 		textFieldNumeroTarjeta.setColumns(10);
 
 		JRadioButton rdbtnNewRadioButtonVisa = new JRadioButton("Visa");
+		rdbtnNewRadioButtonVisa.setBackground(new Color(250,250,250));
+		rdbtnNewRadioButtonVisa.setForeground(new Color(105, 105, 105));
 		buttonGroup.add(rdbtnNewRadioButtonVisa);
-		rdbtnNewRadioButtonVisa.setBounds(161, 132, 53, 23);
+		rdbtnNewRadioButtonVisa.setBounds(194, 149, 53, 23);
 		contentPane.add(rdbtnNewRadioButtonVisa);
 
 		JRadioButton rdbtnNewRadioButtonMastercard = new JRadioButton(
 				"Mastercard");
+		rdbtnNewRadioButtonMastercard.setBackground(new Color(250,250,250));
+		rdbtnNewRadioButtonMastercard.setForeground(new Color(105, 105, 105));
 		buttonGroup.add(rdbtnNewRadioButtonMastercard);
-		rdbtnNewRadioButtonMastercard.setBounds(216, 132, 89, 23);
+		rdbtnNewRadioButtonMastercard.setBounds(249, 149, 128, 23);
 		contentPane.add(rdbtnNewRadioButtonMastercard);
 
 		textFieldCodigo = new JTextField();
-		textFieldCodigo.setBounds(159, 197, 135, 20);
+		textFieldCodigo.setBounds(167, 215, 187, 20);
 		contentPane.add(textFieldCodigo);
 		textFieldCodigo.setColumns(10);
 
-		btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnSalir.setBounds(161, 228, 89, 23);
-		contentPane.add(btnSalir);
-
 		lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(24, 73, 46, 14);
+		lblApellidos.setForeground(new Color(105, 105, 105));
+		lblApellidos.setBounds(29, 91, 94, 14);
 		contentPane.add(lblApellidos);
 
 		lblDni = new JLabel("DNI");
-		lblDni.setBounds(24, 107, 46, 14);
+		lblDni.setForeground(new Color(105, 105, 105));
+		lblDni.setBounds(29, 125, 94, 14);
 		contentPane.add(lblDni);
 
 		lblTipoTarjeta = new JLabel("Tipo tarjeta");
-		lblTipoTarjeta.setBounds(24, 136, 70, 14);
+		lblTipoTarjeta.setForeground(new Color(105, 105, 105));
+		lblTipoTarjeta.setBounds(29, 154, 110, 14);
 		contentPane.add(lblTipoTarjeta);
 
 		lblNumeroDeTarjeta = new JLabel("Numero de Tarjeta");
-		lblNumeroDeTarjeta.setBounds(24, 169, 104, 14);
+		lblNumeroDeTarjeta.setForeground(new Color(105, 105, 105));
+		lblNumeroDeTarjeta.setBounds(29, 187, 128, 14);
 		contentPane.add(lblNumeroDeTarjeta);
 
 		lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(24, 200, 46, 14);
+		lblCodigo.setForeground(new Color(105, 105, 105));
+		lblCodigo.setBounds(29, 218, 46, 14);
 		contentPane.add(lblCodigo);
 
 		labelNombre = new JLabel("Rellene campo");
 		labelNombre.setForeground(Color.RED);
-		labelNombre.setBounds(323, 45, 104, 14);
+		labelNombre.setBounds(383, 63, 104, 14);
 		contentPane.add(labelNombre);
 		labelNombre.setVisible(false);
 
 		labelApellidos = new JLabel("Rellene campo");
 		labelApellidos.setForeground(Color.RED);
-		labelApellidos.setBounds(323, 76, 89, 14);
+		labelApellidos.setBounds(383, 94, 89, 14);
 		contentPane.add(labelApellidos);
 		labelApellidos.setVisible(false);
 
 		labelBotones = new JLabel("Rellene campo");
 		labelBotones.setForeground(Color.RED);
-		labelBotones.setBounds(323, 136, 89, 14);
+		labelBotones.setBounds(383, 154, 89, 14);
 		contentPane.add(labelBotones);
 		labelBotones.setVisible(false);
 
 		labelDni = new JLabel("Rellene campo");
 		labelDni.setForeground(Color.RED);
-		labelDni.setBounds(323, 107, 89, 14);
+		labelDni.setBounds(383, 125, 89, 14);
 		contentPane.add(labelDni);
 		labelDni.setVisible(false);
 
 		labelNNumTarjeta = new JLabel("Rellene campo");
 		labelNNumTarjeta.setForeground(Color.RED);
-		labelNNumTarjeta.setBounds(323, 169, 104, 14);
+		labelNNumTarjeta.setBounds(383, 187, 104, 14);
+		labelNNumTarjeta.setVisible(false);
 		contentPane.add(labelNNumTarjeta);
 
 		labelCodigo = new JLabel("Rellene campo");
 		labelCodigo.setForeground(Color.RED);
-		labelCodigo.setBounds(323, 200, 89, 14);
+		labelCodigo.setBounds(383, 218, 89, 14);
 		contentPane.add(labelCodigo);
 		labelCodigo.setVisible(false);
 
 		labelPagarFallido = new JLabel("Pagar Fallido");
 		labelPagarFallido.setForeground(Color.RED);
-		labelPagarFallido.setBounds(170, 262, 75, 14);
+		labelPagarFallido.setBounds(194, 316, 75, 14);
 		contentPane.add(labelPagarFallido);
 		labelPagarFallido.setVisible(false);
 
 		labelPagoRealizadoCon = new JLabel("Pago Realizado con exito");
 		labelPagoRealizadoCon.setForeground(Color.GREEN);
-		labelPagoRealizadoCon.setBounds(24, 262, 147, 14);
+		labelPagoRealizadoCon.setBounds(180, 316, 147, 14);
 		contentPane.add(labelPagoRealizadoCon);
 		labelPagoRealizadoCon.setVisible(false);
 		btnPagar = new JButton("Pagar");
@@ -210,32 +218,41 @@ public class tarjeta extends JFrame {
 				String Dni = textFielDni.getText();
 				String Codigo = textFieldCodigo.getText();
 				String Numero_Tarjeta = textFieldNumeroTarjeta.getText();
-				String idCompra = "";
-				String idUsuario = "";
+				
+				
 				/*
 				 * String numero_Tar, String dni, String idCompra, String
 				 * idUsuario
 				 */
-				//tarjetaLY compra = new tarjetaLY(Numero_Tarjeta, Dni, idCompra,
-				//		idUsuario);
 
 				int longi = Numero_Tarjeta.length();
 				int codi = Codigo.length();
-				
-				
-				labelCodigo.setText(String.valueOf(longi)
-						
-					);
-				labelCodigo.setVisible(true);
+				int dniTar =Dni.length();
 
-				if (Nombre.equals("") || Apellido.equals("") || Dni.equals("")
+				if (Nombre.equals("") || Apellido.equals("") || dniTar >9
 
-				|| codi !=3 || longi != 16
+				|| codi != 3 || longi != 16
 
-				|| rdbtnNewRadioButtonMastercard.isSelected() == false              //Cuando cualquier campo este vacio no se podra pagar.
-																					// si la tarjeta no tiene 16 caracteres no se pondra como valida
+				|| rdbtnNewRadioButtonMastercard.isSelected() == false // Cuando
+																		// cualquier
+																		// campo
+																		// este
+																		// vacio
+																		// no se
+																		// podra
+																		// pagar.
+																		// si la
+																		// tarjeta
+																		// no
+																		// tiene
+																		// 16
+																		// caracteres
+																		// no se
+																		// pondra
+																		// como
+																		// valida
 
-				&& rdbtnNewRadioButtonVisa.isSelected() == false) {
+						&& rdbtnNewRadioButtonVisa.isSelected() == false) {
 
 					if (Nombre.equals("")) {
 						labelNombre.setVisible(true);
@@ -244,23 +261,37 @@ public class tarjeta extends JFrame {
 
 					if (Apellido.equals("")) {
 						labelApellidos.setVisible(true);
+					}else{
+						labelApellidos.setVisible(false);
+						
 					}
 
-					if (Dni.equals("")) {
+					if (Dni.equals("") || dniTar>=9) {
 						labelDni.setVisible(true);
+						labelDni.setText(String.valueOf(dniTar+" "+"menor que 9"));
+					}
+					else{
+						labelDni.setVisible(false);
+						
 					}
 
-					if (codi !=3) {
+					if (codi != 3) {
+						labelCodigo.setText(String.valueOf(codi+" "+"necesitas 3")
+
+						);
 						labelCodigo.setVisible(true);
+					}else{
+						labelCodigo.setVisible(false);
+						
 					}
 
 					if (longi != 16) {
-
+						labelNNumTarjeta.setText(String.valueOf(longi+" "+"necesitas 16"));
 						labelNNumTarjeta.setVisible(true);
 
 					}
 
-					if (rdbtnNewRadioButtonMastercard.isSelected() == false
+					if (rdbtnNewRadioButtonMastercard.isSelected() == false			//si los dos estan sin selecionar no se podra, hay que selecionar una de ellos
 							&& rdbtnNewRadioButtonVisa.isSelected() == false) {
 
 						labelBotones.setVisible(true);
@@ -278,25 +309,37 @@ public class tarjeta extends JFrame {
 					labelBotones.setVisible(false);
 					labelPagoRealizadoCon.setVisible(true);
 
-			//		tarjetabbdd tarjetabd = new tarjetabbdd();
+					// tarjetabbdd tarjetabd = new tarjetabbdd();
+
+					// libros Ly=new libros(idlibro, precio_sin_descuento);
+
+					tarjetaLY tar = new tarjetaLY(Numero_Tarjeta, Dni,
+							idLibro, idUsu);
+					//libros ly =new libros();
+					miBase.abrir();
 					
-					//libros Ly=new libros(idlibro, precio_sin_descuento);
-				//	tarjetaLY tar = new tarjetaLY(Numero_Tarjeta, Dni,
-				//			idCompra, idUsuario);
-					miBase.abrir();											
-					// tarjetabd.compra(tar, miBase, Ly);							//Se guardara la informacion en la base de datos
-																					//idcompra, idusuario, idlibro, fecha, precio_sin_descuento, 
-																					//descuento, numero_tarjeta, dni, puntuacion
+					if(bbdd.BBDDUsuario.compra(tar, miBase, idLibro, idUsu)){
+						
+						bbdd.BBDDUsuario.compra(tar, miBase, idLibro, idUsu);
+						
+					}
+					// tarjetabd.compra(tar, miBase, Ly); //Se guardara la
+					// informacion en la base de datos
+					// idcompra, idusuario, idlibro, fecha,
+					// precio_sin_descuento,
+					// descuento, numero_tarjeta, dni, puntuacion
+					boolean premium;
+					premium=bbdd.BBDDUsuario.isPremiun(idUsu, miBase);  //comprobaremos si es premiun para obtener descuento o no
 					miBase.cerrar();
 
-					CompradoExito CompradoExi = new CompradoExito();
+					CompradoExito CompradoExi = new CompradoExito(Nombre, Apellido, Dni, Numero_Tarjeta, precio, premium, idLibro, idUsu); //se pasara esto para hacer la factura
 					CompradoExi.setVisible(true);
 
 				}
 
 			}
 		});
-		btnPagar.setBounds(34, 228, 89, 23);
+		btnPagar.setBounds(187, 257, 104, 34);
 		contentPane.add(btnPagar);
 
 	}

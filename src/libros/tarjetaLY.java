@@ -7,16 +7,16 @@ public class tarjetaLY {
 
 String numero_Tar;
 String Dni;
-String idCompra;
-String idUsuario;//luis
+int idLibro;
+int idUsuario;//luis
 
 
-public tarjetaLY(String numero_Tar, String dni, String idCompra,
-		String idUsuario) {
+public tarjetaLY(String numero_Tar, String dni, int idLibro,
+		int idUsuario) {
 	super();
 	this.numero_Tar = numero_Tar;
 	Dni = dni;
-	this.idCompra = idCompra;
+	this.idLibro=idLibro;
 	this.idUsuario = idUsuario;
 }
 public String getNumero_Tar() {
@@ -31,16 +31,17 @@ public String getDni() {
 public void setDni(String dni) {
 	Dni = dni;
 }
-public String getIdCompra() {
-	return idCompra;
+
+public int getIdLibro() {
+	return idLibro;
 }
-public void setIdCompra(String idCompra) {
-	this.idCompra = idCompra;
+public void setIdLibro(int idLibro) {
+	this.idLibro = idLibro;
 }
-public String getIdUsuario() {
+public int getIdUsuario() {
 	return idUsuario;
 }
-public void setIdUsuario(String idUsuario) {
+public void setIdUsuario(int idUsuario) {
 	this.idUsuario = idUsuario;
 }
 

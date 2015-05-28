@@ -156,7 +156,7 @@ public static String comly( int id, basedatos bd){
 	while( reg.next()){
 		comentarios=comentarios+" "+reg.getString("nik")+"\n";
 		
-		comentarios=comentarios+" "+reg.getString("texto")+"\n____________________________________________________________________________\n";
+		comentarios=comentarios+" "+reg.getString("texto")+"\n________________________________________________________________________\n";
 		
 	}
 
@@ -251,7 +251,7 @@ public static String valoradosly( basedatos bd){
 	return ver;
 }
 public static String compradosly( basedatos bd){
-	String cadena="Select c.idLibro, titulo, autor, genero, count(*) from compra c, libro l where c.idLibro=l.idLibro group by c.idLibro, titulo, autor, genero order by count(*) ";
+	String cadena="Select c.idLibro, titulo, autor, genero, count(*) from compra c, libro l where c.idLibro=l.idLibro group by c.idLibro, titulo, autor, genero order by count(*) desc";
 	String ver="";
 	
 
@@ -266,7 +266,8 @@ public static String compradosly( basedatos bd){
 		ver=ver+" "+reg.getString("titulo")+"\n";
 		ver=ver+" Autor: "+reg.getString("autor")+"\n";
 		
-		ver=ver+" Genero: "+reg.getString("genero")+"\n\n";
+		ver=ver+" Genero: "+reg.getString("genero")+"\n";
+		ver=ver+" Comprado: "+reg.getString("count(*)")+"\n\n";
 		}
 		
 		

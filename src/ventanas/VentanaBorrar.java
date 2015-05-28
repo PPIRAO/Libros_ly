@@ -22,7 +22,7 @@ public class VentanaBorrar extends JFrame implements ActionListener{
 
 	
 	
-	//El administrador tendra la opcion de borrar un libro//
+	//El administrador tendra la opcion de borrar un comentario//
 	private JPanel contentPane;
 	private JTextField textidCliente;
 	private JTextField textidLibro;
